@@ -57,46 +57,6 @@
                     <td>Mike</td>
                     <td><button>btn</button></td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>MAS/SO/202109001</td>
-                    <td>19/09/2021</td>
-                    <td>Kopi kenangan</td>
-                    <td>Bapak Chris</td>
-                    <td>14 Days</td>
-                    <td>Mike</td>
-                    <td><button>btn</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>MAS/SO/202109001</td>
-                    <td>19/09/2021</td>
-                    <td>Kopi kenangan</td>
-                    <td>Bapak Chris</td>
-                    <td>14 Days</td>
-                    <td>Mike</td>
-                    <td><button>btn</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>MAS/SO/202109001</td>
-                    <td>19/09/2021</td>
-                    <td>Kopi kenangan</td>
-                    <td>Bapak Chris</td>
-                    <td>14 Days</td>
-                    <td>Mike</td>
-                    <td><button>btn</button></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>MAS/SO/202109001</td>
-                    <td>19/09/2021</td>
-                    <td>Kopi kenangan</td>
-                    <td>Bapak Chris</td>
-                    <td>14 Days</td>
-                    <td>Mike</td>
-                    <td><button>btn</button></td>
-                  </tr>
                 </tbody>
               </table>
         </div>

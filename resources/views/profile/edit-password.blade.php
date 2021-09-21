@@ -9,7 +9,7 @@
             <div class="">
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
-                        <div class="row align-items-center">
+                        <div class="row align-items-center" style="margin-left: 1px">
                             <h3 class="mb-0">{{ __('Change Password') }}</h3>
                         </div>
                     </div>

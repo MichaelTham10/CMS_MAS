@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="align-self-center">
-                    <Button class="btn btn-primary">View Details</Button>
+                    <a href="{{route('quotation')}}" class="btn btn-primary ">View Details</a>
                 </div>
             </div>
         </div>
@@ -35,8 +35,8 @@
                         IDR. 141.000.000.-
                     </div>
                 </div>
-                <div class="align-self-center">
-                    <Button class="btn btn-primary">View Details</Button>
+                <div class="align-self-center" >
+                    <a href="{{route('quotation')}}" class="btn btn-primary ">View Details</a>
                 </div>
             </div>
         </div>

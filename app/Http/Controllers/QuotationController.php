@@ -8,6 +8,6 @@ class QuotationController extends Controller
 {
     public function index()
     {
-        return view('quotation');
+        return view('pages.quotation');
     }
 }

@@ -5,9 +5,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <div class="py-0">
-            <img src="{{ asset('argon') }}/img/brand/logo.png" width="70px" height="50px" alt="...">
-            <span>MAS</span>
+        <div class="py-0 text-center">
+            <img src="{{ asset('argon') }}/img/brand/logo.png" width="140px" height="110px" alt="..." class="d-flex m-auto ">
         </div>
         <!-- User -->
         {{-- <ul class="nav align-items-center d-md-none">

@@ -1120,6 +1120,15 @@ select {
 	margin-top: 0.75rem;
 	margin-bottom: 0.75rem;
 }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+.-mt-7 {
+	margin-top: -1.75rem;
+}
+=======
+>>>>>>> 585d0d856b80cbf6fb7767b1df1719bd1b70b40f
+>>>>>>> Stashed changes
 .mb-5 {
 	margin-bottom: 1.25rem;
 }
@@ -1216,9 +1225,18 @@ select {
 .mr-auto {
 	margin-right: auto;
 }
+<<<<<<< Updated upstream
 .-mt-7 {
 	margin-top: -1.75rem;
 }
+=======
+<<<<<<< HEAD
+=======
+.-mt-7 {
+	margin-top: -1.75rem;
+}
+>>>>>>> 585d0d856b80cbf6fb7767b1df1719bd1b70b40f
+>>>>>>> Stashed changes
 .mt-0 {
 	margin-top: 0px;
 }
@@ -1495,6 +1513,9 @@ select {
 }
 .pr-3 {
 	padding-right: 0.75rem;
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
 }
 .pr-0 {
 	padding-right: 0px;
@@ -1505,14 +1526,45 @@ select {
 .pt-0 {
 	padding-top: 0px;
 }
+.pt-8 {
+	padding-top: 2rem;
+}
+.pb-0 {
+	padding-bottom: 0px;
+>>>>>>> Stashed changes
+}
+=======
+}
+.pr-0 {
+	padding-right: 0px;
+}
+.pb-6 {
+	padding-bottom: 1.5rem;
+}
+.pt-0 {
+	padding-top: 0px;
+}
+<<<<<<< Updated upstream
+=======
+>>>>>>> 585d0d856b80cbf6fb7767b1df1719bd1b70b40f
+>>>>>>> Stashed changes
 .pb-8 {
 	padding-bottom: 2rem;
 }
 .pt-5 {
 	padding-top: 1.25rem;
+<<<<<<< Updated upstream
 }
 .pb-0 {
 	padding-bottom: 0px;
+=======
+<<<<<<< HEAD
+=======
+}
+.pb-0 {
+	padding-bottom: 0px;
+>>>>>>> 585d0d856b80cbf6fb7767b1df1719bd1b70b40f
+>>>>>>> Stashed changes
 }
 .text-left {
 	text-align: left;
