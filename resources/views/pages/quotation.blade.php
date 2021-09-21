@@ -29,7 +29,7 @@
                       </div>
                 </div>
                 <div class="d-flex align-self-center">
-                    <button class="btn btn-primary ">create</button>
+                    <a href="{{route('create')}}" class="btn btn-primary ">create</a>
                 </div>
             </div>
     
