@@ -116,7 +116,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ route('user.index') }}">
+                                <a class="nav-link " href="{{ route('profile.edit-password') }}">
                                     <i class="fa fa-lock" style="color: black"></i>
                                     {{ __('Change Password') }}
                                 </a>
