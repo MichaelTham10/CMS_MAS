@@ -86,7 +86,7 @@
                 </li>
                
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
+                    <a class="nav-link" href="{{ route('quotation') }}">
                        
                         <i  class="ni ni-single-copy-04 text-success"></i> {{ __('Quotation') }}
                     </a>

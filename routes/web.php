@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {return view('pages.tables');})->name('table');
 	Route::get('profile/password', ['as' => 'profile.edit-password', 'uses' => 'App\Http\Controllers\ProfileController@editPassword']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+	Route::get('quotation', 'App\Http\Controllers\QuotationController@index')->name('quotation');
 });
 
 
