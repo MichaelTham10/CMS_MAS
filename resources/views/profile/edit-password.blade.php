@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => "Change Password"])
 
 @section('content')
     @include('layouts.headers.cards')
