@@ -22,7 +22,14 @@ class CreateQuotationController extends Controller
 
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'customer' => 'required',
+            'attention' => 'required',
+            'payment' => 'required',
+            'date' => 'required',
+            'discount' => 'required',
+            'terms' => 'required',
+        ]);
 
         if($request->type === '1')
         {

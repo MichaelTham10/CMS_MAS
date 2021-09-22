@@ -20,17 +20,32 @@
 
                     <div class="form-group">
                         <label for="customer">Customer</label>
-                        <input class="form-control" type="text" placeholder= "Input Customer" name="customer">
+                        <input class="form-control" type="text" placeholder= "Input Customer" @error('customer')
+                        is invalid
+                        @enderror name="customer">
+                        @error('customer')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="attetion">Attention</label>
-                        <input class="form-control" type="text" placeholder= "Input Attention" name="attention">
+                        <input class="form-control" type="text" placeholder= "Input Attention" @error('attention')
+                        is invalid
+                        @enderror name="attention">
+                        @error('attention')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
 
                     <div class="form-group">
                       <label for="attetion">Payment Term</label>
-                      <input class="form-control" type="text" placeholder= "Input Payment Term" name="payment">
+                      <input class="form-control" type="text" placeholder= "Input Payment Term" @error('payment')
+                      is invalid
+                      @enderror name="payment">
+                      @error('payment')
+                        <span class="text-danger">{{$message}}</span> 
+                      @enderror
                     </div>
 
                     <div class="form-group">
@@ -40,18 +55,30 @@
 
                     <div class="form-group">
                         <label for="quotationDate">Quotation Date</label>
-                        <input class="form-control" type="date" placeholder="Input Invoice Date" 
+                        <input class="form-control" type="date" placeholder="Input Invoice Date" @error('date')
+                        is invalid
+                        @enderror
                         onfocus="(this.type='date')" id="quotation-date" name="date">
+                        @error('date')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="bill-to">Disocunt</label>
-                        <input class="form-control" type="number" placeholder="Input Disocunt" name="discount">
+                        <label for="bill-to">Discount</label>
+                        <input class="form-control" type="number" placeholder="Input Disocunt" @error('discount')
+                        is invalid
+                        @enderror name="discount">
+                        @error('discount')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
                     
                     <div class="form-group">
                         <label for="note">Terms & Condition</label>
-                        <textarea class="note" name="terms">Terms and condition\n aaaaa</textarea>
+                        <textarea class="note" @error('terms')
+                        is invalid
+                        @enderror name="terms">Terms and condition\n aaaaa</textarea>
                         <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
                         <script>
                             tinymce.init({
