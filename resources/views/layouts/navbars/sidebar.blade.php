@@ -91,7 +91,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
+                    <a class="nav-link" href="{{ route('invoice') }}">
                        
                         <i   class="fas fa-file-invoice text-warning"></i> {{ __('Invoices') }}
                     </a>
