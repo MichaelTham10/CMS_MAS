@@ -13,8 +13,9 @@ class CreateQuotationSODetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotation__s_o__details', function (Blueprint $table) {
+        Schema::create('quotation_s_o_details', function (Blueprint $table) {
             $table->id();
+            $table->date('quotation_created_date');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateQuotationSODetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation__s_o__details');
+        Schema::dropIfExists('quotation_s_o_details');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuotationMMSDetailsTable extends Migration
+class CreateQuotationMSDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateQuotationMMSDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotation__m_m_s__details', function (Blueprint $table) {
+        Schema::create('quotation_m_s_details', function (Blueprint $table) {
             $table->id();
+            $table->date('quotation_created_date');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateQuotationMMSDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation__m_m_s__details');
+        Schema::dropIfExists('quotation_m_s_details');
     }
 }

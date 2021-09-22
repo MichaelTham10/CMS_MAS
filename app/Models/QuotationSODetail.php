@@ -5,7 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quotation_MS_Detail extends Model
+class QuotationSODetail extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'quotation_created_date'
+    ];
 }

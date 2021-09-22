@@ -2,6 +2,15 @@
 
 @section('content')
 @include('layouts.headers.cards')
+    @if(Session::has('success'))
+
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{Session::get('success')}}</strong>
+
+        </div>
+
+    @endif
     <div class="container-fluid">
         <div class="rounded border mt-4" style="background-color: #fff">
             <div class="d-flex p-2 align-self-center justify-content-between">
@@ -10,13 +19,16 @@
                         show
                     </div>
                     <div class="pl-2 pr-2">
-                        <select class="custom-select" aria-label="Default select example">
-                            <option selected="five"><a href="">5</a></option>
-                            <option value="ten"><a href="">10</a></option>
-                            <option value="fifteen">15</option>
-                            <option value="twenty">20</option>
-                            <option value="twenty-five">25</option>
-                        </select>
+                      <form action="/quotation">
+                          <select class="custom-select" aria-label="Default select example" name="show">
+                            <a href="/quotation"><option selected="5" value="5">5</option></a>
+                            <a href="/quotation"><option  value="10">10</option></a>
+                            <a href="/quotation"><option  value="15">15</option></a>
+                            <a href="/quotation"><option  value="20">20</option></a>
+                            <a href="/quotation"><option  value="25">25</option></a>
+                          </select>
+                      </form>
+                        
                     </div>
                     <div class="d-flex align-self-center">
                         entries
@@ -42,55 +54,36 @@
                     <th scope="col"><strong>Customer</strong></th>
                     <th scope="col"><strong>Attention</strong></th>
                     <th scope="col"><strong>Payment Term</strong></th>
-                    <th scope="col"><strong>Acount Manager</strong></th>
+                    <th scope="col"><strong>Account Manager</strong></th>
                     <th scope="col"><strong>Action</strong></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>MAS/SO/202109001</td>
-                    <td>19/09/2021</td>
-                    <td>Kopi kenangan</td>
-                    <td>Bapak Chris</td>
-                    <td>14 Days</td>
-                    <td>Mike</td>
-                    <td>
-                      <div class="btn-group">
-                        <a href=""  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detail">Detail</a>
-                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Delete</a>
-                          <a class="dropdown-item" href="#">Export PDF</a>
+                  @foreach ($quotations as $quotation)
+                    <tr>
+                      <th scope="row">{{$quotation['id']}}</th>
+                      <td>{{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_id, $quotation['Quotation Date'])}}</td>
+                      <td>{{$quotation['Quotation Date']}}</td>
+                      <td>{{$quotation['Customer']}}</td>
+                      <td>{{$quotation['Attention']}}</td>
+                      <td>{{$quotation['Payment Term']}}</td>
+                      <td>{{$quotation['Account Manager']}}</td>
+                      <td>
+                        <div class="btn-group">
+                          <a href=""  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detail">Detail</a>
+                          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Edit</a>
+                            <a class="dropdown-item" href="#">Delete</a>
+                            <a class="dropdown-item" href="#">Export PDF</a>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>MAS/SO/202109001</td>
-                    <td>19/09/2021</td>
-                    <td>Kopi kenangan</td>
-                    <td>Bapak Chris</td>
-                    <td>14 Days</td>
-                    <td>Mike</td>
-                    <td>
-                      <div class="btn-group">
-                        <a href=""  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detail">Detail</a>
-                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
-                          <a class="dropdown-item" href="#">Delete</a>
-                          <a class="dropdown-item" href="#">Export PDF</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  @endforeach
+                          
                 </tbody>
               </table>
         </div>
