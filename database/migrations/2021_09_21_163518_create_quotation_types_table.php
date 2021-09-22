@@ -16,6 +16,7 @@ class CreateQuotationTypesTable extends Migration
         Schema::create('quotation_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('alias');
             $table->timestamps();
         });
     }
