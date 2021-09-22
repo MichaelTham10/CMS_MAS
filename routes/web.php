@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile/password', ['as' => 'profile.edit-password', 'uses' => 'App\Http\Controllers\ProfileController@editPassword']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 	Route::get('quotation', 'App\Http\Controllers\QuotationController@index')->name('quotation');
+	Route::get('create', 'App\Http\Controllers\CreateQuotationController@index')->name('create');
 });
 
 
