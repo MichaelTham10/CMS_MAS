@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('invoice', 'App\Http\Controllers\InvoiceController@index')->name('invoice');
 	Route::get('create-invoice', 'App\Http\Controllers\CreateInvoiceController@index')->name('create-invoice');
 	Route::get('create', 'App\Http\Controllers\CreateQuotationController@index')->name('create');
+	Route::get('editquotation', 'App\Http\Controllers\EditQuotationController@editpage')->name('edit-controller');
 });
 
 

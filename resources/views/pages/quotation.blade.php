@@ -84,7 +84,7 @@
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Edit</a>
+                          <a class="dropdown-item" href="{{route('edit-controller')}}">Edit</a>
                           <a class="dropdown-item" href="#">Delete</a>
                           <a class="dropdown-item" href="#">Export PDF</a>
                         </div>
