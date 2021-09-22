@@ -34,8 +34,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile/password', ['as' => 'profile.edit-password', 'uses' => 'App\Http\Controllers\ProfileController@editPassword']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 	Route::get('quotation', 'App\Http\Controllers\QuotationController@index')->name('quotation');
+<<<<<<< HEAD
 	Route::get('invoice', 'App\Http\Controllers\InvoiceController@index')->name('invoice');
 	Route::get('create-invoice', 'App\Http\Controllers\CreateInvoiceController@index')->name('create-invoice');
+=======
+	Route::get('create', 'App\Http\Controllers\CreateQuotationController@index')->name('create');
+>>>>>>> b2d75bbf160ef423beccc97dda697c9891897df0
 });
 
 
