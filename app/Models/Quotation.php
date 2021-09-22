@@ -25,4 +25,6 @@ class Quotation extends Model
         return sprintf('MAS/'.$type->alias.'/'.$date.'%03d',$type_detail_id);
 
     }
+
+    
 }
