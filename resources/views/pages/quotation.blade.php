@@ -75,8 +75,8 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Edit</a>
-                            <a class="dropdown-item" href="#">Delete</a>
+                            <a class="dropdown-item" href="{{route('edit-controller')}}">Edit</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete" href="#">Delete</a>
                             <a class="dropdown-item" href="#">Export PDF</a>
                           </div>
                         </div>
@@ -112,11 +112,11 @@
 @endsection
 
 <style>
-  .modal-body{
+  .modal-body-detail{
     height: 400px; 
     overflow: hidden;
   }
-  .modal-body:hover{
+  .modal-body-detail:hover{
     overflow-y:auto;
   }
   .pding{
@@ -143,7 +143,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
       </div>
-      <div class="modal-body pt-0 warp">
+      <div class="modal-body pt-0 warp modal-body-detail">
         <table class="table table-bordered table-sm">
           <thead>
             <tr class="font-weight-bold">
@@ -239,5 +239,22 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <div class="container d-flex pl-0"><img src="">
+                  <h3 class="modal-title ml-2" id="exampleModalLabel">Delete this item?</h3>
+              </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+          </div>
+          <div class="modal-body">
+              <p class="text-muted">If you remove this item it will be gone forever. Are you sure you want to continue?</p>
+          </div>
+          <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-danger">Delete</button> </div>
+      </div>
   </div>
 </div>
