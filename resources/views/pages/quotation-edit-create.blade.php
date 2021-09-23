@@ -16,17 +16,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="attention">Unit Price</label>
-                        <input class="form-control" type="text" placeholder="Input Unit Price">
+                        <label for="unit-price">Unit Price</label>
+                        <input class="form-control" type="number" placeholder="Input Unit Price">
                     </div>
 
                     <div class="form-group">
                         <label for="payment-term">Quantity</label>
-                        <input class="form-control" type="text" placeholder="Input Quantity">
+                        <input class="form-control" type="number" placeholder="Input Quantity">
                     </div>
                     
                     <div class="form-group">
-                        <label for="note">Note</label>
+                        <label for="note">Description</label>
                         <textarea class="note " name="note"></textarea>
                         <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
                         <script>
