@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('create-invoice', 'App\Http\Controllers\CreateInvoiceController@index')->name('create-invoice');
 	Route::get('create', 'App\Http\Controllers\CreateQuotationController@index')->name('create');
 	Route::get('editquotation', 'App\Http\Controllers\EditQuotationController@editpage')->name('edit-controller');
+	Route::get('quotation-edit-create', 'App\Http\Controllers\QuotationEditCreateController@index')->name('create-items');
+	Route::get('edit-items', 'App\Http\Controllers\QuotationEditCreateController@edit_item')->name('edit-item');
 });
 
 
