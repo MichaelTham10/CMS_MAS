@@ -75,7 +75,7 @@
                       <td>{{$quotation['Account Manager']}}</td>
                       <td>
                         <div class="btn-group">
-                          <a href=""  class="btn btn-primary btn-sm" id="submit" data-toggle="modal" data-target="#modal-detail">Detail</a>
+                          <a href=""  class="btn btn-primary btn-sm" id="submit" data-toggle="modal" data-target="#modalDetail">Detail</a>
                           <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
@@ -86,6 +86,67 @@
                           </div>
                         </div>
                       </td>
+
+                      <div class="modal fade" id="modalDetail" aria-labelledby="myLargeModalLabel" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Stock in detail</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body pt-0 warp modal-body-detail">
+                              <table class="table table-bordered table-sm">
+                                <thead>
+                                  <tr class="font-weight-bold">
+                                    <th scope="col" style="width:5%;"><strong>#</strong></th>
+                                    <th scope="col" style="width:15%;"><strong>Name</strong></th>
+                                    <th scope="col" style="width:45%;"><strong>Description</strong></th>
+                                    <th scope="col" style="width:5%;"><strong>Qty</strong></th>
+                                    <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
+                                    <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>TPlinkasd</td>
+                                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla provident modi aut debitis minus temporibus tempore saepe quas hic ratione itaque quo quisquam earum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla provident modi aut debitis minus temporibus tempore saepe quas hic ration</td>
+                                    <td>5</td>
+                                    <td>20000</td>
+                                    <td>100000</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>TPlinkasd</td>
+                                    <td>asdasdasd</td>
+                                    <td>5</td>
+                                    <td>20000</td>
+                                    <td>100000</td>
+                                  </tr>
+                                 
+                                </tbody>
+                              </table>
+                            </div>
+                            <br>
+                            <div class="pding table-responsive">
+                              <div class="table-responsive m-10">
+                                <table class="table table-bordered no-margin table-sm">
+                                  <tr>
+                                    <th colspan="2" style="width:78.5%" scope="row">Discount</th>
+                                    <td>$114,000.00</td>
+                                  </tr>
+                                  <tr>
+                                    <th colspan="2" scope="row">Grand Total</th>
+                                    <td>$114,000.00</td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </tr>
                   @endforeach
                           
@@ -130,8 +191,8 @@
   .edit
   {
     overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
+    word-wrap: break-word;
+    hyphens: auto;
   }
   td{
     white-space: normal !important;
@@ -139,67 +200,7 @@
   }
 </style>
 
-<div class="modal fade bd-example-modal-lg" id="modal-detail{{$quotation->id}}" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Stock in detail</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body pt-0 warp modal-body-detail">
-        <table class="table table-bordered table-sm">
-          <thead>
-            <tr class="font-weight-bold">
-              <th scope="col" style="width:5%;"><strong>#</strong></th>
-              <th scope="col" style="width:15%;"><strong>Name</strong></th>
-              <th scope="col" style="width:45%;"><strong>Description</strong></th>
-              <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-              <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-              <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              @foreach ($quotations as $quotation)
 
-              <th scope="row">{{$item->quotation_id}} {{$quotation->id}}</th>
-              <td>{{$item->name}}</td>
-              <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{!! $item->description !!}</td>
-              <td>{{$item->quantity}}</td>
-              <td>Rp. {{number_format($item['unit price'])}}</td>
-              <td>Rp {{number_format($item->quantity * $item['unit price'])}}</td>
-
-              
-                
-             
-              @endforeach
-              
-              
-            </tr>
-            
-          </tbody>
-        </table>
-      </div>
-      <br>
-      <div class="pding table-responsive">
-        <div class="table-responsive m-10">
-          <table class="table table-bordered no-margin table-sm">
-            <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-              <td>$114,000.00</td>
-            </tr>
-            <tr>
-              <th colspan="2" scope="row">Grand Total</th>
-              <td>$114,000.00</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
