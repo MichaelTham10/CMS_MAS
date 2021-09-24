@@ -11,6 +11,9 @@
         </div>
 
     @endif
+    @php
+        $total = 0;   
+    @endphp
     <div class="container-fluid">
         <div class="rounded border mt-4" style="background-color: #fff">
             <div class="d-flex p-2 align-self-center justify-content-between">
@@ -19,6 +22,7 @@
                         show
                     </div>
                     <div class="pl-2 pr-2">
+                      
                       <form action="/quotation">
                           <select class="custom-select" aria-label="Default select example" name="show">
                             <a href="/quotation"><option selected="5" value="5">5</option></a>
@@ -61,7 +65,8 @@
                 <tbody>
                   @foreach ($quotations as $quotation)
                     <tr>
-                      <th scope="row">{{$quotation['id']}}</th>
+                      <th scope="row">{{$loop->iteration}}</th>
+                      <td style="display: none" id="quotation_id">{{$quotation['id']}}</td>
                       <td>{{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_id, $quotation['Quotation Date'])}}</td>
                       <td>{{$quotation['Quotation Date']}}</td>
                       <td>{{$quotation['Customer']}}</td>
@@ -70,13 +75,13 @@
                       <td>{{$quotation['Account Manager']}}</td>
                       <td>
                         <div class="btn-group">
-                          <a href=""  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detail">Detail</a>
+                          <a href=""  class="btn btn-primary btn-sm" id="submit" data-toggle="modal" data-target="#modal-detail">Detail</a>
                           <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{route('edit-controller')}}">Edit</a>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete" href="#">Delete</a>
+                            <a class="dropdown-item" href="{{route('edit-controller', $quotation['id'])}}">Edit</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete{{$quotation->id}}" href="#">Delete</a>
                             <a class="dropdown-item" href="#">Export PDF</a>
                           </div>
                         </div>
@@ -134,7 +139,7 @@
   }
 </style>
 
-<div class="modal fade bd-example-modal-lg" id="modal-detail" aria-labelledby="myLargeModalLabel">
+<div class="modal fade bd-example-modal-lg" id="modal-detail{{$quotation->id}}" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -157,69 +162,23 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla provident modi aut debitis minus temporibus tempore saepe quas hic ratione itaque quo quisquam earum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla provident modi aut debitis minus temporibus tempore saepe quas hic ration</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
+              @foreach ($quotations as $quotation)
+
+              <th scope="row">{{$item->quotation_id}} {{$quotation->id}}</th>
+              <td>{{$item->name}}</td>
+              <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{!! $item->description !!}</td>
+              <td>{{$item->quantity}}</td>
+              <td>Rp. {{number_format($item['unit price'])}}</td>
+              <td>Rp {{number_format($item->quantity * $item['unit price'])}}</td>
+
+              
+                
+             
+              @endforeach
+              
+              
             </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td>asdasdasd</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td>asdasdasds</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td>asdasdasds</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td>asdasdasds</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td>asdasdasdss</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td>asdasdasd</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>TPlinkasd</td>
-              <td>asdasdasd</td>
-              <td>5</td>
-              <td>20000</td>
-              <td>100000</td>
-            </tr>
+            
           </tbody>
         </table>
       </div>
@@ -258,3 +217,12 @@
       </div>
   </div>
 </div>
+
+{{-- <script type="text/javascript">
+  $("#submit").click(function () {
+      var id = $("#quotation_id").val();
+      
+      
+      $("#modal-detail").html(id);
+  });
+</script> --}}

@@ -15,7 +15,8 @@ class CreateQuotationsTable extends Migration
     {
         Schema::create('quotations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('type_id');
+            $table->bigInteger('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('quotation_types');
             $table->bigInteger('type_detail_id');
             $table->bigInteger('item_id')->nullable();
             $table->string('Customer');

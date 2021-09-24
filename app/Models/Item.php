@@ -10,6 +10,6 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','price','quantity'
+        'quotation_id','name','unit price','quantity','description'
     ];
 }

@@ -16,6 +16,17 @@ class Quotation extends Model
     ];
 
 
+    public function type()
+    {
+       return $this->belongsTo('App\Models\QuotationType');
+    }
+
+    public function items($id)
+    {
+        $items = Item::where('quotation_id', $id)->get();
+        return $items;
+    }
+
     public function getFormatId($type_id,$type_detail_id,$quotation_date)
     {
         $type = QuotationType::findOrFail($type_id);
