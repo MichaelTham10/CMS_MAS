@@ -65,8 +65,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="bill-to">Discount</label>
-                        <input class="form-control" type="number" placeholder="Input Disocunt" @error('discount')
+                        <label for="account">Account Manager</label>
+                        <input class="form-control" type="text" placeholder="Input Account Manager" @error('discount')
+                        is invalid
+                        @enderror name="account">
+                        @error('account')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="discount">Discount</label>
+                        <input class="form-control" type="number" placeholder="Input Discount" @error('discount')
                         is invalid
                         @enderror name="discount">
                         @error('discount')
