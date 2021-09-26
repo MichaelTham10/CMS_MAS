@@ -103,7 +103,7 @@
                           </button>
                           <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{route('edit-controller', $quotation['id'])}}">Edit</a>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete" href="#">Delete</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete{{$quotation->id}}" href="#">Delete</a>
                             <a class="dropdown-item" href="#">Export PDF</a>
                           </div>
                         </div>
@@ -167,6 +167,29 @@
                             </div>
                           </div>
                         </div>
+                        <form action="/delete/quotation/{{$quotation->id}}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <div class="modal fade" id="ModalDelete{{$quotation->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="container d-flex pl-0"><img src="">
+                                            <h3 class="modal-title ml-2" id="exampleModalLabel">Delete this item?</h3>
+                                        </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-muted">If you remove this item it will be gone forever. Are you sure you want to continue?</p>
+                                    </div>
+                                    <div class="modal-footer"> 
+                                       <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                       <button type="submit" class="btn btn-danger">Delete</button> 
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </form>
+                        
                       </td>
 
                       
@@ -205,21 +228,7 @@
 
 
 
-<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <div class="container d-flex pl-0"><img src="">
-                  <h3 class="modal-title ml-2" id="exampleModalLabel">Delete this item?</h3>
-              </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-          </div>
-          <div class="modal-body">
-              <p class="text-muted">If you remove this item it will be gone forever. Are you sure you want to continue?</p>
-          </div>
-          <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-danger">Delete</button> </div>
-      </div>
-  </div>
-</div>
+
 
 {{-- <script type="text/javascript">
   $("#submit").click(function () {

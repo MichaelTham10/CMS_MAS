@@ -10,7 +10,7 @@ class Quotation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type_id','type_detail_quantity', 'item_id', 'Customer',
+        'type_id','type_detail_id','type_detail_quantity', 'item_id', 'Customer',
         'Attention', 'Payment Term', 'Quotation Date',
         'Account Manager', 'Discount', 'Terms'
     ];

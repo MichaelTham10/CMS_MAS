@@ -48,10 +48,14 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::post('/item/store/{id}', 'App\Http\Controllers\ItemController@create');
 	Route::post('/quotation/store', 'App\Http\Controllers\CreateQuotationController@store');
+	
+	Route::patch('/update/quotation/{quotation_id}', 'App\Http\Controllers\EditQuotationController@update');
 	Route::patch('/update/item/{quotation_id}/{id}', 'App\Http\Controllers\ItemController@update');
 
 
 	Route::delete('/delete/item/{id}', 'App\Http\Controllers\ItemController@delete');
+	Route::delete('/delete/quotation/{quotation_id}', 'App\Http\Controllers\EditQuotationController@delete');
+	
 
 	
 

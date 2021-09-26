@@ -50,6 +50,7 @@ class CreateQuotationController extends Controller
 
                 Quotation::create([
                     'type_id' => $request->type,
+                    'type_detail_id' => $detail->id,
                     'type_detail_quantity' => $detail->quantity,
                     'Customer' => $request->customer,
                     'Attention' => $request->attention,
@@ -71,11 +72,12 @@ class CreateQuotationController extends Controller
                 'quotation_date' => $request->date,
             ]);
 
-            $type_detail_quantity = DB::table('quotation_type_details')->orderBy('id', 'DESC')->first();
+            $type_detail = DB::table('quotation_type_details')->orderBy('id', 'DESC')->first();
 
             Quotation::create([
                 'type_id' => $request->type,
-                'type_detail_quantity' => $type_detail_quantity->quantity,
+                'type_detail_id' =>$type_detail->id,
+                'type_detail_quantity' => $type_detail->quantity,
                 'Customer' => $request->customer,
                 'Attention' => $request->attention,
                 'Payment Term' => $request->payment,
