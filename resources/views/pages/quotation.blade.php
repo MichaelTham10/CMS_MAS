@@ -130,20 +130,17 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
+                                    @foreach ($quotation->items($quotation->id) as $item)
+                                      <tr>
+                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <td>{{$item->name}}</td>
+                                        <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{!!$item->description!!}</td>
+                                        <td>{{$item->quantity}}</td>
+                                        <td>{{$item['unit price']}}</td>
+                                        <td>{{$item['unit price'] * $item->quantity}}</td>
+                                      </tr>  
                                       
-                                      @foreach ($quotation->items($quotation->id) as $item)
-                                        
-                                      <th scope="row">{{$loop->iteration}}</th>
-                                      <td>{{$item->name}}</td>
-                                      <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{!!$item->description!!}</td>
-                                      <td>{{$item->quantity}}</td>
-                                      <td>{{$item['unit price']}}</td>
-                                      <td>{{$item['unit price'] * $item->quantity}}</td>
-                                       
                                       @endforeach
-                                      
-                                    </tr>
     
                                    
                                   </tbody>
