@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\quotation\QuotationTypeDetail;
 use App\Models\Quotation;
 use App\Models\QuotationType;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CreateQuotationController extends Controller
 {
@@ -50,6 +50,11 @@ class CreateQuotationController extends Controller
 
                 Quotation::create([
                     'type_id' => $request->type,
+<<<<<<< HEAD
+=======
+                    'type_detail_id' => $detail->id,
+                    'Quotation_No' => Quotation::getFormatId($request->type, $detail->quantity, $request->date),
+>>>>>>> 7324a0aa12f5ea121891c682ddb0bac4993309b1
                     'type_detail_quantity' => $detail->quantity,
                     'Customer' => $request->customer,
                     'Attention' => $request->attention,
@@ -71,11 +76,21 @@ class CreateQuotationController extends Controller
                 'quotation_date' => $request->date,
             ]);
 
+<<<<<<< HEAD
             $type_detail_quantity = DB::table('quotation_type_details')->orderBy('id', 'DESC')->first();
 
             Quotation::create([
                 'type_id' => $request->type,
                 'type_detail_quantity' => $type_detail_quantity->quantity,
+=======
+            $type_detail = DB::table('quotation_type_details')->orderBy('id', 'DESC')->first();
+
+            Quotation::create([
+                'type_id' => $request->type,
+                'type_detail_id' =>$type_detail->id,
+                'Quotation_No' => Quotation::getFormatId($request->type, $type_detail->quantity, $request->date),
+                'type_detail_quantity' => $type_detail->quantity,
+>>>>>>> 7324a0aa12f5ea121891c682ddb0bac4993309b1
                 'Customer' => $request->customer,
                 'Attention' => $request->attention,
                 'Payment Term' => $request->payment,

@@ -25,17 +25,11 @@
     }
   </style>
     @if(Session::has('success'))
-
         <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>{{Session::get('success')}}</strong>
-
         </div>
-
     @endif
-    @php
-        $total = 0;   
-    @endphp
     <div class="container-fluid">
         <div class="rounded border mt-4" style="background-color: #fff">
             <div class="d-flex p-2 align-self-center justify-content-between">
@@ -86,6 +80,9 @@
                 </thead>
                 <tbody>
                   @foreach ($quotations as $quotation)
+                    @php
+                      $totalprice = 0;
+                    @endphp
                     <tr>
                       <th scope="row">{{$loop->iteration}}</th>
                       <td style="display: none" id="quotation_id">{{$quotation['id']}}</td>
@@ -132,13 +129,16 @@
                                   <tbody>
                                     @foreach ($quotation->items($quotation->id) as $item)
                                       <tr>
-                                        <td scope="row">{{$loop->iteration}}</th>
+                                        <th scope="row">{{$loop->iteration}}</th>
                                         <td>{{$item->name}}</td>
                                         <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{!!$item->description!!}</td>
                                         <td>{{$item->quantity}}</td>
-                                        <td>{{$item['unit price']}}</td>
-                                        <td>{{$item['unit price'] * $item->quantity}}</td>
+                                        <td>Rp. {{number_format($item['unit price'])}}</td>
+                                        <td>Rp. {{number_format($item['unit price'] * $item->quantity)}}</td>
                                       </tr>
+                                      @php
+                                          $totalprice += $item['unit price'] * $item->quantity
+                                      @endphp  
                                     @endforeach
                                   </tbody>
                                 </table>
@@ -149,11 +149,11 @@
                                   <table class="table table-bordered no-margin table-sm">
                                     <tr>
                                       <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-                                      <td>$114,000.00</td>
+                                      <td>Rp. {{number_format(($quotation->Discount*$totalprice)/100)}}</td>
                                     </tr>
                                     <tr>
                                       <th colspan="2" scope="row">Grand Total</th>
-                                      <td>$114,000.00</td>
+                                      <td>Rp. {{number_format($totalprice-($quotation->Discount*$totalprice)/100)}}</td>
                                     </tr>
                                   </table>
                                 </div>
@@ -161,7 +161,32 @@
                             </div>
                           </div>
                         </div>
+                        <form action="/delete/quotation/{{$quotation->id}}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <div class="modal fade" id="ModalDelete{{$quotation->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="container d-flex pl-0"><img src="">
+                                            <h3 class="modal-title ml-2" id="exampleModalLabel">Delete this item?</h3>
+                                        </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="text-muted">If you remove this item it will be gone forever. Are you sure you want to continue?</p>
+                                    </div>
+                                    <div class="modal-footer"> 
+                                       <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                       <button type="submit" class="btn btn-danger">Delete</button> 
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </form>
+                        
                       </td>
+
+                      
                     </tr>
                   @endforeach
                           
@@ -194,24 +219,6 @@
 
 
 
-
-
-
-<div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <div class="container d-flex pl-0"><img src="">
-                  <h3 class="modal-title ml-2" id="exampleModalLabel">Delete this item?</h3>
-              </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-          </div>
-          <div class="modal-body">
-              <p class="text-muted">If you remove this item it will be gone forever. Are you sure you want to continue?</p>
-          </div>
-          <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-danger">Delete</button> </div>
-      </div>
-  </div>
-</div>
 
 {{-- <script type="text/javascript">
   $("#submit").click(function () {

@@ -16,10 +16,12 @@
         <div class="rounded border mt-4 mb-4" style="background-color: #fff">
             <div class="pl-4 pt-4 pr-4 font-weight-bold">
                 <div>
-                    Edit Quotation No: {{$quotation->id}}
+                    Edit Quotation No: {{$quotation->Quotation_No}}
                 </div>
                 <hr class="mt-2 mb-2">
-                <form>
+                <form action="/update/quotation/{{$quotation->id}}" method="POST">
+                    @csrf
+                    @method('PATCH')
                     <div class="form-group">
                       <label for="type">Type</label>
                       <input class="form-control" readonly type="text" placeholder="Input Customer" value="{{$type->name}} ({{$type->alias}})">
@@ -27,43 +29,43 @@
 
                     <div class="form-group">
                         <label for="customer">Customer</label>
-                        <input class="form-control" type="text" placeholder="Input Customer" value="{{$quotation['Customer']}}">
+                        <input class="form-control" type="text" placeholder="Input Customer" name="customer" value="{{$quotation['Customer']}}">
                     </div>
 
                     <div class="form-group">
                         <label for="attention">Attention</label>
-                        <input class="form-control" type="text" placeholder="Input Attention" value="{{$quotation['Attention']}}">
+                        <input class="form-control" type="text" placeholder="Input Attention" name="attention" value="{{$quotation['Attention']}}">
                     </div>
 
                     <div class="form-group">
                         <label for="payment-term">Payment Term</label>
-                        <input class="form-control" type="text" placeholder="Input Payment" value="{{$quotation['Payment Term']}}">
+                        <input class="form-control" type="text" placeholder="Input Payment" name="payment" value="{{$quotation['Payment Term']}}">
                     </div>
 
                     <div class="form-group">
                         <label for="quotation-no">Quotation No</label>
-                        <input class="form-control" type="text" value="{{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_id, $quotation['Quotation Date'])}}"  readonly>
+                        <input class="form-control" type="text" value="{{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_quantity, $quotation['Quotation Date'])}}"  readonly>
                     </div>
 
                     <div class="form-group">
                         <label for="invoiceDate">Quotation Date</label>
                         <input class="form-control" type="date" placeholder="Input Invoice Date" 
-                        onfocus="(this.type='date')" id="invoice-date" name="" value="{{$quotation['Quotation Date']}}">
+                        onfocus="(this.type='date')" id="invoice-date" name="date" value="{{$quotation['Quotation Date']}}">
                     </div>
 
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label for="account-manager">Account Manager</label>
-                        <input class="form-control" type="text" placeholder="">
-                    </div> --}}
+                        <input class="form-control" type="text" placeholder="Input account manager" name="account" value="{{$quotation['Account Manager']}}">
+                    </div>
 
                     <div class="form-group">
                         <label for="discount">Discount</label>
-                        <input class="form-control" type="text" placeholder="Input Discount" value="{{$quotation['Discount']}}">
+                        <input class="form-control" type="text" placeholder="Input Discount" name="discount" value="{{$quotation['Discount']}}">
                     </div>
                     
                     <div class="form-group">
                         <label for="note">Terms & Condition</label>
-                        <textarea class="note " name="note">{{$quotation['Terms']}}</textarea>
+                        <textarea class="note " name="terms">{{$quotation['Terms']}}</textarea>
                         <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
                         <script>
                             tinymce.init({
@@ -73,13 +75,14 @@
                             });
                         </script>
                     </div>
+                    <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
+                        <button type="button" class="btn btn-light">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
                 </form>
             </div>
 
-            <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
-                <button type="button" class="btn btn-light">Cancel</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
+            
         </div>   
 
         <style>
