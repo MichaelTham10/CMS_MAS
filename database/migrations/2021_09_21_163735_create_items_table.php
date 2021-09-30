@@ -15,10 +15,12 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('quotation_id');
+            $table->bigInteger('quotation_id')->unsigned();
+            $table->foreign('quotation_id')->references('id')->on('quotations');
             $table->string('name');
             $table->bigInteger('unit price');
             $table->bigInteger('quantity');
+            $table->string('description');
             $table->timestamps();
         });
     }

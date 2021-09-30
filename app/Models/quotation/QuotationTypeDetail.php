@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\quotation;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QuotationMSDetail extends Model
+class QuotationTypeDetail extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'quotation_created_date'
+        'type_id', 'quotation_date', 'quantity',
     ];
+
 }

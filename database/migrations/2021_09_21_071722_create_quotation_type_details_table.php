@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuotationSODetailsTable extends Migration
+class CreateQuotationTypeDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateQuotationSODetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotation_s_o_details', function (Blueprint $table) {
+        Schema::create('quotation_type_details', function (Blueprint $table) {
             $table->id();
-            $table->date('quotation_created_date');
+            $table->bigInteger('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('quotation_types');
+            $table->date('quotation_date');
+            $table-> bigInteger('quantity')->default(1);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateQuotationSODetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_s_o_details');
+        Schema::dropIfExists('quotation_type_details');
     }
 }

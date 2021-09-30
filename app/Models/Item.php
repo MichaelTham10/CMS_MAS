@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'quotation_id','name','unit price','quantity','description'
+    ];
 }

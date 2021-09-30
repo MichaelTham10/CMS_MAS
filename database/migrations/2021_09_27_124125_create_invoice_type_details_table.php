@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuotationMMSDetailsTable extends Migration
+class CreateInvoiceTypeDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateQuotationMMSDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotation_m_m_s_details', function (Blueprint $table) {
+        Schema::create('invoice_type_details', function (Blueprint $table) {
             $table->id();
-            $table->date('quotation_created_date');
+            $table->bigInteger('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('invoice_types');
+            $table->date('invoice_date');
+            $table-> bigInteger('quantity')->default(1);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateQuotationMMSDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_m_m_s_details');
+        Schema::dropIfExists('invoice_type_details');
     }
 }
