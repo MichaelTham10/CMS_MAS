@@ -7,12 +7,11 @@ use App\Models\Quotation;
 use App\Models\QuotationType;
 use App\Models\quotation\QuotationTypeDetail;
 use App\Models\Item;
-use DB;
+use Illuminate\Support\Facades\DB;
 class EditQuotationController extends Controller
 {
     public function editpage($id)
     {
-        
         $quotation = Quotation::findOrFail($id);
         $type = QuotationType::findOrFail($quotation->type_id);
         $items = Item::where('quotation_id', $quotation->id)->get(); 
@@ -27,16 +26,20 @@ class EditQuotationController extends Controller
     }
 
     public function update($quotation_id, Request $request)
-    {
-        
+    {  
         $quotation = Quotation::findOrFail($quotation_id);
+        $type = QuotationType::findOrFail($quotation->type_id);
         $qtds = QuotationTypeDetail::all();
         if($quotation['Quotation Date'] != $request->date)
         {
             $qtd = QuotationTypeDetail::findOrFail($quotation->type_detail_id);
+
             QuotationTypeDetail::findOrFail($quotation->type_detail_id)->update([
                 'quantity' => ($qtd->quantity - 1),
             ]);
+
+            $temp = QuotationTypeDetail::findOrFail($quotation->type_detail_id);
+
             foreach($qtds as $item)
             {  
                 if($item->quotation_date == $request->date && $item->type_id == $quotation->type_id)
@@ -49,6 +52,7 @@ class EditQuotationController extends Controller
 
                     $quotation->update([
                         'type_detail_id' =>$detail->id,
+                        'Quotation_No' => Quotation::getFormatId($type->id, $detail->quantity, $request->date),
                         'type_detail_quantity' => $detail->quantity,
                         'Customer' => $request->customer,
                         'Attention' => $request->attention,
@@ -58,6 +62,10 @@ class EditQuotationController extends Controller
                         'Discount' => $request->discount,
                         'Terms' => $request->terms
                     ]);
+
+                    if($temp->quantity == 0){
+                        QuotationTypeDetail::destroy($temp->id);
+                    }
 
                     return back()->with('success', 'Quotation has been updated');
                 }
@@ -71,8 +79,8 @@ class EditQuotationController extends Controller
             $type_detail = DB::table('quotation_type_details')->orderBy('id', 'DESC')->first();
 
             $quotation->update([
-                
-                'type_detail_id' =>$type_detail->id,
+                'type_detail_id' => $type_detail->id,
+                'Quotation_No' => Quotation::getFormatId($type->id, $type_detail->quantity, $request->date),
                 'type_detail_quantity' => $type_detail->quantity,
                 'Customer' => $request->customer,
                 'Attention' => $request->attention,
@@ -83,11 +91,14 @@ class EditQuotationController extends Controller
                 'Terms' => $request->terms
             ]);
 
+            if($temp->quantity == 0){
+                QuotationTypeDetail::destroy($temp->id);
+            }
+
             return back()->with('success', 'Quotation has been updated');
         }
-
+        
         $quotation->update([
-                
             'Customer' => $request->customer,
             'Attention' => $request->attention,
             'Payment Term' => $request->payment,

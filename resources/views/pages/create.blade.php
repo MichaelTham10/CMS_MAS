@@ -13,8 +13,6 @@
                         @foreach ($types as $type)
                           <option value="{{$type->id}}">{{$type->name}} ({{$type->alias}})</option>
                         @endforeach
-                        
-                        
                       </select>
                     </div>
 

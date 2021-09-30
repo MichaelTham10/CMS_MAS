@@ -16,7 +16,7 @@
         <div class="rounded border mt-4 mb-4" style="background-color: #fff">
             <div class="pl-4 pt-4 pr-4 font-weight-bold">
                 <div>
-                    Edit Quotation No: {{$quotation->id}}
+                    Edit Quotation No: {{$quotation->Quotation_No}}
                 </div>
                 <hr class="mt-2 mb-2">
                 <form action="/update/quotation/{{$quotation->id}}" method="POST">
@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label for="account-manager">Account Manager</label>
-                        <input class="form-control" type="text" placeholder="Input account manager" name="account">
+                        <input class="form-control" type="text" placeholder="Input account manager" name="account" value="{{$quotation['Account Manager']}}">
                     </div>
 
                     <div class="form-group">

@@ -25,17 +25,11 @@
     }
   </style>
     @if(Session::has('success'))
-
         <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>{{Session::get('success')}}</strong>
-
         </div>
-
     @endif
-    @php
-        $total = 0;   
-    @endphp
     <div class="container-fluid">
         <div class="rounded border mt-4" style="background-color: #fff">
             <div class="d-flex p-2 align-self-center justify-content-between">
@@ -86,6 +80,9 @@
                 </thead>
                 <tbody>
                   @foreach ($quotations as $quotation)
+                    @php
+                      $totalprice = 0;
+                    @endphp
                     <tr>
                       <th scope="row">{{$loop->iteration}}</th>
                       <td style="display: none" id="quotation_id">{{$quotation['id']}}</td>
@@ -136,13 +133,13 @@
                                         <td>{{$item->name}}</td>
                                         <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{!!$item->description!!}</td>
                                         <td>{{$item->quantity}}</td>
-                                        <td>{{$item['unit price']}}</td>
-                                        <td>{{$item['unit price'] * $item->quantity}}</td>
-                                      </tr>  
-                                      
-                                      @endforeach
-    
-                                   
+                                        <td>Rp. {{number_format($item['unit price'])}}</td>
+                                        <td>Rp. {{number_format($item['unit price'] * $item->quantity)}}</td>
+                                      </tr>
+                                      @php
+                                          $totalprice += $item['unit price'] * $item->quantity
+                                      @endphp  
+                                    @endforeach
                                   </tbody>
                                 </table>
                               </div>
@@ -152,11 +149,11 @@
                                   <table class="table table-bordered no-margin table-sm">
                                     <tr>
                                       <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-                                      <td>$114,000.00</td>
+                                      <td>Rp. {{number_format(($quotation->Discount*$totalprice)/100)}}</td>
                                     </tr>
                                     <tr>
                                       <th colspan="2" scope="row">Grand Total</th>
-                                      <td>$114,000.00</td>
+                                      <td>Rp. {{number_format($totalprice-($quotation->Discount*$totalprice)/100)}}</td>
                                     </tr>
                                   </table>
                                 </div>

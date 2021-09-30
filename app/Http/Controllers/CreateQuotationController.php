@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\quotation\QuotationTypeDetail;
 use App\Models\Quotation;
 use App\Models\QuotationType;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CreateQuotationController extends Controller
 {
@@ -51,6 +51,7 @@ class CreateQuotationController extends Controller
                 Quotation::create([
                     'type_id' => $request->type,
                     'type_detail_id' => $detail->id,
+                    'Quotation_No' => Quotation::getFormatId($request->type, $detail->quantity, $request->date),
                     'type_detail_quantity' => $detail->quantity,
                     'Customer' => $request->customer,
                     'Attention' => $request->attention,
@@ -77,6 +78,7 @@ class CreateQuotationController extends Controller
             Quotation::create([
                 'type_id' => $request->type,
                 'type_detail_id' =>$type_detail->id,
+                'Quotation_No' => Quotation::getFormatId($request->type, $type_detail->quantity, $request->date),
                 'type_detail_quantity' => $type_detail->quantity,
                 'Customer' => $request->customer,
                 'Attention' => $request->attention,

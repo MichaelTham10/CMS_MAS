@@ -10,7 +10,7 @@ class Quotation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type_id','type_detail_id','type_detail_quantity', 'item_id', 'Customer',
+        'type_id','type_detail_id', 'Quotation_No', 'type_detail_quantity', 'item_id', 'Customer',
         'Attention', 'Payment Term', 'Quotation Date',
         'Account Manager', 'Discount', 'Terms'
     ];
@@ -21,7 +21,10 @@ class Quotation extends Model
        return $this->belongsTo('App\Models\QuotationType');
     }
 
-    
+    // public function invoice()
+    // {
+    //    return $this->hasMany('App\Models\Invoice');
+    // }
 
     public function items($id)
     {
@@ -29,7 +32,7 @@ class Quotation extends Model
         return $items;
     }
 
-    public function getFormatId($type_id,$type_detail_id,$quotation_date)
+    public static function getFormatId($type_id,$type_detail_id,$quotation_date)
     {
         $type = QuotationType::findOrFail($type_id);
         
