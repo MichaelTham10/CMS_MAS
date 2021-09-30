@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\QuotationSODetail;
-use App\Models\QuotationMSDetail;
-use App\Models\QuotationMMSDetail;
+
+use App\Models\quotation\QuotationTypeDetail;
 use App\Models\Quotation;
 use App\Models\QuotationType;
 use Auth;
@@ -13,6 +12,8 @@ use DB;
 
 class CreateQuotationController extends Controller
 {
+    public $temp;
+
     public function index()
     {
         $types = QuotationType::all();
@@ -28,16 +29,73 @@ class CreateQuotationController extends Controller
             'payment' => 'required',
             'date' => 'required',
             'discount' => 'required',
+            'account' => 'required',
             'terms' => 'required',
         ]);
 
+        $this->temp = 0;
+
+        $qtds = QuotationTypeDetail::all();
+
+        foreach($qtds as $qtd)
+        {
+            if($qtd->quotation_date == $request->date && $qtd->type_id == $request->type)
+            {   
+                $this->temp = 1;
+                QuotationTypeDetail::findOrFail($qtd->id)->update([
+                    'quantity' => ($qtd->quantity + 1),
+                ]);
+
+                $detail = QuotationTypeDetail::findOrFail($qtd->id);
+
+                Quotation::create([
+                    'type_id' => $request->type,
+                    'type_detail_quantity' => $detail->quantity,
+                    'Customer' => $request->customer,
+                    'Attention' => $request->attention,
+                    'Payment Term' => $request->payment,
+                    'Quotation Date' => $request->date,
+                    'Account Manager' => $request->account,
+                    'Discount' => $request->discount,
+                    'Terms' => $request->terms
+                ]);
+                break;
+            }
+            
+        }
+
+        if($this->temp == 0)
+        {
+            QuotationTypeDetail::create([
+                'type_id' => $request->type,
+                'quotation_date' => $request->date,
+            ]);
+
+            $type_detail_quantity = DB::table('quotation_type_details')->orderBy('id', 'DESC')->first();
+
+            Quotation::create([
+                'type_id' => $request->type,
+                'type_detail_quantity' => $type_detail_quantity->quantity,
+                'Customer' => $request->customer,
+                'Attention' => $request->attention,
+                'Payment Term' => $request->payment,
+                'Quotation Date' => $request->date,
+                'Account Manager' => $request->account,
+                'Discount' => $request->discount,
+                'Terms' => $request->terms
+            ]);
+        }
+        
+       
+
+        /*
         if($request->type === '1')
         {
             QuotationSODetail::create([
                 'quotation_created_date' => $request->date
             ]);
 
-            $quotation_type_id = DB::table('quotation_s_o_details')->orderBy('id', 'DESC')->first();
+            
 
             Quotation::create([
                 'type_id' => 1,
@@ -93,7 +151,7 @@ class CreateQuotationController extends Controller
                 'Terms' => $request->terms
             ]);
         }
-
+        */
         
 
         return redirect('/quotation')->with('success', 'Quotation has been added');
