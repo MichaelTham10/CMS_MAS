@@ -80,7 +80,7 @@
                         $totalprice = 0;
                       @endphp
                     <tr>
-                      <th scope="row">{{$invoice['id']}}</th>
+                      <th scope="row">{{$loop->iteration}}</th>
                       <td>{{$invoice->getFormatId($invoice->type_id,$invoice->type_detail_quantity, $invoice['Invoice Date'])}}</td>
                       <td>{{$invoice['Invoice Date']}}</td>
                       <td>{{$invoice['Bill To']}}</td>

@@ -10,8 +10,9 @@ class ExportPDFController extends Controller
 {
     public function pdf($id)
     {
-        $items = Item::all();
+        
         $quotation = Quotation::findOrFail($id);
+        $items = Item::all();
         $data = [
                 'items' => $items ,
                 'quotation' => $quotation 

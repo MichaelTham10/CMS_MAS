@@ -26,10 +26,11 @@ class Quotation extends Model
     //    return $this->hasMany('App\Models\Invoice');
     // }
 
-    public function items($id)
+    public function items()
     {
-        $items = Item::where('quotation_id', $id)->get();
-        return $items;
+        // $items = Item::where('quotation_id', $id)->get();
+        // return $items;
+        return $this->hasMany('App\Models\Item');
     }
 
     public static function getFormatId($type_id,$type_detail_id,$quotation_date)

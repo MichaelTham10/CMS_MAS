@@ -100,7 +100,7 @@
                           </button>
                           <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{route('edit-controller', $quotation['id'])}}">Edit</a>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete" href="#">Delete</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete{{$quotation->id}}" href="#">Delete</a>
                             <a class="dropdown-item" href="/quotation/item/export-pdf/{{$quotation->id}}" target="_blank">Export PDF</a>
                           </div>
                         </div>
@@ -127,7 +127,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    @foreach ($quotation->items($quotation->id) as $item)
+                                    @foreach ($quotation->items as $item)
                                       <tr>
                                         <th scope="row">{{$loop->iteration}}</th>
                                         <td>{{$item->name}}</td>

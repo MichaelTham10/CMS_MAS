@@ -11,7 +11,7 @@ class ItemController extends Controller
     public function index($id)
     {
 
-        return view('pages.quotation-edit-create', compact('id'));
+        return view('pages.item.create-item', compact('id'));
     }
 
 
@@ -38,7 +38,7 @@ class ItemController extends Controller
     public function edit_item($quotation_id, $id)
     {
         $item = Item::findOrFail($id);
-        return view('pages.edit-items', compact('quotation_id', 'item'));
+        return view('pages.item.edit-items', compact('quotation_id', 'item'));
     }
 
     public function update($quotation_id,$id, Request $request)

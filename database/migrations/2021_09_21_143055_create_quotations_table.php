@@ -17,14 +17,11 @@ class CreateQuotationsTable extends Migration
             $table->id();
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('quotation_types');
-<<<<<<< HEAD
-=======
 
             $table->bigInteger('type_detail_id')->unsigned();
             $table->foreign('type_detail_id')->references('id')->on('quotation_type_details');
 
             $table->string('Quotation_No');
->>>>>>> 7324a0aa12f5ea121891c682ddb0bac4993309b1
             $table->bigInteger('type_detail_quantity');
             $table->bigInteger('item_id')->nullable();
             $table->string('Customer');
