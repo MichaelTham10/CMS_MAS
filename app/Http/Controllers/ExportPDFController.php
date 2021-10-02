@@ -12,12 +12,12 @@ class ExportPDFController extends Controller
     {
         
         $quotation = Quotation::findOrFail($id);
-        $items = Item::all();
+        
         $data = [
-                'items' => $items ,
+                
                 'quotation' => $quotation 
                 ];
-        $file = 'Quotation_of_Network_Devices_for_PT_'.$quotation->Customer;
+        $file = 'Quotation_of_Network_Devices_for_PT_'.$quotation->Customer.'.pdf';
         $pdf = PDF::loadView('pages.pdf', $data)->setPaper('a4', 'potrait')->setWarnings(false);
         return $pdf->stream($file);
     }

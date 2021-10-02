@@ -29,6 +29,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "datatables.net": "^1.11.3",
+        "datatables.net-dt": "^1.11.3",
         "tinymce": "^5.9.2"
     }
 }

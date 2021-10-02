@@ -34,7 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	//quotation
 
-	Route::get('quotation', 'App\Http\Controllers\Quotation\QuotationController@index')->name('quotation');
+	Route::get('quotation/test', 'App\Http\Controllers\Quotation\QuotationController@index')->name('quotation');
+
+	Route::get('quotation/list', 'App\Http\Controllers\Quotation\QuotationController@list')->name('test');
 
 	Route::get('create', 'App\Http\Controllers\Quotation\QuotationController@create')->name('create');
 	Route::post('/quotation/store', 'App\Http\Controllers\Quotation\QuotationController@store');
