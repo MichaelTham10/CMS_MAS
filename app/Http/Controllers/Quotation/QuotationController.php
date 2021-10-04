@@ -20,9 +20,9 @@ class QuotationController extends Controller
     {
        
         $quotations = Quotation::all();
+        $items = Item::all();
 
-
-        return view('pages.quotation.quotation', compact('quotations'));
+        return view('pages.quotation.quotation', compact('quotations', 'items'));
     }
 
     public function test()
@@ -32,14 +32,55 @@ class QuotationController extends Controller
         return view('pages.quotation.test', compact('quotations'));
     }
 
-    
+    public function loopItem($quotation_id)
+    {
+      $items = Item::where('quotation_id', $quotation_id)->get();
+
+      $temp = '';
+
+      $loop = 1;
+
+      foreach($items as $item)
+      {
+        $temp .=
+        '<tr>
+        <th scope="row">'.$loop++.'</th>
+        <td>'.$item->name.'</td>
+        <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">'.$item->description.'</td>
+        <td>'.$item->quantity.'</td>
+        <td>Rp. '.number_format($item['unit price']).'</td>
+        </tr>';
+        
+      }
+
+
+      return $temp;
+    }
 
     public function list()
     {
         $query = Quotation::all();
+        
         return datatables($query)
         ->addIndexColumn()
         ->addColumn('action', function($row){
+            
+            $table = '';
+           
+            $loop = 1;
+            foreach (Quotation::all() as $quotation) {
+              foreach (Item::where('quotation_id', $quotation->id)->get() as $item) {
+                $table .= '
+                <tr>
+                <th scope="row">'.$loop++.'</th>
+                <td>'.$item->name.'</td>
+                <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">'.$item->description.'</td>
+                <td>'.$item->quantity.'</td>
+                <td>Rp. '.number_format($item['unit price']).'</td>
+                </tr>';
+              }
+            }  
+            
             $actionBtn = 
             '                      <td>
             <div class="btn-group">
@@ -49,75 +90,17 @@ class QuotationController extends Controller
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="/editquotation/'.$row->id.'">Edit</a>
-                <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete" href="#">Delete</a>
+                <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
                 <a class="dropdown-item" href="/quotation/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
               </div>
             </div>
 
-            <div class="modal fade" id="modalDetail" aria-labelledby="myLargeModalLabel" tabindex="-1" role="dialog" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title">Stock in detail</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body pt-0 warp modal-body-detail">
-                    <table class="table table-bordered table-sm">
-                      <thead>
-                        <tr class="font-weight-bold">
-                          <th scope="col" style="width:5%;"><strong>#</strong></th>
-                          <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                          <th scope="col" style="width:45%;"><strong>Description</strong></th>
-                          <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                          <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-                          <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      
-                        @foreach ('.$row->items.' as $item)
-                          <tr>
-                            <th scope="row">{{$loop->iteration}}</th>
-                            <td>{{$item->name}}</td>
-                            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{!!$item->description!!}</td>
-                            <td>{{$item->quantity}}</td>
-                            <td>Rp. {{number_format($item[\'unit price\'])}}</td>
-                            <td>Rp. {{number_format($item[\'unit price\'] * $item->quantity)}}</td>
-                          </tr>
-                          @php
-                              $totalprice += $item[\'unit price\'] * $item->quantity
-                          @endphp
-                        @endforeach
-                        
-                      </tbody>
-                    </table>
-                   
-                  </div>
-                  <br>
-                  <div class="pding table-responsive">
-                    <div class="table-responsive m-10">
-                      <table class="table table-bordered no-margin table-sm">
-                        <tr>
-                          <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-                          <td>Rp. {{number_format(($quotation->Discount*$totalprice)/100)}}</td>
-                        </tr>
-                        <tr>
-                          <th colspan="2" scope="row">Grand Total</th>
-                          <td>Rp. {{number_format($totalprice-($quotation->Discount*$totalprice)/100)}}</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <form action="/delete/quotation/{{$quotation->id}}" method="POST">
             
-              @csrf
-              @method(\'DELETE\')
-              <div class="modal fade" id="ModalDelete{{$quotation->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form action="/delete/quotation/'.$row->id.'" method="POST">
+            
+              '.csrf_field().'
+              '.method_field('DELETE').'
+              <div class="modal fade" id="ModalDelete'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -141,7 +124,7 @@ class QuotationController extends Controller
             ';
             return $actionBtn;
         })
-        ->rawColumns(['action'])
+       
         ->make(true);
 
     }

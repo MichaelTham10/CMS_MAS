@@ -3,7 +3,7 @@
 
 @section('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+    
 @endsection
 
 @section('content')
@@ -48,6 +48,7 @@
             <table class="table" id="datatable">
                 <thead>
                   <tr class="font-weight-bold">
+                   
                     <th scope="col"><strong>#</strong></th>
                     <th scope="col"><strong>Quotation No</strong></th>
                     <th scope="col"><strong>Quotation Date</strong></th>
@@ -59,28 +60,16 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <script type="text/javascript">
+                    window.data = {!! json_encode($items) !!};
+                  </script>
                   @foreach ($quotations as $quotation)
-                    @php
-                      $totalprice = 0;
-                    @endphp
-                    <tr>
-                      {{-- <th scope="row">{{$loop->iteration}}</th> --}}
-                      {{-- <td style="display: none" id="quotation_id">{{$quotation['id']}}</td>
-                      <td>{{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_quantity, $quotation['Quotation Date'])}}</td>
-                      <td>{{$quotation['Quotation Date']}}</td>
-                      <td>{{$quotation['Customer']}}</td>
-                      <td>{{$quotation['Attention']}}</td>
-                      <td>{{$quotation['Payment Term']}}</td>
-                      <td>{{$quotation['Account Manager']}}</td> --}}
-
-
-                          
-                    </tr>
+                   
                   @endforeach
                     
                 </tbody>
               </table>
-              {{-- {{$quotations->links()}} --}}
+              
         </div>
       
 
@@ -118,15 +107,89 @@
 
 @section('scripts')
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+    
 
     <script>
+
+
+      function format ( item , quotation) {
+        
+
+        var temp = [];
+        var loop = 0;
+        
+        item.forEach(element => {
+            if (quotation.id == element.quotation_id) {
+               
+                temp[loop] = element;
+
+                // Object.assign(temp[loop], element);
+                loop++;
+                
+            }
+            
+        });
+        console.log(temp);
+        var td = "";
+        var index = 1;
+        var totalPrice = 0;
+        const generateElementString = (index,element) =>{
+          
+          return `
+          <tr>
+            <td>${index}</td>
+            <td>${element.name}</td>
+            <td>${element.description}</td>
+            <td>${element.quantity}</td>
+            <td>${element['unit price']}</td>
+            <td>${element['unit price'] * element.quantity}</td>
+          </tr>`;
+        }
+
+        temp.forEach(element=>{
+          td = td + generateElementString(index,element);
+          totalPrice = totalPrice + (element['unit price'] * element.quantity);
+          index++;
+        })
+
+        return (`<table class="table table-bordered table-sm"> 
+              <thead>
+                <tr class="font-weight-bold">
+                  <th scope="col" style="width:5%;"><strong>#</strong></th>
+                  <th scope="col" style="width:15%;"><strong>Name</strong></th>
+                  <th scope="col" style="width:45%;"><strong>Description</strong></th>
+                  <th scope="col" style="width:5%;"><strong>Qty</strong></th>
+                  <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
+                  <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                ${td}
+              </tr>  
+              </tbody>
+            </table>
+            <table class="table table-bordered no-margin table-sm">
+              <tr>
+                <th colspan="2" style="width:78.5%" scope="row">Discount</th>
+                <td>Rp. ${quotation.Discount}</td>
+              </tr>
+              <tr>
+                <th colspan="2" scope="row">Grand Total</th>
+                <td>Rp. ${totalPrice - quotation.Discount <= 0 ? 'FREE' : totalPrice - quotation.Discount}</td>
+              </tr>
+            </table>`
+          );
+
+     
+      }
         $(document).ready( function () {
-             $('#datatable').DataTable({
+          var dt = $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('test')}}",
                 columns : [
+                   
                     { "data": 'DT_RowIndex'},
                     { "data" : "Quotation_No"},
                     { "data" : "Quotation Date"},
@@ -135,15 +198,57 @@
                     { "data" : "Payment Term"},
                     { "data" : "Account Manager"},
                     {
-                      data: 'action', 
-                      name: 'action', 
-                      orderable: true, 
-                      searchable: true
+                      "class":          "details-control",
+                      "orderable":      false,
+                      "data":           'action',
+                      "defaultContent": ""
                     },
+                    // {
+                    //   data: 'action', 
+                    //   name: 'action', 
+                    //   orderable: true, 
+                    //   searchable: true
+                    // },
                     
                 ]
              });
+
+  var detailRows = [];
+  var values = window.data;
+ 
+ $('#datatable tbody').on( 'click', 'tr td.details-control', function () {
+     var tr = $(this).closest('tr');
+     var row = dt.row( tr );
+     var idx = $.inArray( tr.attr('id'), detailRows );
+
+     if ( row.child.isShown() ) {
+         tr.removeClass( 'details' );
+         row.child.hide();
+
+         // Remove from the 'open' array
+         detailRows.splice( idx, 1 );
+     }
+     else {
+         tr.addClass( 'details' );
+         row.child( format( values, row.data() ) ).show();
+
+         // Add to the 'open' array
+         if ( idx === -1 ) {
+             detailRows.push( tr.attr('id') );
+         }
+     }
+ } );
+
+ // On each draw, loop over the `detailRows` array and show any child rows
+ dt.on( 'draw', function () {
+     $.each( detailRows, function ( i, id ) {
+         $('#'+id+' td.details-control').trigger( 'click' );
+     } );
+ } );
+
         } );
+
+        
     </script>
     
 @endsection
