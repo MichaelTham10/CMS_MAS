@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	//quotation
 
-	Route::get('quotation/test', 'App\Http\Controllers\Quotation\QuotationController@index')->name('quotation');
+	Route::get('quotation', 'App\Http\Controllers\Quotation\QuotationController@index')->name('quotation');
 
 	Route::get('quotation/list', 'App\Http\Controllers\Quotation\QuotationController@list')->name('test');
 
@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/invoice/store', 'App\Http\Controllers\Invoice\InvoiceController@store');
 
 	Route::get('invoice', 'App\Http\Controllers\Invoice\InvoiceController@index')->name('invoice');
-
+	Route::get('invoice/list', 'App\Http\Controllers\Invoice\InvoiceController@list')->name('invoiceData');
 	Route::patch('/update/invoice/{invoice_id}', 'App\Http\Controllers\Invoice\InvoiceController@update');
 	Route::get('/editinvoice/{id}', 'App\Http\Controllers\Invoice\InvoiceController@editpage')->name('edit-invoice-controller');
 	Route::delete('/delete/invoice/{invoice_id}', 'App\Http\Controllers\Invoice\InvoiceController@delete');

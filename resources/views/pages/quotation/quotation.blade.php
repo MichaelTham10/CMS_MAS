@@ -185,33 +185,33 @@
       }
         $(document).ready( function () {
           var dt = $('#datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('test')}}",
-                columns : [
-                   
-                    { "data": 'DT_RowIndex'},
-                    { "data" : "Quotation_No"},
-                    { "data" : "Quotation Date"},
-                    { "data" : "Customer"},
-                    { "data" : "Attention"},
-                    { "data" : "Payment Term"},
-                    { "data" : "Account Manager"},
-                    {
-                      "class":          "details-control",
-                      "orderable":      false,
-                      "data":           'action',
-                      "defaultContent": ""
-                    },
-                    // {
-                    //   data: 'action', 
-                    //   name: 'action', 
-                    //   orderable: true, 
-                    //   searchable: true
-                    // },
-                    
-                ]
-             });
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('test')}}",
+          columns : [
+              
+              { "data": 'DT_RowIndex'},
+              { "data" : "Quotation_No"},
+              { "data" : "Quotation Date"},
+              { "data" : "Customer"},
+              { "data" : "Attention"},
+              { "data" : "Payment Term"},
+              { "data" : "Account Manager"},
+              {
+                "class":          "details-control",
+                "orderable":      false,
+                "data":           'action',
+                "defaultContent": ""
+              },
+              // {
+              //   data: 'action', 
+              //   name: 'action', 
+              //   orderable: true, 
+              //   searchable: true
+              // },
+              
+          ]
+        });
 
   var detailRows = [];
   var values = window.data;
@@ -240,10 +240,12 @@
  } );
 
  // On each draw, loop over the `detailRows` array and show any child rows
- dt.on( 'draw', function () {
-     $.each( detailRows, function ( i, id ) {
-         $('#'+id+' td.details-control').trigger( 'click' );
-     } );
+      dt.on( 'draw', function () 
+      {
+          $.each( detailRows, function ( i, id ) 
+          {
+              $('#'+id+' td.details-control').trigger( 'click' );
+          });
  } );
 
         } );

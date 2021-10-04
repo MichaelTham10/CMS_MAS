@@ -25,38 +25,6 @@ class QuotationController extends Controller
         return view('pages.quotation.quotation', compact('quotations', 'items'));
     }
 
-    public function test()
-    {
-        $quotations = Quotation::all();
-
-        return view('pages.quotation.test', compact('quotations'));
-    }
-
-    public function loopItem($quotation_id)
-    {
-      $items = Item::where('quotation_id', $quotation_id)->get();
-
-      $temp = '';
-
-      $loop = 1;
-
-      foreach($items as $item)
-      {
-        $temp .=
-        '<tr>
-        <th scope="row">'.$loop++.'</th>
-        <td>'.$item->name.'</td>
-        <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">'.$item->description.'</td>
-        <td>'.$item->quantity.'</td>
-        <td>Rp. '.number_format($item['unit price']).'</td>
-        </tr>';
-        
-      }
-
-
-      return $temp;
-    }
-
     public function list()
     {
         $query = Quotation::all();
@@ -64,25 +32,8 @@ class QuotationController extends Controller
         return datatables($query)
         ->addIndexColumn()
         ->addColumn('action', function($row){
-            
-            $table = '';
-           
-            $loop = 1;
-            foreach (Quotation::all() as $quotation) {
-              foreach (Item::where('quotation_id', $quotation->id)->get() as $item) {
-                $table .= '
-                <tr>
-                <th scope="row">'.$loop++.'</th>
-                <td>'.$item->name.'</td>
-                <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">'.$item->description.'</td>
-                <td>'.$item->quantity.'</td>
-                <td>Rp. '.number_format($item['unit price']).'</td>
-                </tr>';
-              }
-            }  
-            
             $actionBtn = 
-            '                      <td>
+            '<td>
             <div class="btn-group">
               <a href=""  class="btn btn-primary btn-sm" id="submit" data-toggle="modal" data-target="#modalDetail">Detail</a>
               <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
