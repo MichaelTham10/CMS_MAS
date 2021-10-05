@@ -65,7 +65,7 @@
   }
   .tab1 {
       display: inline-block;
-      margin-left: 58px;
+      margin-left: 42.5px;
   }
   .tab2 {
       display: inline-block;
@@ -81,7 +81,11 @@
   }
   .tab5 {
       display: inline-block;
-      margin-left: 12px;
+      margin-left: 55.5px;
+  }
+  .tab6 {
+      display: inline-block;
+      margin-left: 48px;
   }
   p {
     padding: 0;
@@ -97,45 +101,70 @@
   {
     border-top: 2px solid black;
   }
+  .footer-pdf
+  {
+    position: absolute;
+    width: 100rem;
+    height: 1.8rem;
+    background-color: rgb(8, 4, 75);
+    bottom: -45px;
+    left: -30rem;
+  }
+  .location-mail
+  {
+    position: absolute;
+    bottom: -15px;
+    font-size: 10px;
+  }
   </style>
 </head>
 <body>
   <div style="position: fixed; left:170px">
-    <img src="assets/img/brand/logo.png" style="width: 800px; opacity: 0.3; margin-top: 63%;">
+    <img src="assets/img/brand/logo.png" style="width: 800px; opacity: 0.3; margin-top: 60.5%;">
+  </div>
+  <div style="position: fixed; bottom: -45px" class="footer-pdf">
+    <div class="footer-pdf">
+    </div>
+  </div>
+  <div style="position: fixed; bottom: 10px" class="location-mail">
+    <div>
+      Head Office : <br>
+      88 Kasablanka Office Tower, Lt. 10 Unit E Jakarta | www.makroalphasolusindo.com
+    </div>
   </div>
   
-  </div>
-  <img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -40px; margin-top: 20px;" loading="lazy">
-  <div>
+</div>
+<img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -40px; margin-top: 20px;" loading="lazy">
+<div>
     <div class="title" style="padding-top: -20px;"> 
-      QUOTATION
+      Invoice
     </div>
     <div style="display: flex">
       <div style="font-size: 12px;">
         <span>
-          Customer<span class="tab0  break-word"></span>: {{$quotation['Customer']}} <br> 
+          Bill To<span class="tab0  break-word"></span>: {{$invoice['Bill To']}} <br> 
         </span>
         <span>
-          Attention<span class="tab1  break-word"></span>: {{$quotation['Attention']}}<br>
-        </span>
-        <span>
-          Payment Term<span class="tab2  break-word"></span>: {{$quotation['Payment Term']}}<br>
+          Address<span class="tab1  break-word"></span>: {{$invoice['Address']}}<br>
         </span>
       </div>
       <div style="padding-left: 470px; font-size: 12 px; width: 100%;">
         <span class="break-word">
-          Quotation No<span class="tab3 break-word"></span>: {{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_quantity, $quotation['Quotation Date'])}} <br>
+          Invoice No<span class="tab3 break-word"></span>: {{$invoice['Invoice No']}}  <br>
         </span>
         <span>
-          Quotation Date<span class="tab4 break-word"></span>: {{$quotation['Quotation Date']}} <br>
+          Invoice Date<span class="tab4 break-word"></span>: {{$invoice['Invoice Date']}} <br>
         </span>
         <span>
-          Account Manager<span class="tab5 break-word"></span>: {{$quotation['Account Manager']}}<br>
+          PO No<span class="tab5 break-word"></span>: {{$invoice['Quotation No']}} <br>
+        </span>
+        <span>
+          PO Date<span class="tab6 break-word"></span>: {{$invoice->quotation['Quotation Date']}} <br>
         </span>
       </div>
     </div>
     
-    <table class="table" style="margin-top: -30px">
+    <table class="table" style="margin-top: -15px">
       <thead>
         <tr>
           <th scope="col" style="width:8%; text-align: center;
@@ -149,7 +178,377 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($quotation->items as $item)
+        @foreach ($invoice->items($invoice['Quotation No']) as $item)
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['unit price']}}</td>
+          <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+        </tr>
         <tr>
           <td class="break-word" style="text-align: center;
           vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
@@ -168,7 +567,7 @@
     </table>
     @php
         $ppn = (($total / 100) * 10);
-        $discount = ($total/100) * $quotation['Discount'];
+        $discount = ($total/100);
     @endphp
     <br>
     <div class="table-responsive">
@@ -195,17 +594,12 @@
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-    <p>- Quotation is valid for 7 days</p>
-    <p>- Price include delivery</p>
-    <p>- Terms of Payment: Cash Before Delivery</p>
-    <p>- Payment is Bank Transfer to PT Makro Alpha Solusindo’s official Bank Account (BCA : 277-919-7888 an PT Makro Alpha</p>
-    <p>&nbsp;&nbsp;Solusindo)</p>
-    <p>- Service Delivery: 3-5 days</p>
-    <p>- Purchase Order that has been received cannot be cancelled (Cancellation Fee 50% of total PO will be applied for any cancellation)</p>
-    <p>- If there will be any request out of this quotation scope will be an additional charge</p>
+    <span>
+      {!!$invoice['Note']!!}
+    </span>
     <br>
     <div style="display: block">
-      <p>Sincerely Yours,</p>
+      <p><strong>Jakarta, {{ date('M-d-Y') }}</strong></p>
       <br>
       <br>
       <br>

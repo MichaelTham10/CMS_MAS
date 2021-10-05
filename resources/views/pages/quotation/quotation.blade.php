@@ -45,7 +45,7 @@
                 </div>
             </div>
     
-            <table class="table" id="datatable">
+            <table class="table" id="datatable" style="width:95%">
                 <thead>
                   <tr class="font-weight-bold">
                    
@@ -157,10 +157,10 @@
                 <tr class="font-weight-bold">
                   <th scope="col" style="width:5%;"><strong>#</strong></th>
                   <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                  <th scope="col" style="width:45%;"><strong>Description</strong></th>
+                  <th scope="col" style="width:30%;"><strong>Description</strong></th>
                   <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                  <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-                  <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                  <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
+                  <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
                 </tr>
               </thead>
               <tbody>
@@ -169,7 +169,7 @@
               </tr>  
               </tbody>
             </table>
-            <table class="table table-bordered no-margin table-sm">
+            <table class="table table-bordered no-margin table-sm" >
               <tr>
                 <th colspan="2" style="width:78.5%" scope="row">Discount</th>
                 <td>Rp. ${quotation.Discount}</td>

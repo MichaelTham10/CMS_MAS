@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	//pdf
 	Route::get('/quotation/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf');
+	Route::get('/invoice/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice');
 });
 
 
