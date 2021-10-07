@@ -3,90 +3,84 @@
 @section('content')
 @include('layouts.headers.cards')
 <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <style>
-      .modal-body-detail{
-        height: 400px; 
-        overflow: hidden;
-      }
-      .modal-body-detail:hover{
-        overflow-y:auto;
-      }
-      .pding{
-        padding:0 1.5rem 0 1.5rem;
-      }
-      .edit
-      {
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        hyphens: auto;
-      }
-      td{
-        white-space: normal !important;
-        text-align: justify;
-      }
+  <style>
+    .modal-body-detail{
+      height: 400px; 
+      overflow: hidden;
+    }
+    .modal-body-detail:hover{
+      overflow-y:auto;
+    }
+    .pding{
+      padding:0 1.5rem 0 1.5rem;
+    }
+    .edit{
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+    td{
+      white-space: normal !important;
+      text-align: justify;
+    }
+    .btn-create{
+      position: relative;
+      top: 0.8rem;
+      left: 90.1%;
+    }
+    .btn-create .btn{
+      padding: 6px 15px;
+      font-size: 14px;
+    }
+    .dataTables_length, .dataTables_filter{
+      padding-left:1.6rem; 
+      padding-right: 1.6rem;
+      font-size: 14px;
+    }
+    .dataTables_info, .dataTables_paginate{
+      font-size: 14px;
+      padding-left: 1.6rem;
+      padding-right: 0.8rem;
+    }
     </style>
 
     @if(Session::has('success'))
-        <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{Session::get('success')}}</strong>
-        </div>
+      <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{Session::get('success')}}</strong>
+      </div>
     @endif
         
     <div class="container-fluid">
-        <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="d-flex p-2 align-self-center justify-content-between">
-                <div class="d-flex align-self-center">
-                    <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
-                </div>
-            </div>
-    
-            <table class="table" id="datatable" style="width:95%">
-                <thead>
-                  <tr class="font-weight-bold">
-                    <th scope="col"><strong>#</strong></th>
-                    <th scope="col"><strong>Invoice No</strong></th>
-                    <th scope="col"><strong>Invoice Date</strong></th>
-                    <th scope="col"><strong>Bill To</strong></th>
-                    <th scope="col"><strong>Quotation No</strong></th>
-                    <th scope="col"><strong>Action</strong></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                    @foreach ($invoices as $invoice)
-                    
-                    @endforeach
-                </tbody>
-              </table>
+      <div class="rounded border mt-4" style="background-color: #fff">
+        <div class="btn-create">
+          <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
         </div>
-
-        <div class="d-flex justify-content-center pt-3">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-        </div>
+        <br>
+        <table class="table" id="datatable" style="width:100%">
+            <thead>
+              <tr class="font-weight-bold">
+                <th scope="col"><strong>#</strong></th>
+                <th scope="col"><strong>Invoice No</strong></th>
+                <th scope="col"><strong>Invoice Date</strong></th>
+                <th scope="col"><strong>Bill To</strong></th>
+                <th scope="col"><strong>Quotation No</strong></th>
+                <th scope="col"><strong>Action</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+                @foreach ($invoices as $invoice)
+                @endforeach
+            </tbody>
+          </table>
+        <div style="padding-bottom: 4px;"></div>
       </div>
+    </div>
 @endsection
-      <script type="text/javascript">
-        window.data = {!! json_encode($items) !!};
-      </script>
+
+<script type="text/javascript">
+  window.data = {!! json_encode($items) !!};
+</script>
 
 @section('scripts')
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
@@ -107,7 +101,6 @@
       var index = 1;
       var totalPrice = 0;
       const generateElementString = (index,element) =>{
-        
         return `
         <tr>
           <td>${index}</td>

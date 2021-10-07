@@ -29,6 +29,30 @@
       white-space: normal !important;
       text-align: justify;
     }
+    
+    .btn-create
+    {
+      position: relative;
+      top: 0.8rem;
+      left: 90.1%;
+    }
+
+    .btn-create .btn{
+      padding: 6px 15px;
+      font-size: 14px;
+    }
+
+    .dataTables_length, .dataTables_filter{
+      padding-left:1.6rem; 
+      padding-right: 1.6rem;
+      font-size: 14px;
+    }
+    .dataTables_info, .dataTables_paginate
+    {
+      font-size: 14px;
+      padding-left: 1.6rem;
+      padding-right: 0.8rem;
+    }
   </style>
     @if(Session::has('success'))
         <div class="alert alert-success">
@@ -38,14 +62,11 @@
     @endif
     <div class="container-fluid">
         <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="d-flex p-2 align-self-center justify-content-between">
-                
-                <div class="d-flex align-self-center">
-                    <a href="{{route('create')}}" class="btn btn-primary ">create</a>
-                </div>
+            <div class="btn-create">
+              <a href="{{route('create')}}" class="btn btn-primary ">create</a>
             </div>
-    
-            <table class="table" id="datatable" style="width:95%">
+            <br>
+            <table class="table" id="datatable" style="width:95%;">
                 <thead>
                   <tr class="font-weight-bold">
                    
@@ -70,6 +91,7 @@
                 </tbody>
               </table>
               
+              <div style="padding-bottom: 4px;"></div>
         </div>
       
 
