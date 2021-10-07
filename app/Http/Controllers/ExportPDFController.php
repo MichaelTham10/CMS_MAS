@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Quotation;
 use App\Models\Invoice;
 use App\Models\Item;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 class ExportPDFController extends Controller
 {
     public function pdf($id)

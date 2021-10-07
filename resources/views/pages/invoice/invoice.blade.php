@@ -53,7 +53,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
                     @foreach ($invoices as $invoice)
                     
                     @endforeach
@@ -145,11 +144,11 @@
           <table class="table table-bordered no-margin table-sm">
             <tr>
               <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-              <td>Rp. </td>
+              <td>Rp. ${invoice->quotation.Discount}</td>
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>Rp. </td>
+              <td>Rp. ${totalPrice - quotation.Discount <= 0 ? 'FREE' : totalPrice - quotation.Discount}</td>
             </tr>
           </table>`
         );
