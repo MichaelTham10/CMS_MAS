@@ -66,42 +66,10 @@
                   @foreach ($quotations as $quotation)
                    
                   @endforeach
-                    
                 </tbody>
               </table>
               
         </div>
-      
-
-        {{-- @if ($quotations->hasPages())
-        <div class="d-flex justify-content-center pt-3">
-             
-          <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                @if ($quotations->onFirstPage())
-                    <li class="page-item disabled"><span>&laquo;</span></li>
-                @else
-                    <li class="page-item"><a class="page-link" href="{{ $quotations->previousPageUrl() }}" rel="prev">&laquo;</a></li>
-                @endif
-                
-                {{-- Pagination quotations --}}
-                {{-- @for ($i = 1; $i <= $quotations->lastPage(); $i++)
-                <li class="page-item {{ ($quotations->currentPage() == $i) ? ' active' : '' }}">
-                    <a class="page-link" href="{{ $quotations->url($i) }}">{{ $i }}</a>
-                </li>
-               @endfor
-                {{-- Next Page Link --}}
-                {{-- @if ($quotations->hasMorePages())
-                    <li class="page-item"><a class="page-link" href="{{ $quotations->nextPageUrl() }}" rel="next">&raquo;</a></li>
-                @else
-                    <li class="page-item disabled"><span>&raquo;</span></li>
-                @endif
-              </ul>
-            </nav>
-        </div> --}}
-        {{-- @endif --}}
-        
-      {{-- </div> --}}
 @endsection
 
 

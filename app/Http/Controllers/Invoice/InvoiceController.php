@@ -240,6 +240,8 @@ class InvoiceController extends Controller
             </td>
             ';
             return $actionBtn;
-        })->make(true);
+        })
+        ->escapeColumns(null)
+        ->make(true);
     }
 }

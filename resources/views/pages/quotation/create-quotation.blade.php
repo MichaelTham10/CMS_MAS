@@ -90,6 +90,7 @@
                         <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
                         <script>
                             tinymce.init({
+                                forced_root_block : '',
                                 selector:'textarea.note',
                                 width: 940,
                                 height: 300,

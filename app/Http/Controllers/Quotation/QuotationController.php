@@ -75,7 +75,7 @@ class QuotationController extends Controller
             ';
             return $actionBtn;
         })
-       
+        ->escapeColumns(null)
         ->make(true);
 
     }
