@@ -176,6 +176,8 @@
 
     var detailRows = [];
     var values = window.data;
+
+    var test;
  
  $('#datatable tbody').on( 'click', 'tr td.details-control', function () {
      var tr = $(this).closest('tr');
