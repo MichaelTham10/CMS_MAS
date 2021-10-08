@@ -192,7 +192,7 @@
     </table>
     @php
         $ppn = (($total / 100) * 10);
-        $discount = ($total/100) * $quotation['Discount'];
+        // $discount = ($total/100) * $quotation['Discount'];
     @endphp
     <br>
     <div class="table-responsive">
@@ -200,7 +200,7 @@
         <table class="table table-bordered no-margin table-sm">
           <tr>
             <th colspan="2" style="width:44rem; background-color: #bbbcbd;" class="border-total" scope="row">Discount</th>
-            <td class="border-total" style="background-color: #bbbcbd;">IDR {{number_format($discount)}}</td>
+            <td class="border-total" style="background-color: #bbbcbd;">IDR {{number_format($quotation['Discount'])}}</td>
           </tr>
           <tr>
             <th colspan="2" style="background-color: rgb(235, 216, 131);" class="border-total" scope="row">Total</th>
@@ -212,7 +212,7 @@
           </tr>
           <tr>
             <th colspan="2" scope="row" style="background-color: rgb(235, 216, 131); border-bottom: 2px solid black; border-top: 2px solid black;">Grand Total</th>
-            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">IDR {{number_format(($total + $ppn) - $discount)}}</td>
+            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">IDR {{number_format(($total + $ppn) - $quotation['Discount'])}}</td>
           </tr>
         </table>
       </div>

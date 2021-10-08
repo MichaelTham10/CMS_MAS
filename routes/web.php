@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/item/store/{id}', 'App\Http\Controllers\ItemController@create');
 	Route::delete('/delete/item/{id}', 'App\Http\Controllers\ItemController@delete');
 	Route::patch('/update/item/{quotation_id}/{id}', 'App\Http\Controllers\ItemController@update');
+
+	Route::get('item/list/{quotation_id}', 'App\Http\Controllers\ItemController@list')->name('item-list');
 	
 	//pdf
 	Route::get('/quotation/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf');

@@ -52,9 +52,52 @@
     @endif
         
     <div class="container-fluid">
-      <div class="rounded border mt-4" style="background-color: #fff">
-        <div class="btn-create">
-          <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
+        <div class="rounded border mt-4" style="background-color: #fff">
+            <div class="d-flex p-2 align-self-center justify-content-between">
+                <div class="d-flex align-self-center">
+                    <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
+                </div>
+            </div>
+    
+            <table class="table" id="datatable" style="width:95%">
+                <thead>
+                  <tr class="font-weight-bold">
+                    <th scope="col"><strong>#</strong></th>
+                    <th scope="col"><strong>Invoice No</strong></th>
+                    <th scope="col"><strong>Invoice Date</strong></th>
+                    <th scope="col"><strong>Bill To</strong></th>
+                    <th scope="col"><strong>Quotation No</strong></th>
+                    <th scope="col"><strong>Action</strong></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($invoices as $invoice)
+                    
+                    @endforeach
+                </tbody>
+              </table>
+        </div>
+
+        <div class="d-flex justify-content-center pt-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
         </div>
         <br>
         <table class="table" id="datatable" style="width:100%">
@@ -100,6 +143,7 @@
       var td = "";
       var index = 1;
       var totalPrice = 0;
+      
       const generateElementString = (index,element) =>{
         return `
         <tr>
@@ -138,15 +182,15 @@
           <table class="table table-bordered no-margin table-sm">
             <tr>
               <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-              <td>Rp. </td>
+              <td>${invoice.quotation.Discount}</td>
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>Rp. </td>
+              <td>${totalPrice - invoice.quotation.Discount <= 0 ? 'FREE' : totalPrice - invoice.quotation.Discount}</td>
             </tr>
           </table>`
         );
-      }
+    }
     $(document).ready( function () {
       var dt = $('#datatable').DataTable({
         processing: true,
@@ -154,8 +198,8 @@
         ajax: "{{ route('invoiceData')}}",
         columns : 
         [
-          { "data" : 'DT_RowIndex'},
-          { "data" : "Invoice No"},
+         { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+          { "data" : 'Invoice No'},
           { "data" : "Invoice Date"},
           { "data" : "Bill To"},
           { "data" : "Quotation No"},
@@ -165,11 +209,14 @@
             "data":           'action',
             "defaultContent": ""
           },
+          { "data" : "quotation.Discount",visible:false},
         ]
       });
 
     var detailRows = [];
     var values = window.data;
+
+    var test;
  
  $('#datatable tbody').on( 'click', 'tr td.details-control', function () {
      var tr = $(this).closest('tr');
@@ -197,6 +244,7 @@
       });
   });
     });
+    console.log(dt);
  } );
 
   </script>
