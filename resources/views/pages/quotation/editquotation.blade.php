@@ -1,6 +1,40 @@
 @extends('layouts.app', ['title' => 'Edit Quotation'])
 
 @section('content')
+
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/> --}}
+<style>
+    .btn-create
+    {
+      position: relative;
+      left: 90.1%;
+    }
+
+    .btn-create .btn{
+      padding: 6px 15px;
+      font-size: 14px;
+    }
+    /* .dataTables_wrapper .dataTables_info {
+    clear: both;
+    float: left;
+    padding-top: 0.755em;
+}
+    .dataTables_wrapper{
+        padding-top: 0.755em;
+
+    }
+    .dataTables_filter{
+        position: absolute;
+        left: 71.4%;
+        bottom: 22%;
+    } */
+    .dataTables_length{
+        font-size: 14px;
+    }
+    .atatable_filter{
+        font-size: 14px;
+    }
+</style>
 @include('layouts.headers.cards')
     @if(Session::has('success'))
 
@@ -98,31 +132,30 @@
                 <div>
                     Items
                 </div>
-                <hr class="mt-2 mb-2">
-                <div class="d-flex pb-2 align-self-center justify-content-between">
-                    <div class="d-flex align-self-center float-left">
-                        <a href="/create/items/{{$quotation->id}}" class="btn btn-primary">create</a>
-                    </div>
+                <hr style="margin: 0; margin-bottom: 2px;">
+               
+                <div class="btn-create">
+                    <a href="/create/items/{{$quotation->id}}" class="btn btn-primary">create</a>
                 </div>
-            
-                <table class="table" id="datatable">
+                <table class="table" id="datatable" style="width: 100%">
                     <thead>
                         <tr class="font-weight-bold">
-                        <th scope="col" style="width:5%;"><strong>#</strong></th>
-                        <th scope="col"><strong>Name</strong></th>
-                        <th scope="col"><strong>Description</strong></th>
-                        <th scope="col"><strong>Qty</strong></th>
-                        <th scope="col"><strong>Unit Price</strong></th>
-                        <th scope="col"><strong>Total Price</strong></th>
-                        <th scope="col"><strong>Action</strong></th>
+                            <th scope="col"><strong>#</strong></th>
+                            <th scope="col"><strong>Name</strong></th>
+                            <th scope="col"><strong>Description</strong></th>
+                            <th scope="col"><strong>Qty</strong></th>
+                            <th scope="col"><strong>Unit Price</strong></th>
+                            <th scope="col"><strong>Total Price</strong></th>
+                            <th scope="col"><strong>Action</strong></th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <script type="text/javascript">
+                </thead>
+                <tbody>
+                    <script type="text/javascript">
                             window.data = {!! json_encode($quotation->id) !!};
                         </script>
                     </tbody>
                 </table>
+       
             </div>
         </div>   
     </div>
@@ -131,7 +164,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
     
     <script>
         var values = window.data;
