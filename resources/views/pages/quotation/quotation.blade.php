@@ -84,9 +84,7 @@
                   <script type="text/javascript">
                     window.data = {!! json_encode($items) !!};
                   </script>
-                  @foreach ($quotations as $quotation)
-                   
-                  @endforeach
+                  
                 </tbody>
               </table>
               
@@ -113,13 +111,13 @@
                
                 temp[loop] = element;
 
-                // Object.assign(temp[loop], element);
+                
                 loop++;
                 
             }
             
         });
-        console.log(temp);
+        
         var td = "";
         var index = 1;
         var totalPrice = 0;
@@ -173,35 +171,29 @@
 
      
       }
-        $(document).ready( function () {
-          var dt = $('#datatable').DataTable({
-          processing: true,
-          serverSide: true,
-          ajax: "{{ route('test')}}",
-          columns : [
-              
-              { "data": 'DT_RowIndex'},
-              { "data" : "Quotation_No"},
-              { "data" : "Quotation Date"},
-              { "data" : "Customer"},
-              { "data" : "Attention"},
-              { "data" : "Payment Term"},
-              { "data" : "Account Manager"},
-              {
-                "class":          "details-control",
-                "orderable":      false,
-                "data":           'action',
-                "defaultContent": ""
-              },
-              // {
-              //   data: 'action', 
-              //   name: 'action', 
-              //   orderable: true, 
-              //   searchable: true
-              // },
-              
-          ]
-        });
+      $(document).ready( function () {
+        var dt = $('#datatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('test')}}",
+        columns : [
+            
+            { "data": 'DT_RowIndex'},
+            { "data" : "Quotation_No"},
+            { "data" : "Quotation Date"},
+            { "data" : "Customer"},
+            { "data" : "Attention"},
+            { "data" : "Payment Term"},
+            { "data" : "Account Manager"},
+            {
+              "class":          "details-control",
+              "orderable":      false,
+              "data":           'action',
+              "defaultContent": ""
+            }
+            
+        ]
+      });
 
   var detailRows = [];
   var values = window.data;

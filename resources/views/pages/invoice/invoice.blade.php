@@ -53,71 +53,30 @@
         
     <div class="container-fluid">
         <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="d-flex p-2 align-self-center justify-content-between">
-                <div class="d-flex align-self-center">
-                    <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
-                </div>
+            <div class="btn-create">
+              <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
             </div>
-    
-            <table class="table" id="datatable" style="width:95%">
-                <thead>
-                  <tr class="font-weight-bold">
-                    <th scope="col"><strong>#</strong></th>
-                    <th scope="col"><strong>Invoice No</strong></th>
-                    <th scope="col"><strong>Invoice Date</strong></th>
-                    <th scope="col"><strong>Bill To</strong></th>
-                    <th scope="col"><strong>Quotation No</strong></th>
-                    <th scope="col"><strong>Action</strong></th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($invoices as $invoice)
-                    
-                    @endforeach
-                </tbody>
-              </table>
+            <br>
+            <table class="table" id="datatable" style="width:100%">
+              <thead>
+                <tr class="font-weight-bold">
+                  <th scope="col"><strong>#</strong></th>
+                  <th scope="col"><strong>Invoice No</strong></th>
+                  <th scope="col"><strong>Invoice Date</strong></th>
+                  <th scope="col"><strong>Bill To</strong></th>
+                  <th scope="col"><strong>Quotation No</strong></th>
+                  <th scope="col"><strong>Action</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                  @foreach ($invoices as $invoice)
+                  @endforeach
+              </tbody>
+            </table>
+            
         </div>
 
-        <div class="d-flex justify-content-center pt-3">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-        </div>
-        <br>
-        <table class="table" id="datatable" style="width:100%">
-            <thead>
-              <tr class="font-weight-bold">
-                <th scope="col"><strong>#</strong></th>
-                <th scope="col"><strong>Invoice No</strong></th>
-                <th scope="col"><strong>Invoice Date</strong></th>
-                <th scope="col"><strong>Bill To</strong></th>
-                <th scope="col"><strong>Quotation No</strong></th>
-                <th scope="col"><strong>Action</strong></th>
-              </tr>
-            </thead>
-            <tbody>
-                @foreach ($invoices as $invoice)
-                @endforeach
-            </tbody>
-          </table>
         <div style="padding-bottom: 4px;"></div>
-      </div>
     </div>
 @endsection
 
@@ -139,7 +98,7 @@
         }
       });
 
-      console.log(temp);
+      
       var td = "";
       var index = 1;
       var totalPrice = 0;
@@ -218,34 +177,34 @@
 
     var test;
  
- $('#datatable tbody').on( 'click', 'tr td.details-control', function () {
-     var tr = $(this).closest('tr');
-     var row = dt.row( tr );
-     var idx = $.inArray( tr.attr('id'), detailRows );
+    $('#datatable tbody').on( 'click', 'tr td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = dt.row( tr );
+        var idx = $.inArray( tr.attr('id'), detailRows );
 
-     if ( row.child.isShown() ) {
-         tr.removeClass( 'details' );
-         row.child.hide();
+        if ( row.child.isShown() ) {
+            tr.removeClass( 'details' );
+            row.child.hide();
 
-         detailRows.splice( idx, 1 );
-     }
-     else {
-         tr.addClass( 'details' );
-         row.child( format( values, row.data() ) ).show();
+            detailRows.splice( idx, 1 );
+        }
+        else {
+            tr.addClass( 'details' );
+            row.child( format( values, row.data() ) ).show();
 
-         if ( idx === -1 ) {
-             detailRows.push( tr.attr('id') );
-         }
-     }
-    dt.on( 'draw', function (){
-      $.each( detailRows, function ( i, id ) 
-      {
-          $('#'+id+' td.details-control').trigger( 'click' );
+            if ( idx === -1 ) {
+                detailRows.push( tr.attr('id') );
+            }
+        }
+          dt.on( 'draw', function (){
+            $.each( detailRows, function ( i, id ) 
+            {
+                $('#'+id+' td.details-control').trigger( 'click' );
+            });
+        });
       });
-  });
+        
     });
-    console.log(dt);
- } );
 
   </script>
 @endsection
