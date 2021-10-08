@@ -1,5 +1,9 @@
 @extends('layouts.app', ['class' => 'bg-default'])
 
+@section('page-title')
+    Welcome
+@endsection
+
 @section('content')
     <div class="header bg-gradient-primary py-7 py-lg-8">
         <div class="container">

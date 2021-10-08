@@ -1,48 +1,33 @@
 @extends('layouts.app', ['title' => 'Invoice'])
 
+@section('head-title')
+    Invoice
+@endsection
+
+@section('page-title')
+    Invoice
+@endsection
+
+@section('styles')
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
+    
+@endsection
+
 @section('content')
 @include('layouts.headers.cards')
-<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
   <style>
-    .modal-body-detail{
-      height: 400px; 
-      overflow: hidden;
-    }
-    .modal-body-detail:hover{
-      overflow-y:auto;
-    }
-    .pding{
-      padding:0 1.5rem 0 1.5rem;
-    }
-    .edit{
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
-    }
-    td{
-      white-space: normal !important;
-      text-align: justify;
+    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
     }
     .btn-create{
+      padding: 5px;
       position: relative;
-      top: 0.8rem;
-      left: 90.1%;
+      left: 90.2%;
     }
-    .btn-create .btn{
-      padding: 6px 15px;
-      font-size: 14px;
-    }
-    .dataTables_length, .dataTables_filter{
-      padding-left:1.6rem; 
-      padding-right: 1.6rem;
-      font-size: 14px;
-    }
-    .dataTables_info, .dataTables_paginate{
-      font-size: 14px;
-      padding-left: 1.6rem;
-      padding-right: 0.8rem;
-    }
-    </style>
+  </style>
 
     @if(Session::has('success'))
       <div class="alert alert-success">
@@ -52,31 +37,28 @@
     @endif
         
     <div class="container-fluid">
-        <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="btn-create">
-              <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
-            </div>
-            <br>
-            <table class="table" id="datatable" style="width:100%">
-              <thead>
-                <tr class="font-weight-bold">
-                  <th scope="col"><strong>#</strong></th>
-                  <th scope="col"><strong>Invoice No</strong></th>
-                  <th scope="col"><strong>Invoice Date</strong></th>
-                  <th scope="col"><strong>Bill To</strong></th>
-                  <th scope="col"><strong>Quotation No</strong></th>
-                  <th scope="col"><strong>Action</strong></th>
-                </tr>
-              </thead>
-              <tbody>
-                  @foreach ($invoices as $invoice)
-                  @endforeach
-              </tbody>
-            </table>
-            
+      <div class="rounded border mt-4" style="background-color: #fff">
+        <div class="btn-create">
+          <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
         </div>
-
-        <div style="padding-bottom: 4px;"></div>
+        <table class="table" id="datatable" style="width:98%; margin-left: 10px;">
+          <thead>
+            <tr class="font-weight-bold">
+              <th scope="col"><strong>#</strong></th>
+              <th scope="col"><strong>Invoice No</strong></th>
+              <th scope="col"><strong>Invoice Date</strong></th>
+              <th scope="col"><strong>Bill To</strong></th>
+              <th scope="col"><strong>Quotation No</strong></th>
+              <th scope="col"><strong>Action</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+              @foreach ($invoices as $invoice)
+              @endforeach
+          </tbody>
+        </table>
+        <div style="padding-bottom: 6px;"></div>
+      </div>
     </div>
 @endsection
 
@@ -85,7 +67,7 @@
 </script>
 
 @section('scripts')
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
     function format ( items , invoice) {
       var temp = [];
@@ -157,11 +139,11 @@
         ajax: "{{ route('invoiceData')}}",
         columns : 
         [
-         { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+          { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
           { "data" : 'Invoice No'},
           { "data" : "Invoice Date"},
           { "data" : "Bill To"},
-          { "data" : "Quotation No"},
+          { "data" : "quotation.Quotation_No"},
           {
             "class":          "details-control",
             "orderable":      false,
@@ -177,7 +159,7 @@
 
     var test;
  
-    $('#datatable tbody').on( 'click', 'tr td.details-control', function () {
+    $('#datatable tbody').on( 'click', '#submit', function () {
         var tr = $(this).closest('tr');
         var row = dt.row( tr );
         var idx = $.inArray( tr.attr('id'), detailRows );

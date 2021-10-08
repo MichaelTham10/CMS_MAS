@@ -1,5 +1,13 @@
 @extends('layouts.app', ['title' => 'Create Quotation'])
 
+@section('head-title')
+    Create Quotation
+@endsection
+
+@section('page-title')
+    Create Quotation
+@endsection
+
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
@@ -86,13 +94,13 @@
                         <label for="note">Terms & Condition</label>
                         <textarea class="note" @error('terms')
                         is invalid
-                        @enderror name="terms">Terms and condition\n aaaaa</textarea>
+                        @enderror name="terms"></textarea>
                         <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
                         <script>
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 940,
+                                width: 1140,
                                 height: 300,
                             });
                         </script>

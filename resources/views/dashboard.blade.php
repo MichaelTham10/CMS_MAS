@@ -1,4 +1,12 @@
-@extends('layouts.app', ['title' => 'Dashboard'])
+@extends('layouts.app')
+
+@section('head-title')
+    Dashboard
+@endsection
+
+@section('page-title')
+    Dashboard
+@endsection
 
 @section('content')
     @include('layouts.headers.cards')
@@ -32,6 +40,7 @@
                         Total Invoice
                     </div>
                     <div class="font-weight-bold display-4">
+                        
                         IDR. 141.000.000.-
                     </div>
                 </div>

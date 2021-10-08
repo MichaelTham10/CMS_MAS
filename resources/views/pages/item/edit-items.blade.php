@@ -1,5 +1,13 @@
 @extends('layouts.app', ['title' => 'Edit Item'])
 
+@section('head-title')
+    Edit Item
+@endsection
+
+@section('page-title')
+    Edit Item
+@endsection
+
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
