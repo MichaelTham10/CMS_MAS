@@ -29,6 +29,30 @@
       white-space: normal !important;
       text-align: justify;
     }
+    
+    .btn-create
+    {
+      position: relative;
+      top: 0.8rem;
+      left: 90.1%;
+    }
+
+    .btn-create .btn{
+      padding: 6px 15px;
+      font-size: 14px;
+    }
+
+    .dataTables_length, .dataTables_filter{
+      padding-left:1.6rem; 
+      padding-right: 1.6rem;
+      font-size: 14px;
+    }
+    .dataTables_info, .dataTables_paginate
+    {
+      font-size: 14px;
+      padding-left: 1.6rem;
+      padding-right: 0.8rem;
+    }
   </style>
     @if(Session::has('success'))
         <div class="alert alert-success">
@@ -38,14 +62,11 @@
     @endif
     <div class="container-fluid">
         <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="d-flex p-2 align-self-center justify-content-between">
-                
-                <div class="d-flex align-self-center">
-                    <a href="{{route('create')}}" class="btn btn-primary ">create</a>
-                </div>
+            <div class="btn-create">
+              <a href="{{route('create')}}" class="btn btn-primary ">create</a>
             </div>
-    
-            <table class="table" id="datatable">
+            <br>
+            <table class="table" id="datatable" style="width:95%;">
                 <thead>
                   <tr class="font-weight-bold">
                    
@@ -70,6 +91,7 @@
                 </tbody>
               </table>
               
+              <div style="padding-bottom: 4px;"></div>
         </div>
       
 
@@ -157,10 +179,10 @@
                 <tr class="font-weight-bold">
                   <th scope="col" style="width:5%;"><strong>#</strong></th>
                   <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                  <th scope="col" style="width:45%;"><strong>Description</strong></th>
+                  <th scope="col" style="width:30%;"><strong>Description</strong></th>
                   <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                  <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-                  <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                  <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
+                  <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
                 </tr>
               </thead>
               <tbody>
@@ -169,7 +191,7 @@
               </tr>  
               </tbody>
             </table>
-            <table class="table table-bordered no-margin table-sm">
+            <table class="table table-bordered no-margin table-sm" >
               <tr>
                 <th colspan="2" style="width:78.5%" scope="row">Discount</th>
                 <td>Rp. ${quotation.Discount}</td>
@@ -185,33 +207,33 @@
       }
         $(document).ready( function () {
           var dt = $('#datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('test')}}",
-                columns : [
-                   
-                    { "data": 'DT_RowIndex'},
-                    { "data" : "Quotation_No"},
-                    { "data" : "Quotation Date"},
-                    { "data" : "Customer"},
-                    { "data" : "Attention"},
-                    { "data" : "Payment Term"},
-                    { "data" : "Account Manager"},
-                    {
-                      "class":          "details-control",
-                      "orderable":      false,
-                      "data":           'action',
-                      "defaultContent": ""
-                    },
-                    // {
-                    //   data: 'action', 
-                    //   name: 'action', 
-                    //   orderable: true, 
-                    //   searchable: true
-                    // },
-                    
-                ]
-             });
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('test')}}",
+          columns : [
+              
+              { "data": 'DT_RowIndex'},
+              { "data" : "Quotation_No"},
+              { "data" : "Quotation Date"},
+              { "data" : "Customer"},
+              { "data" : "Attention"},
+              { "data" : "Payment Term"},
+              { "data" : "Account Manager"},
+              {
+                "class":          "details-control",
+                "orderable":      false,
+                "data":           'action',
+                "defaultContent": ""
+              },
+              // {
+              //   data: 'action', 
+              //   name: 'action', 
+              //   orderable: true, 
+              //   searchable: true
+              // },
+              
+          ]
+        });
 
   var detailRows = [];
   var values = window.data;
@@ -240,10 +262,12 @@
  } );
 
  // On each draw, loop over the `detailRows` array and show any child rows
- dt.on( 'draw', function () {
-     $.each( detailRows, function ( i, id ) {
-         $('#'+id+' td.details-control').trigger( 'click' );
-     } );
+      dt.on( 'draw', function () 
+      {
+          $.each( detailRows, function ( i, id ) 
+          {
+              $('#'+id+' td.details-control').trigger( 'click' );
+          });
  } );
 
         } );
