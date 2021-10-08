@@ -1,5 +1,18 @@
 @extends('layouts.app', ['title' => 'Edit Quotation'])
 
+@section('head-title')
+    Edit Quotation
+@endsection
+
+@section('page-title')
+    Edit Quotation
+@endsection
+
+@section('styles')
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
+    
+@endsection
+
 @section('content')
 @include('layouts.headers.cards')
     @if(Session::has('success'))
@@ -71,7 +84,7 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 970,
+                                width: 1140,
                                 height: 300,
                             });
                         </script>
@@ -93,8 +106,8 @@
             }
         </style>
 
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
+        <div style="background-color: #fff; width: 100%; height: 100%;">
+            <div>
                 <div>
                     Items
                 </div>
@@ -108,7 +121,7 @@
                 <table class="table" id="datatable">
                     <thead>
                         <tr class="font-weight-bold">
-                        <th scope="col" style="width:5%;"><strong>#</strong></th>
+                        <th scope="col"><strong>#</strong></th>
                         <th scope="col"><strong>Name</strong></th>
                         <th scope="col"><strong>Description</strong></th>
                         <th scope="col"><strong>Qty</strong></th>
@@ -131,7 +144,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
     
     <script>
         var values = window.data;
@@ -155,11 +168,10 @@
               {
                 "class":          "details-control",
                 "orderable":      false,
+                "searchable" : false,
                 "data":           'action',
                 "defaultContent": ""
-              },
-             
-              
+              },   
           ]
         });
 

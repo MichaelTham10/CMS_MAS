@@ -1,5 +1,13 @@
 @extends('layouts.app', ['title' => "Change Password"])
 
+@section('head-title')
+    Change Password
+@endsection
+
+@section('page-title')
+    Change Password
+@endsection
+
 @section('content')
     @include('layouts.headers.cards')
 

@@ -1,58 +1,31 @@
 @extends('layouts.app', ['title' => 'Quotation'])
 
+@section('head-title')
+  Quotation
+@endsection
+
+@section('page-title')
+   Quotation
+@endsection
 
 @section('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
+
     
 @endsection
 
 @section('content')
 @include('layouts.headers.cards')
   <style>
-    .modal-body-detail{
-      height: 400px; 
-      overflow: hidden;
-    }
-    .modal-body-detail:hover{
-      overflow-y:auto;
-    }
-    .pding{
-      padding:0 1.5rem 0 1.5rem;
-    }
-    .edit
-    {
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
-    }
+   
     td{
       white-space: normal !important;
       text-align: justify;
     }
+
     
-    .btn-create
-    {
-      position: relative;
-      top: 0.8rem;
-      left: 90.1%;
-    }
-
-    .btn-create .btn{
-      padding: 6px 15px;
-      font-size: 14px;
-    }
-
-    .dataTables_length, .dataTables_filter{
-      padding-left:1.6rem; 
-      padding-right: 1.6rem;
-      font-size: 14px;
-    }
-    .dataTables_info, .dataTables_paginate
-    {
-      font-size: 14px;
-      padding-left: 1.6rem;
-      padding-right: 0.8rem;
-    }
+    
+   
   </style>
     @if(Session::has('success'))
         <div class="alert alert-success">
@@ -66,7 +39,7 @@
               <a href="{{route('create')}}" class="btn btn-primary ">create</a>
             </div>
             <br>
-            <table class="table" id="datatable" style="width:95%;">
+            <table class="table" id="datatable" style="width: 98%">
                 <thead>
                   <tr class="font-weight-bold">
                    
@@ -94,14 +67,11 @@
 
 
 @section('scripts')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-    
-
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
     <script>
 
 
       function format ( item , quotation) {
-        
 
         var temp = [];
         var loop = 0;
@@ -110,14 +80,10 @@
             if (quotation.id == element.quotation_id) {
                
                 temp[loop] = element;
-
-                
                 loop++;
-                
             }
             
         });
-        
         var td = "";
         var index = 1;
         var totalPrice = 0;
@@ -193,12 +159,13 @@
             }
             
         ]
+        
       });
 
   var detailRows = [];
   var values = window.data;
  
- $('#datatable tbody').on( 'click', 'tr td.details-control', function () {
+ $('#datatable tbody').on( 'click', '#submit', function () {
      var tr = $(this).closest('tr');
      var row = dt.row( tr );
      var idx = $.inArray( tr.attr('id'), detailRows );

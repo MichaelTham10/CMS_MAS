@@ -1,5 +1,13 @@
 @extends('layouts.app', ['title' => 'Edit Profile'])
 
+@section('head-title')
+    Edit Profile
+@endsection
+
+@section('page-title')
+    Edit Profile
+@endsection
+
 @section('content')
     @include('layouts.headers.cards')
 

@@ -6093,13 +6093,14 @@ input[type='button'].btn-block
 .page-item:first-child .page-link
 {
     margin-left: 0;
-
+    width: 75px;
     border-top-left-radius: .375rem;
     border-bottom-left-radius: .375rem;
 }
 
 .page-item:last-child .page-link
 {
+    width: 75px;
     border-top-right-radius: .375rem;
     border-bottom-right-radius: .375rem;
 }
@@ -20221,7 +20222,7 @@ textarea[resize='horizontal']
     margin: 0 3px;
     padding: 0;
 
-    border-radius: 50% !important;
+    
 
     align-items: center;
     justify-content: center;

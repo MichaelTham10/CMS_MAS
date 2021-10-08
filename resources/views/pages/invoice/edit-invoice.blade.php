@@ -1,5 +1,13 @@
 @extends('layouts.app', ['title' => 'Edit Invoice'])
 
+@section('head-title')
+    Edit Voice
+@endsection
+
+@section('page-title')
+    Edit Voice
+@endsection
+
 @section('content')
 @include('layouts.headers.cards')
     @if(Session::has('success'))
@@ -60,7 +68,7 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 970,
+                                width: 1140,
                                 height: 300,
                             });
                         </script>

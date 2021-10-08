@@ -1,5 +1,13 @@
 @extends('layouts.app', ['title' => 'Create Item'])
 
+@section('head-title')
+    Create Item
+@endsection
+
+@section('page-title')
+    Create Item
+@endsection
+
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
@@ -52,7 +60,7 @@
                         tinymce.init({
                             forced_root_block : '',
                             selector:'textarea.note',
-                            width: 970,
+                            width: 1140,
                             height: 300,
                         });
                     </script>
