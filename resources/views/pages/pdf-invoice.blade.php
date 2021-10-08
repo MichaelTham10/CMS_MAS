@@ -156,7 +156,7 @@
           Invoice Date<span class="tab4 break-word"></span>: {{$invoice['Invoice Date']}} <br>
         </span>
         <span>
-          PO No<span class="tab5 break-word"></span>: {{$invoice['Quotation No']}} <br>
+          PO No<span class="tab5 break-word"></span>: {{$invoice->quotation['Quotation_No']}} <br>
         </span>
         <span>
           PO Date<span class="tab6 break-word"></span>: {{$invoice->quotation['Quotation Date']}} <br>

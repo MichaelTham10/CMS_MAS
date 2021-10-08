@@ -105,6 +105,7 @@
       var td = "";
       var index = 1;
       var totalPrice = 0;
+      
       const generateElementString = (index,element) =>{
         
         return `
@@ -144,15 +145,15 @@
           <table class="table table-bordered no-margin table-sm">
             <tr>
               <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-              <td>Rp. ${invoice->quotation.Discount}</td>
+              <td>${invoice.quotation.Discount}</td>
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>Rp. ${totalPrice - quotation.Discount <= 0 ? 'FREE' : totalPrice - quotation.Discount}</td>
+              <td>${totalPrice - invoice.quotation.Discount <= 0 ? 'FREE' : totalPrice - invoice.quotation.Discount}</td>
             </tr>
           </table>`
         );
-      }
+    }
     $(document).ready( function () {
       var dt = $('#datatable').DataTable({
         processing: true,
@@ -160,8 +161,8 @@
         ajax: "{{ route('invoiceData')}}",
         columns : 
         [
-          { "data" : 'DT_RowIndex'},
-          { "data" : "Invoice No"},
+         { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+          { "data" : 'Invoice No'},
           { "data" : "Invoice Date"},
           { "data" : "Bill To"},
           { "data" : "Quotation No"},
@@ -171,6 +172,7 @@
             "data":           'action',
             "defaultContent": ""
           },
+          { "data" : "quotation.Discount",visible:false},
         ]
       });
 
@@ -205,6 +207,7 @@
       });
   });
     });
+    console.log(dt);
  } );
 
   </script>

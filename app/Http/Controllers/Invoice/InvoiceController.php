@@ -193,7 +193,7 @@ class InvoiceController extends Controller
     }
     public function list()
     {
-        $query = Invoice::all();
+        $query = Invoice::with('quotation');
         
         return datatables($query)
         ->addIndexColumn()
