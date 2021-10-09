@@ -14,15 +14,26 @@
 @endsection
 
 @section('content')
+
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/> --}}
+<style>
+    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .btn-create{
+    padding: 5px;
+    position: relative;
+    left: 90.2%;
+  }
+</style>
 @include('layouts.headers.cards')
     @if(Session::has('success'))
-
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{Session::get('success')}}</strong>
-
-            </div>
-
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{Session::get('success')}}</strong>
+        </div>
     @endif
 
     <div class="container-fluid">
@@ -106,19 +117,22 @@
             }
         </style>
 
+<<<<<<< HEAD
         <div style="background-color: #fff; width: 100%; height: 100%;">
             <div>
                 <div>
+=======
+        <div class="" style="">
+            <div class="rounded border mt-4" style="background-color: #fff;padding: 10px;">
+                <div style="padding: 2px;">
+>>>>>>> c21f7cdeae963037a9c5486ba8212721c23c7c4b
                     Items
                 </div>
-                <hr class="mt-2 mb-2">
-                <div class="d-flex pb-2 align-self-center justify-content-between">
-                    <div class="d-flex align-self-center float-left">
-                        <a href="/create/items/{{$quotation->id}}" class="btn btn-primary">create</a>
-                    </div>
+                <hr class="mt-0 mb-0">
+                <div class="btn-create">
+                    <a href="/create/items/{{$quotation->id}}" class="btn btn-primary">create</a>
                 </div>
-            
-                <table class="table" id="datatable">
+                <table class="table" id="datatable" style="width: 100%">
                     <thead>
                         <tr class="font-weight-bold">
                         <th scope="col"><strong>#</strong></th>
@@ -129,9 +143,9 @@
                         <th scope="col"><strong>Total Price</strong></th>
                         <th scope="col"><strong>Action</strong></th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <script type="text/javascript">
+                </thead>
+                <tbody>
+                    <script type="text/javascript">
                             window.data = {!! json_encode($quotation->id) !!};
                         </script>
                     </tbody>

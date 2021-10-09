@@ -17,8 +17,17 @@
 @include('layouts.headers.cards')
 
   <style>
-    
-    </style>
+    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+    }
+    .btn-create{
+      padding: 5px;
+      position: relative;
+      left: 90.2%;
+    }
+  </style>
 
     @if(Session::has('success'))
       <div class="alert alert-success">
@@ -28,31 +37,34 @@
     @endif
         
     <div class="container-fluid">
-        <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="btn-create">
-              <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
-            </div>
-            <br>
-            <table class="table" id="datatable" style="width:100%">
-              <thead>
-                <tr class="font-weight-bold">
-                  <th scope="col"><strong>#</strong></th>
-                  <th scope="col"><strong>Invoice No</strong></th>
-                  <th scope="col"><strong>Invoice Date</strong></th>
-                  <th scope="col"><strong>Bill To</strong></th>
-                  <th scope="col"><strong>Quotation No</strong></th>
-                  <th scope="col"><strong>Action</strong></th>
-                </tr>
-              </thead>
-              <tbody>
-                  @foreach ($invoices as $invoice)
-                  @endforeach
-              </tbody>
-            </table>
-            
+      <div class="rounded border mt-4" style="background-color: #fff">
+        <div class="btn-create">
+          <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
         </div>
-
-        <div style="padding-bottom: 4px;"></div>
+        <table class="table" id="datatable" style="width:98%; margin-left: 10px;">
+          <thead>
+            <tr class="font-weight-bold">
+              <th scope="col"><strong>#</strong></th>
+              <th scope="col"><strong>Invoice No</strong></th>
+              <th scope="col"><strong>Invoice Date</strong></th>
+              <th scope="col"><strong>Bill To</strong></th>
+              <th scope="col"><strong>Quotation No</strong></th>
+              <th scope="col"><strong>Action</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+             <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding-bottom: 6px;"></div>
+      </div>
     </div>
 @endsection
 
@@ -127,7 +139,8 @@
         );
     }
     $(document).ready( function () {
-      var dt = $('#datatable').DataTable({
+      var dt = $('#datatable').DataTable(
+        {
         processing: true,
         serverSide: true,
         ajax: "{{ route('invoiceData')}}",

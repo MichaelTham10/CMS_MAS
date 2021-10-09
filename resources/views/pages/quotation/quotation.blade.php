@@ -16,53 +16,55 @@
 
 @section('content')
 @include('layouts.headers.cards')
-  <style>
-   
-    td{
-      white-space: normal !important;
-      text-align: justify;
-    }
-
-    
-    
-   
-  </style>
-    @if(Session::has('success'))
-        <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{Session::get('success')}}</strong>
-        </div>
-    @endif
-    <div class="container-fluid">
-        <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="btn-create">
-              <a href="{{route('create')}}" class="btn btn-primary ">create</a>
-            </div>
-            <br>
-            <table class="table" id="datatable" style="width: 98%">
-                <thead>
-                  <tr class="font-weight-bold">
-                   
-                    <th scope="col"><strong>#</strong></th>
-                    <th scope="col"><strong>Quotation No</strong></th>
-                    <th scope="col"><strong>Quotation Date</strong></th>
-                    <th scope="col"><strong>Customer</strong></th>
-                    <th scope="col"><strong>Attention</strong></th>
-                    <th scope="col"><strong>Payment Term</strong></th>
-                    <th scope="col"><strong>Account Manager</strong></th>
-                    <th scope="col"><strong>Action</strong></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <script type="text/javascript">
-                    window.data = {!! json_encode($items) !!};
-                  </script>
-                  
-                </tbody>
-              </table>
-              
-              <div style="padding-bottom: 4px;"></div>
-        </div>
+<style>
+  td{
+    white-space: normal !important;
+    text-align: justify;
+  }
+  .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .btn-create{
+    padding: 5px;
+    position: relative;
+    left: 90.2%;
+  }
+</style>
+@if(Session::has('success'))
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{Session::get('success')}}</strong>
+    </div>
+@endif
+  <div class="container-fluid">
+    <div class="rounded border mt-4" style="background-color: #fff">
+      <div class="btn-create">
+        <a href="{{route('create')}}" class="btn btn-primary ">create</a>
+      </div>
+      <table class="table" id="datatable" style="width: 98%; margin-left: 10px">
+          <thead>
+            <tr class="font-weight-bold">
+              <th scope="col"><strong>#</strong></th>
+              <th scope="col"><strong>Quotation No</strong></th>
+              <th scope="col"><strong>Quotation Date</strong></th>
+              <th scope="col"><strong>Customer</strong></th>
+              <th scope="col"><strong>Attention</strong></th>
+              <th scope="col"><strong>Payment Term</strong></th>
+              <th scope="col"><strong>Account Manager</strong></th>
+              <th scope="col"><strong>Action</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <script type="text/javascript">
+              window.data = {!! json_encode($items) !!};
+            </script>
+          </tbody>
+        </table>
+      <div style="padding-bottom: 4px;"></div>
+    </div>
+  </div>
 @endsection
 
 
