@@ -57,9 +57,11 @@
             </tr>
           </thead>
           <tbody>
+            
             <script type="text/javascript">
               window.data = {!! json_encode($items) !!};
             </script>
+           
           </tbody>
         </table>
       <div style="padding-bottom: 4px;"></div>

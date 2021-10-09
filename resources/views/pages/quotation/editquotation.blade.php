@@ -117,15 +117,9 @@
             }
         </style>
 
-<<<<<<< HEAD
-        <div style="background-color: #fff; width: 100%; height: 100%;">
-            <div>
-                <div>
-=======
         <div class="" style="">
             <div class="rounded border mt-4" style="background-color: #fff;padding: 10px;">
                 <div style="padding: 2px;">
->>>>>>> c21f7cdeae963037a9c5486ba8212721c23c7c4b
                     Items
                 </div>
                 <hr class="mt-0 mb-0">

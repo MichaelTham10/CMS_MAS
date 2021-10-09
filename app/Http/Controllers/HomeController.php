@@ -25,6 +25,7 @@ class HomeController extends Controller
     {
         $quotations = Quotation::all();   
         $invoices = Invoice::all();
+        
         return view('dashboard', compact('quotations', 'invoices'));
     }
 }
