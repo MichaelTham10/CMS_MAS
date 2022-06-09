@@ -129,7 +129,7 @@
     </div>
   </div>
   </div>
-  <img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -40px; margin-top: 20px;" loading="lazy">
+  <img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -20px; margin-top: 20px;" loading="lazy">
   <div>
     <div class="title" style="padding-top: -20px;"> 
       QUOTATION
