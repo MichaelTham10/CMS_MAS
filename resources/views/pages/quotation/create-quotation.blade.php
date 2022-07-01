@@ -8,6 +8,7 @@
     Create Quotation
 @endsection
 
+
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
