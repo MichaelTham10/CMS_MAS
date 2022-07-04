@@ -69,8 +69,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/invoice/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice');
 
 	//purchase in
-	Route::get('/po-in/{id}', 'App\Http\Controllers\PurchaseInController@edit');
-	Route::patch('/po-in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
+	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit');
+	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
+	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show');
+	Route::get('/po_in/list', 'App\Http\Controllers\PurchaseInController@list')->name('po_in_data');
+	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete');
 });
 
 
