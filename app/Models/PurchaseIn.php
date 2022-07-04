@@ -9,6 +9,8 @@ class PurchaseIn extends Model
 {
     use HasFactory;
 
+    public $table = 'purchase_order_in';
+
     protected $fillable = [
         'attention','customer_number','company_name','date'
     ];
