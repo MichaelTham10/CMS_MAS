@@ -67,6 +67,15 @@ Route::group(['middleware' => 'auth'], function () {
 	//pdf
 	Route::get('/quotation/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf');
 	Route::get('/invoice/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice');
+
+	//po_out
+	Route::get('/po-out', 'App\Http\Controllers\PO_Out\PurchaseOutController@index')->name('po-out');
+	Route::get('/po-out/list', 'App\Http\Controllers\PO_Out\PurchaseOutController@list')->name('po-outData');
+	Route::get('/create-po-out', 'App\Http\Controllers\PO_Out\PurchaseOutController@create')->name('create-po-out');
+	Route::post('/po-out/store', 'App\Http\Controllers\PO_Out\PurchaseOutController@store');
+	Route::patch('/update/po-out/{po_id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@update');
+	Route::get('/edit-po-out/{id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@editpage')->name('edit-po-out-controller');
+	Route::delete('/delete/po-out/{po_id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@delete');
 });
 
 
