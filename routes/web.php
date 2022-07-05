@@ -74,8 +74,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show');
 	Route::get('/po_in/list', 'App\Http\Controllers\PurchaseInController@list')->name('po_in_data');
 	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete');
-	Route::get('/po-in/create/form','App\Http\Controllers\PurchaseInController@index_create');
-	Route::post('/po-in/create', 'App\Http\Controllers\PurchaseInController@create');
+	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create');
+	Route::post('/po_in/create', 'App\Http\Controllers\PurchaseInController@create');
 });
 
 

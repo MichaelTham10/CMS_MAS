@@ -12,6 +12,6 @@ class PurchaseIn extends Model
     public $table = 'purchase_order_in';
 
     protected $fillable = [
-        'attention','customer_number','company_name','date'
+        'attention','customer_number','company_name','date','purchase_in','file'
     ];
 }

@@ -43,7 +43,7 @@
                     Edit Purchase In:
                 </div>
                 <hr class="mt-2 mb-2">
-                <form action="/edit_po_in/update/{{$purchaseIn->id}}" method="POST">
+                <form action="/edit_po_in/update/{{$purchaseIn->id}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="form-group">
@@ -66,9 +66,14 @@
                         <input class="form-control" type="datetime-local" placeholder="Input Payment" name="date" value="{{$purchaseIn->date}}">
                     </div>
 
+                    <div class="form-group">
+                        <label for="attention">File Upload</label>
+                        <input class="form-control" type="file" placeholder="Upload File" name="file" value="" accept="application/pdf" >
+                    </div>
+
                     
                     <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
-                        <button type="button" class="btn btn-light">Cancel</button>
+                        <a href="/po_in" class="btn btn-light">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

@@ -39,7 +39,7 @@
     <div class="container-fluid">
       <div class="rounded border mt-4" style="background-color: #fff">
         <div class="btn-create">
-          <a class="btn btn-primary" href="{{route('create-invoice')}}">create</a>
+          <a class="btn btn-primary" href="/po_in/create/form">create</a>
         </div>
         <table class="table" id="datatable" style="width:98%; margin-left: 10px;">
           <thead>

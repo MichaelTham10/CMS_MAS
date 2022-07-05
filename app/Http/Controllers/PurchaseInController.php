@@ -29,13 +29,22 @@ class PurchaseInController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request = request();
+
+        $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+        $filename = $request->customer_number.'/'.$request->company_name.'.'.$extension;
+        $file->move('pdf/', $filename);
+
         PurchaseIn::findOrFail($id)->update([
             'attention' => $request->attention,
             'customer_number' => $request->customer_number,
             'company_name' => $request->company_name,
             'date' => $request->date,
+            'file' => $filename
         ]);
-        return back();
+        $po_in = PurchaseIn::all();
+        return redirect('/po_in')->with(['po_in' => $po_in]);
     }
 
     public function index_create()
@@ -45,18 +54,28 @@ class PurchaseInController extends Controller
 
     public function create(Request $request)
     {
+        $request = request();
+
+        $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+        $filename = $request->customer_number.'/'.$request->company_name.'.'.$extension;
+        $file->move('pdf/', $filename);
         PurchaseIn::create([
             'attention' => $request->attention,
             'customer_number' => $request->customer_number,
             'company_name' => $request->company_name,
-            'date' => Carbon::now()
+            'date' => Carbon::now(),
+            'file' => $filename
         ]);
-        return back();
+
+        $po_in = PurchaseIn::all();
+        return redirect('/po_in')->with(['po_in' => $po_in]);
     }
 
     public function delete($id)
     {
         PurchaseIn::destroy($id);
+        $po_in = PurchaseIn::all();
         return back()->with('success', 'Purchase in has been deleted');
     }
 
@@ -85,7 +104,7 @@ class PurchaseInController extends Controller
                 <form action="/delete/po_in/'.$row->id.'" method="POST">
             
                 '.csrf_field().'
-                '.method_field('DELETE').'
+                '.method_field('delete').'
                 <div class="modal fade" id="ModalDelete'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">

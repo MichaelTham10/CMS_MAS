@@ -19,6 +19,7 @@ class PurchaseIn extends Migration
             $table->string('customer_number');
             $table->string('company_name');
             $table->dateTime('date');
+            $table->string('file');
             $table->timestamps();
         });
     }
