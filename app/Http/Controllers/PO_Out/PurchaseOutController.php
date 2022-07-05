@@ -38,21 +38,12 @@ class PurchaseOutController extends Controller
             'poTerms' => 'required'  
         ]);
 
-        $latest_po = PurchaseOrderOut::orderBy('created_at', 'desc')->first();
-        
-        // $po = explode('-', $latest_po->po_out_no);
-        // $year = $po[0];
-        // $month = $po[1];
-        // $id = (int) $po[2];
-        $now_date = explode('-',date('Y-m', strtotime($request->poDate)));
-        // $now_year = $now_date[0];
-        // $now_month = $now_date[1];
-
         $this->temp = 0;
         $pos_out =PurchaseOrderOutDetails::all();
         foreach($pos_out as $po_out)
         {
             $request_date = date('Y-m', strtotime($request->poDate));
+            // If month and year is same
             if($po_out->po_out_date == $request_date)
             {
                 $this->temp = 1;
