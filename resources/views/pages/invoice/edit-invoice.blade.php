@@ -1,11 +1,11 @@
 @extends('layouts.app', ['title' => 'Edit Invoice'])
 
 @section('head-title')
-    Edit Voice
+    Edit Invoice
 @endsection
 
 @section('page-title')
-    Edit Voice
+    Edit Invoice
 @endsection
 
 @section('content')
