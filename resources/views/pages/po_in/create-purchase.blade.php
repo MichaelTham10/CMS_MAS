@@ -1,11 +1,11 @@
-@extends('layouts.app', ['title' => 'Edit Quotation'])
+@extends('layouts.app', ['title' => 'Create Purchase In'])
 
 @section('head-title')
-    Edit Purchase
+    Create Purchase In
 @endsection
 
 @section('page-title')
-    Edit Purchase
+    Create Purchase In
 @endsection
 
 @section('styles')
@@ -40,30 +40,25 @@
         <div class="rounded border mt-4 mb-4" style="background-color: #fff">
             <div class="pl-4 pt-4 pr-4 font-weight-bold">
                 <div>
-                    Edit Purchase In:
+                    Create Purchase In:
                 </div>
                 <hr class="mt-2 mb-2">
-                <form action="/po-in/update/{{$purchaseIn->id}}" method="POST">
+                <form action="/po-in/create/" method="POST">
                     @csrf
-                    @method('PATCH')
+                    @method('POST')
                     <div class="form-group">
                       <label for="type">Attention</label>
-                      <input class="form-control" type="text" placeholder="Input Customer" name="attention" value="{{$purchaseIn->attention}}">
+                      <input class="form-control" type="text" placeholder="Input Customer" name="attention" value="">
                     </div>
 
                     <div class="form-group">
                         <label for="customer">Customer Number</label>
-                        <input class="form-control" type="text" placeholder="Input Customer" name="customer number" value="{{$purchaseIn->customer_number}}">
+                        <input class="form-control" type="text" placeholder="Input Customer" name="customer number" value="">
                     </div>
 
                     <div class="form-group">
                         <label for="attention">Company Name</label>
-                        <input class="form-control" type="text" placeholder="Input Attention" name="company name" value="{{$purchaseIn->company_name}}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="payment-term">Date</label>
-                        <input class="form-control" type="datetime-local" placeholder="Input Payment" name="date" value="{{$purchaseIn->date}}">
+                        <input class="form-control" type="text" placeholder="Input Attention" name="company name" value="">
                     </div>
 
                     

@@ -71,6 +71,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//purchase in
 	Route::get('/po-in/{id}', 'App\Http\Controllers\PurchaseInController@edit');
 	Route::patch('/po-in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
+	Route::get('/po-in/create/form','App\Http\Controllers\PurchaseInController@index_create');
+	Route::post('/po-in/create', 'App\Http\Controllers\PurchaseInController@create');
+	Route::delete('/po-in/delete', 'App\Http\Controllers\PurchaseInController@delete');
 });
 
 
