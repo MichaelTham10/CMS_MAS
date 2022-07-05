@@ -53,16 +53,48 @@
 
                     <div class="form-group">
                         <label for="poEmail">PO Email</label>
-                        <input class="form-control" type="text" placeholder="Input PO Email" @error('poEmail')
+                        <input class="form-control" type="email" placeholder="Input PO Email" @error('poEmail')
                         is invalid @enderror name="poEmail" value="">
                         @error('poEmail')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="poPPN">PPN</label>
+                        <input class="form-control" type="number" placeholder="Input PPN" @error('poPPN')
+                        is invalid
+                        @enderror name="poPPN">
+                        @error('poPPN')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="deliverTo">Deliver To</label>
+                        <input class="form-control" type="text" placeholder="Input Deliver To" @error('deliverTo')
+                        is invalid @enderror name="deliverTo" value="">
+                        @error('deliverTo')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="attnMakro">Attn. Makro Team</label>
+                        <input class="form-control" type="text" placeholder="Input Attn. Makro Team" @error('attnMakro')
+                        is invalid @enderror name="attnMakro" value="">
+                        @error('attnMakro')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="makroPhoneNumber">Attn. Phone Number</label>
+                        <input class="form-control" type="text" placeholder="Input Attn. Phone Number" @error('makroPhoneNumber')
+                        is invalid @enderror name="makroPhoneNumber" value="">
+                        @error('makroPhoneNumber')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
                     <div class="form-group">
                         <label for="poTerms">Terms & Condition</label>
-                        <textarea class="note " name="poTerms" @error('poEmail')
+                        <textarea class="note " name="poTerms" @error('poTerms')
                         is invalid @enderror placeholder="Input PO Terms"></textarea>
                         <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
                         <script>

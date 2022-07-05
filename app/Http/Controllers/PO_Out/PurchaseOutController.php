@@ -4,7 +4,9 @@ namespace App\Http\Controllers\PO_Out;
 
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseOrderOut;
+use App\Models\PurchaseOrderOutDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseOutController extends Controller
 {
@@ -36,70 +38,67 @@ class PurchaseOutController extends Controller
             'poTerms' => 'required'  
         ]);
 
-        // $this->temp = 0;
+        $latest_po = PurchaseOrderOut::orderBy('created_at', 'desc')->first();
+        
+        // $po = explode('-', $latest_po->po_out_no);
+        // $year = $po[0];
+        // $month = $po[1];
+        // $id = (int) $po[2];
+        $now_date = explode('-',date('Y-m', strtotime($request->poDate)));
+        // $now_year = $now_date[0];
+        // $now_month = $now_date[1];
 
-        // $ivcs = InvoiceTypeDetail::all();
+        $this->temp = 0;
+        $pos_out =PurchaseOrderOutDetails::all();
+        foreach($pos_out as $po_out)
+        {
+            $request_date = date('Y-m', strtotime($request->poDate));
+            if($po_out->po_out_date == $request_date)
+            {
+                $this->temp = 1;
+                PurchaseOrderOutDetails::findOrFail($po_out->id)->update([
+                    'quantity' => ($po_out->quantity + 1),
+                ]);
 
-        // foreach($ivcs as $ivc)
-        // {
-        //     if($ivc->invoice_date == $request->date && $ivc->type_id == $request->type)
-        //     {   
-        //         $this->temp = 1;
-        //         InvoiceTypeDetail::findOrFail($ivc->id)->update([
-        //             'quantity' => ($ivc->quantity + 1),
-        //         ]);
+                $detail = PurchaseOrderOutDetails::findOrFail($po_out->id);
 
-        //         $detail = InvoiceTypeDetail::findOrFail($ivc->id);
-
-        //         Invoice::create([
-        //             'type_id' => $request->type,
-        //             'type_detail_id' => $detail->id,
-        //             'Invoice No' => Invoice::getFormatId($request->type, $detail->quantity, $request->date),
-        //             'type_detail_quantity' => $detail->quantity,
-        //             'Address' => $request->address,
-        //             'Invoice Date' => $request->date,
-        //             'Quotation No' => $request->quotationNo,
-        //             'Bill To' => $request->billTo,
-        //             'Note' => $request->note
-        //         ]);
-        //         break;
-        //     }
-            
-        // }
-
-        // if($this->temp == 0)
-        // {
-        //     InvoiceTypeDetail::create([
-        //         'type_id' => $request->type,
-        //         'invoice_date' => $request->date,
-        //     ]);
-
-        //     $type_detail = DB::table('invoice_type_details')->orderBy('id', 'DESC')->first();
-
-        //     Invoice::create([
-        //         'type_id' => $request->type,
-        //         'type_detail_id' => $type_detail->id,
-        //         'Invoice No' => Invoice::getFormatId($request->type, $type_detail->quantity, $request->date),
-        //         'type_detail_quantity' => $type_detail->quantity,
-        //         'Address' => $request->address,
-        //         'Invoice Date' => $request->date,
-        //         'Quotation No' => $request->quotationNo,
-        //         'Bill To' => $request->billTo,
-        //         'Note' => $request->note
-        //     ]);
-        // }
-
-        // PurchaseOrderOut::create([
-        //     'po_out_no' => $request->type,
-        //     'date' => $detail->id,
-        //     'arrival' => Invoice::getFormatId($request->type, $detail->quantity, $request->date),
-        //     'to' => $detail->quantity,
-        //     'attn' => $request->address,
-        //     'email' => $request->date,
-        //     'ppn' => $request->quotationNo,
-        //     'terms' => $request->billTo,
-        // ]);
-
+                PurchaseOrderOut::create([
+                    'po_out_no' => PurchaseOrderOut::getFormatId($detail->quantity, $request->poDate),
+                    'date' => $request->poDate,
+                    'arrival' => $request->poArrivalDate,
+                    'to' => $request->poTo,  
+                    'attn' => $request->poAttention,  
+                    'email' => $request->poEmail,  
+                    'ppn' => $request->poPPN,
+                    'terms' => $request->poTerms,
+                    'deliver_to' => $request->deliverTo,
+                    'attn_makro' => $request->attnMakro,
+                    'makro_phone_no' => $request->makroPhoneNumber, 
+                ]);
+                break;
+            }
+        }
+        if($this->temp == 0)
+        {
+            PurchaseOrderOutDetails::create([
+                'po_out_date' => date('Y-m', strtotime($request->poDate)),
+            ]);
+            $detail = DB::table('purchase_order_out_details')->orderBy('id', 'DESC')->first();
+            PurchaseOrderOut::create([
+                'po_out_no' => PurchaseOrderOut::getFormatId($detail->quantity, $request->poDate),
+                'date' => $request->poDate,
+                'arrival' => $request->poArrivalDate,
+                'to' => $request->poTo,  
+                'attn' => $request->poAttention,  
+                'email' => $request->poEmail,  
+                'ppn' => $request->poPPN,
+                'terms' => $request->poTerms,
+                'deliver_to' => $request->deliverTo,
+                'attn_makro' => $request->attnMakro,
+                'makro_phone_no' => $request->makroPhoneNumber, 
+            ]);
+        }
+    
         return redirect('/po-out')->with('success', 'Purchase Order has been added');   
     }
 

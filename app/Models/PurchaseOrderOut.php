@@ -15,6 +15,17 @@ class PurchaseOrderOut extends Model
         'attn',
         'email',
         'ppn',
-        'terms'
+        'terms',
+        'deliver_to',
+        'attn_makro',
+        "makro_phone_no", 
     ];
+    public static function getFormatId($id, $po_date)
+    {
+   
+        $date = date('Ym', strtotime($po_date));
+        echo($date);
+        return sprintf('MAS/PO/'.$date.'%02d',$id);
+
+    }
 }
