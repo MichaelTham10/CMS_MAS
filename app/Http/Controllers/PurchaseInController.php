@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PurchaseIn;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PurchaseInController extends Controller
@@ -33,6 +34,22 @@ class PurchaseInController extends Controller
             'customer_number' => $request->customer_number,
             'company_name' => $request->company_name,
             'date' => $request->date,
+        ]);
+        return back();
+    }
+
+    public function index_create()
+    {
+        return view('pages.po_in.create-purchase');
+    }
+
+    public function create(Request $request)
+    {
+        PurchaseIn::create([
+            'attention' => $request->attention,
+            'customer_number' => $request->customer_number,
+            'company_name' => $request->company_name,
+            'date' => Carbon::now()
         ]);
         return back();
     }
