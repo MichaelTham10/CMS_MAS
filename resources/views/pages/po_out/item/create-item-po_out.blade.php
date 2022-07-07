@@ -15,8 +15,6 @@
         <form action="/po_out_item/store/{{$id}}" method="POST">
             @csrf
             <div class="pl-4 pt-4 pr-4 font-weight-bold">
-                
-                
                 <div class="form-group">
                     <label for="customer">Item Description</label>
                     <input class="form-control" type="text" placeholder="Input Item Description" name="item_description" @error('item_description')
@@ -45,9 +43,7 @@
                     @error('quantity')
                     <span class="text-danger">{{$message}}</span> 
                 @enderror
-                </div>
-                
-
+                </div> 
 
             <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
                 <a href="{{route('edit-controller', $id)}}" class="btn btn-light">Cancel</a>

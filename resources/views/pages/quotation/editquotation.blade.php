@@ -9,8 +9,7 @@
 @endsection
 
 @section('styles')
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
 @endsection
 
 @section('content')
@@ -18,15 +17,15 @@
 {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/> --}}
 <style>
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
-    font-size: 14px;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  .btn-create{
-    padding: 5px;
-    position: relative;
-    left: 90.2%;
-  }
+        font-size: 14px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .btn-create{
+        padding: 5px;
+        position: relative;
+        left: 90.2%;
+    }
 </style>
 @include('layouts.headers.cards')
     @if(Session::has('success'))
@@ -47,8 +46,8 @@
                     @csrf
                     @method('PATCH')
                     <div class="form-group">
-                      <label for="type">Type</label>
-                      <input class="form-control" readonly type="text" placeholder="Input Customer" value="{{$type->name}} ({{$type->alias}})">
+                        <label for="type">Type</label>
+                        <input class="form-control" readonly type="text" placeholder="Input Customer" value="{{$type->name}} ({{$type->alias}})">
                     </div>
 
                     <div class="form-group">
@@ -112,8 +111,8 @@
 
         <style>
             td{
-              white-space: normal !important;
-              text-align: justify;
+                white-space: normal !important;
+                text-align: justify;
             }
         </style>
 
@@ -157,34 +156,34 @@
     <script>
         var values = window.data;
         $(document).ready( function () {
-          $('#datatable').DataTable({
-          processing: true,
-          serverSide: true,
-          ajax: `{{url('item/list/${values}')}}`,
-          columns : [
-              { "data": 'DT_RowIndex'},
-              { "data" : "name"},
-              { "data" : "description"},
-              { "data" : "quantity"},
-              { "data" : "unit price"},
-              {
-                data: 'Total Price', 
-                name: 'Total Price', 
-                orderable: true, 
-                searchable: true
-              },
-              {
-                "class":          "details-control",
-                "orderable":      false,
-                "searchable" : false,
-                "data":           'action',
-                "defaultContent": ""
-              },   
-          ]
-        });
+            $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: `{{url('item/list/${values}')}}`,
+            columns : [
+                { "data": 'DT_RowIndex'},
+                { "data" : "name"},
+                { "data" : "description"},
+                { "data" : "quantity"},
+                { "data" : "unit price"},
+                {
+                    data: 'Total Price', 
+                    name: 'Total Price', 
+                    orderable: true, 
+                    searchable: true
+                },
+                {
+                    "class":          "details-control",
+                    "orderable":      false,
+                    "searchable" : false,
+                    "data":           'action',
+                    "defaultContent": ""
+                },   
+            ]
+            });
 
-    } );
-</script>
+        } );
+    </script>
     
 @endsection
 

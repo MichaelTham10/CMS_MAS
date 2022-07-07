@@ -142,8 +142,8 @@
         </div> 
         <style>
             td{
-              white-space: normal !important;
-              text-align: justify;
+                white-space: normal !important;
+                text-align: justify;
             }
         </style>
 
@@ -154,7 +154,7 @@
                 </div>
                 <hr class="mt-0 mb-0">
                 <div class="btn-create">
-                    <a href="/create/po_out_item/{{$po_out['id']}}" class="btn btn-primary">create</a>
+                    <a href="/create/po_out_item/{{$po_out['id']}}" class="btn btn-primary">Create</a>
                 </div>
                 <table class="table" id="datatable" style="width: 100%">
                     <thead>
@@ -184,29 +184,29 @@
     <script>
         var values = window.data;
         $(document).ready( function () {
-          $('#datatable').DataTable({
-          processing: true,
-          serverSide: true,
-          ajax: `{{url('/po-out-item/list/${values}')}}`,
-          columns : [
-              { "data": 'DT_RowIndex'},
-              { "data" : "item_description"},
-              { "data" : "qty"},
-              { "data" : "price"},
-              {
-                data: 'Total Price', 
-                name: 'Total Price', 
-                orderable: true, 
-                searchable: true
-              },
-              {
-                "class":          "details-control",
-                "orderable":      false,
-                "searchable" : false,
-                "data":           'action',
-                "defaultContent": ""
-              },   
-          ]
+            $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: `{{url('/po-out-item/list/${values}')}}`,
+            columns : [
+                { "data": 'DT_RowIndex'},
+                { "data" : "item_description"},
+                { "data" : "qty"},
+                { "data" : "price"},
+                {
+                    data: 'Total Price', 
+                    name: 'Total Price', 
+                    orderable: true, 
+                    searchable: true
+                },
+                {
+                    "class": "details-control",
+                    "orderable": false,
+                    "searchable": false,
+                    "data": 'action',
+                    "defaultContent": ""
+                },   
+            ]
         });
 
     } );
