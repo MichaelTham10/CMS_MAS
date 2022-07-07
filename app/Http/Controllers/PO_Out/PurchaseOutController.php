@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PO_Out;
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseOrderOut;
 use App\Models\PurchaseOrderOutDetails;
+use App\Models\PurchaseOutItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,8 @@ class PurchaseOutController extends Controller
         // $quotations = Quotation::all();
         // $invoices =  Invoice::all();
         $po_out = PurchaseOrderOut::all();
-        return view('po_out.po_out', compact('po_out'));
+        $po_out_items = PurchaseOutItem::all();
+        return view('pages.po_out.po_out', compact('po_out', 'po_out_items'));
     }
 
     public function create()
@@ -24,7 +26,7 @@ class PurchaseOutController extends Controller
         // $types = InvoiceType::all();
         // $quotations = Quotation::all();
 
-        return view('po_out.create-po_out');
+        return view('pages.po_out.create-po_out');
     }   
 
     public function store(Request $request)
@@ -101,7 +103,7 @@ class PurchaseOutController extends Controller
     {
         $po_out = PurchaseOrderOut::findOrFail($id);
 
-        return view('po_out.edit-po_out', compact('po_out'));
+        return view('pages.po_out.edit-po_out', compact('po_out'));
     }
 
     public function delete($po_out_id)
@@ -149,7 +151,7 @@ class PurchaseOutController extends Controller
     {
         $po_out = PurchaseOrderOut::all();
 
-        return view('po_out.po_out', compact('po_out'));
+        return view('pages.po_out.po_out', compact('po_out'));
     }
     public function list()
     {

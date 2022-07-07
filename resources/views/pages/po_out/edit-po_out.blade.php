@@ -7,8 +7,23 @@
 @section('page-title')
     Edit Purchase Order Out
 @endsection
-
+@section('styles')
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
+    
+@endsection
 @section('content')
+<style>
+    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .btn-create{
+    padding: 5px;
+    position: relative;
+    left: 90.2%;
+  }
+</style>
 @include('layouts.headers.cards')
     @if(Session::has('success'))
 
@@ -124,7 +139,78 @@
                     </div>
                 </form>
             </div> 
-        </div>    
+        </div> 
+        <style>
+            td{
+              white-space: normal !important;
+              text-align: justify;
+            }
+        </style>
+
+        <div class="" style="">
+            <div class="rounded border mt-4" style="background-color: #fff;padding: 10px;">
+                <div style="padding: 2px;">
+                    PO Out Items
+                </div>
+                <hr class="mt-0 mb-0">
+                <div class="btn-create">
+                    <a href="/create/po_out_item/{{$po_out['id']}}" class="btn btn-primary">create</a>
+                </div>
+                <table class="table" id="datatable" style="width: 100%">
+                    <thead>
+                        <tr class="font-weight-bold">
+                        <th scope="col"><strong>#</strong></th>
+                        <th scope="col"><strong>Item Description</strong></th>
+                        <th scope="col"><strong>Qty</strong></th>
+                        <th scope="col"><strong>Unit Price</strong></th>
+                        <th scope="col"><strong>Total Price</strong></th>
+                        <th scope="col"><strong>Action</strong></th>
+                        </tr>
+                </thead>
+                <tbody>
+                    <script type="text/javascript">
+                            window.data = {!! json_encode($po_out['id']) !!};
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+        </div>   
     </div> 
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
+    
+    <script>
+        var values = window.data;
+        $(document).ready( function () {
+          $('#datatable').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: `{{url('/po-out-item/list/${values}')}}`,
+          columns : [
+              { "data": 'DT_RowIndex'},
+              { "data" : "item_description"},
+              { "data" : "qty"},
+              { "data" : "price"},
+              {
+                data: 'Total Price', 
+                name: 'Total Price', 
+                orderable: true, 
+                searchable: true
+              },
+              {
+                "class":          "details-control",
+                "orderable":      false,
+                "searchable" : false,
+                "data":           'action',
+                "defaultContent": ""
+              },   
+          ]
+        });
+
+    } );
+</script>
+    
 @endsection
 

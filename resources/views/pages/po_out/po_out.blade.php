@@ -53,14 +53,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                </tr>
+              <script type="text/javascript">
+                window.data = {!! json_encode($po_out_items) !!};
+              </script>
             </tbody>
             </table>
             <div style="padding-bottom: 6px;"></div>
@@ -75,12 +70,12 @@
 @section('scripts')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
-    function format ( items , invoice) {
+    function format ( items , po_out) {
       var temp = [];
       var loop = 0;
       
       items.forEach(item => {
-        if (invoice['Quotation No'] == item.quotation_id) {
+        if (po_out['id'] == item.po_out_id) {
           temp[loop] = item;
           loop++;
         }
@@ -95,17 +90,16 @@
         return `
         <tr>
           <td>${index}</td>
-          <td>${element.name}</td>
-          <td>${element.description}</td>
-          <td>${element.quantity}</td>
-          <td>${element['unit price']}</td>
-          <td>${element['unit price'] * element.quantity}</td>
+          <td>${element.item_description}</td>
+          <td>${element.qty}</td>
+          <td>${element['price']}</td>
+          <td>${element['price'] * element.qty}</td>
         </tr>`;
       }
 
       temp.forEach(element=>{
         td = td + generateElementString(index,element);
-        totalPrice = totalPrice + (element['unit price'] * element.quantity);
+        totalPrice = totalPrice + (element['price'] * element.qty);
         index++;
       })
 
@@ -113,10 +107,9 @@
             <thead>
               <tr class="font-weight-bold">
                 <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                <th scope="col" style="width:45%;"><strong>Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
+                <th scope="col" style="width:15%;"><strong>Item Description</strong></th>
+                <th scope="col" style="width:5%;"><strong>Quantity</strong></th>
+                <th scope="col" style="width:15%;"><strong>Price</strong></th>
                 <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
               </tr>
             </thead>
@@ -128,12 +121,13 @@
           </table>
           <table class="table table-bordered no-margin table-sm">
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-              <td>${invoice.quotation.Discount}</td>
+              <th colspan="2" style="width:78.5%" scope="row">PPN</th>
+              <td>${po_out.ppn}</td>
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>${totalPrice - invoice.quotation.Discount <= 0 ? 'FREE' : totalPrice - invoice.quotation.Discount}</td>
+              ${/*Still need to fix (07/ 07/ 2022 Michael Note's*/}
+              <td>${totalPrice - po_out.ppn <= 0 ? 'FREE' : totalPrice - po_out.ppn}</td>
             </tr>
           </table>`
         );
@@ -164,7 +158,6 @@
     var detailRows = [];
     var values = window.data;
 
-    var test;
  
     $('#datatable tbody').on( 'click', '#submit', function () {
         var tr = $(this).closest('tr');
