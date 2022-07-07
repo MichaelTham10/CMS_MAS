@@ -80,7 +80,6 @@
           loop++;
         }
       });
-
       
       var td = "";
       var index = 1;
@@ -96,13 +95,11 @@
           <td>${element['price'] * element.qty}</td>
         </tr>`;
       }
-
       temp.forEach(element=>{
         td = td + generateElementString(index,element);
         totalPrice = totalPrice + (element['price'] * element.qty);
         index++;
       })
-
       return (`<table class="table table-bordered table-sm" > 
             <thead>
               <tr class="font-weight-bold">
@@ -121,12 +118,11 @@
           </table>
           <table class="table table-bordered no-margin table-sm">
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">PPN</th>
+              <th colspan="2" style="width:78.5%" scope="row">Discount</th>
               <td>${po_out.ppn}</td>
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              ${/*Still need to fix (07/ 07/ 2022 Michael Note's*/}
               <td>${totalPrice - po_out.ppn <= 0 ? 'FREE' : totalPrice - po_out.ppn}</td>
             </tr>
           </table>`
@@ -154,26 +150,22 @@
         //   { "data" : "quotation.Discount",visible:false},
         ]
       });
-
     var detailRows = [];
     var values = window.data;
-
+    var test;
  
     $('#datatable tbody').on( 'click', '#submit', function () {
         var tr = $(this).closest('tr');
         var row = dt.row( tr );
         var idx = $.inArray( tr.attr('id'), detailRows );
-
         if ( row.child.isShown() ) {
             tr.removeClass( 'details' );
             row.child.hide();
-
             detailRows.splice( idx, 1 );
         }
         else {
             tr.addClass( 'details' );
             row.child( format( values, row.data() ) ).show();
-
             if ( idx === -1 ) {
                 detailRows.push( tr.attr('id') );
             }
@@ -187,6 +179,5 @@
       });
         
     });
-
   </script>
 @endsection
