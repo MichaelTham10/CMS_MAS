@@ -49,6 +49,7 @@
               <th scope="col"><strong>Customer Number</strong></th>
               <th scope="col"><strong>Copany Name</strong></th>
               <th scope="col"><strong>Date</strong></th>
+              <th scope="col"><strong>PDF</strong></th>
               <th scope="col"><strong>Action</strong></th>
             </tr>
           </thead>
@@ -81,6 +82,7 @@
           { "data" : "customer_number"},
           { "data" : "company_name"},
           { "data" : "date"},
+          { "data" : "file"},
           {
             "class":          "details-control",
             "orderable":      false,
