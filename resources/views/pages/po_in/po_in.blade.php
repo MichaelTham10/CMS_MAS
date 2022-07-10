@@ -37,6 +37,7 @@
     @endif
         
     <div class="container-fluid">
+      <a href="{{asset('pdf/PT Kong Guan.pdf')}}">TEST</a>
       <div class="rounded border mt-4" style="background-color: #fff">
         <div class="btn-create">
           <a class="btn btn-primary" href="/po_in/create/form">create</a>
@@ -82,7 +83,13 @@
           { "data" : "customer_number"},
           { "data" : "company_name"},
           { "data" : "date"},
-          { "data" : "file"},
+          { 
+            "data" : "file",
+            render: function ( data, type, row, meta ) {
+              data = '<a href="/pdf/' + data + '">' + data + '</a>';
+              return data;
+            }
+          },
           {
             "class":          "details-control",
             "orderable":      false,

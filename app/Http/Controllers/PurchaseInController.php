@@ -58,7 +58,8 @@ class PurchaseInController extends Controller
 
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $filename = $request->customer_number.'/'.$request->company_name.'.'.$extension;
+        $name = $file->getClientOriginalName();
+        $filename = $name;
         $file->move('pdf/', $filename);
         PurchaseIn::create([
             'attention' => $request->attention,
