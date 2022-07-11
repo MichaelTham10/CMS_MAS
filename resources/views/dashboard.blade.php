@@ -165,7 +165,7 @@
                             </div>
                         </div>
                         <div class="align-self-center">
-                            <a href="{{route('quotation')}}" class="btn btn-primary ">View Details</a>
+                            <a href="/po_in" class="btn btn-primary ">View Details</a>
                         </div>
                     </div>
                     <br>
@@ -179,7 +179,7 @@
                             </div>
                         </div>
                         <div class="align-self-center">
-                            <a href="{{route('quotation')}}" class="btn btn-primary ">View Details</a>
+                            <a href="{{route('po-out')}}" class="btn btn-primary ">View Details</a>
                         </div>
                     </div>
                 </div>
