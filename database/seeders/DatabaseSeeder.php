@@ -3,6 +3,7 @@ namespace Database\Seeders;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use PurchaseIn;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call([UsersTableSeeder::class]);
         $this->call(QuotationTypeSeeder::class);
         $this->call(InvoiceTypeSeeder::class);
+        $this->call(PurchaseInSeeder::class);
     }
 }
