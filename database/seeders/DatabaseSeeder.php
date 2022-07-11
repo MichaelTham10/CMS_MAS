@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(QuotationTypeSeeder::class);
         $this->call(InvoiceTypeSeeder::class);
         $this->call(PurchaseInSeeder::class);
+        $this->call(PurchaseOutSeeder::class);
     }
 }

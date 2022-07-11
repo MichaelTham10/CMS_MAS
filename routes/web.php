@@ -76,6 +76,22 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete');
 	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create');
 	Route::post('/po_in/create', 'App\Http\Controllers\PurchaseInController@create');
+	//po_out
+	Route::get('/po-out', 'App\Http\Controllers\PO_Out\PurchaseOutController@index')->name('po-out');
+	Route::get('/po-out/list', 'App\Http\Controllers\PO_Out\PurchaseOutController@list')->name('po-outData');
+	Route::get('/create-po-out', 'App\Http\Controllers\PO_Out\PurchaseOutController@create')->name('create-po-out');
+	Route::post('/po-out/store', 'App\Http\Controllers\PO_Out\PurchaseOutController@store');
+	Route::patch('/update/po-out/{po_id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@update');
+	Route::get('/edit-po-out/{id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@editpage')->name('edit-po-out-controller');
+	Route::delete('/delete/po-out/{po_id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@delete');
+
+	//po_out item
+	Route::get('/po-out-item/list/{po_out_id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@list')->name('po-out-item-data');
+	Route::get('/create/po_out_item/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@index')->name('create-po-out-item');
+	Route::post('/po_out_item/store/{po_out_id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@create')->name('store-po-out-item');
+	Route::get('/edit/po_out_item/{po_out_id_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@edit_item')->name('edit-po-out-item');
+	Route::patch('/update/po_out_item/{po_out_id_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@update');
+	Route::delete('/delete/po_out_item/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@delete');
 });
 
 
