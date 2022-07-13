@@ -30,18 +30,23 @@ class PurchaseInController extends Controller
     public function update(Request $request, $id)
     {
         $request = request();
-
         $file = $request->file('file');
-        $extension = $file->getClientOriginalExtension();
-        $filename = $request->customer_number.'/'.$request->company_name.'.'.$extension;
-        $file->move('pdf/', $filename);
+        if($file != null)
+        {
+            $name = $file->getClientOriginalName();
+            $filename = $name;
+            $file->move('pdf/', $filename);
+
+            PurchaseIn::findOrFail($id)->update([
+                'date' => $request->date
+            ]);
+        }
 
         PurchaseIn::findOrFail($id)->update([
             'attention' => $request->attention,
             'customer_number' => $request->customer_number,
             'company_name' => $request->company_name,
-            'date' => $request->date,
-            'file' => $filename
+            'date' => $request->date
         ]);
         $po_in = PurchaseIn::all();
         return redirect('/po_in')->with(['po_in' => $po_in]);
@@ -57,7 +62,6 @@ class PurchaseInController extends Controller
         $request = request();
 
         $file = $request->file('file');
-        $extension = $file->getClientOriginalExtension();
         $name = $file->getClientOriginalName();
         $filename = $name;
         $file->move('pdf/', $filename);

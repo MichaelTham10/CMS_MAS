@@ -86,7 +86,7 @@
           { 
             "data" : "file",
             render: function ( data, type, row, meta ) {
-              data = '<a href="/pdf/' + data + '">' + data + '</a>';
+              data = '<a href="/pdf/' + data + '" target="_blank">' + data + '</a>';
               return data;
             }
           },
