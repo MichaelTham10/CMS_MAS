@@ -45,7 +45,6 @@
                             @endphp
 
                             @foreach ($quotation->items as $item)
-                           
                                 @php
                                     $totalQuotation += $item['unit price'] * $item->quantity;
                                 @endphp
@@ -59,7 +58,7 @@
                                 
                             @endphp
                         @endforeach
-                        IDR. {{$totalItemQuotation}}.-
+                        IDR. {{number_format($totalItemQuotation)}}
                     </div>
                 </div>
                 <div class="align-self-center">
@@ -103,7 +102,7 @@
                         @endforeach
 
 
-                        IDR. {{$totalItemInvoice}}.-
+                        IDR. {{number_format($totalItemInvoice)}}
                     </div>
                 </div>
                 <div class="align-self-center" >

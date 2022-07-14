@@ -1,12 +1,14 @@
 @extends('layouts.app', ['title' => 'Edit Invoice'])
 
-@section('head-title')
-    Edit Invoice
-@endsection
-
+{{-- title web tab --}}
 @section('page-title')
     Edit Invoice
 @endsection
+
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Edit Invoice
+@endsection --}}
 
 @section('content')
 @include('layouts.headers.cards')
@@ -20,18 +22,18 @@
     @endif
 
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
-                <div>
-                    Edit Invoice No: {{$invoice['Invoice No']}}
-                </div>
-                <hr class="mt-2 mb-2">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="font-weight-bold">
+                <div class="mb-3">
+                    <h3>Edit Invoice No: {{$invoice['Invoice No']}}</h3>
+                </div>   
+                <hr class="mt-0 mb-3"> 
                 <form action="/update/invoice/{{$invoice->id}}" method="POST">
                     @csrf
                     @method('PATCH')
                     <div class="form-group">
-                      <label for="type">Type</label>
-                      <input class="form-control" readonly type="text" value="{{$type->name}} ({{$type->alias}})">
+                        <label for="type">Type</label>
+                        <input class="form-control" readonly type="text" value="{{$type->name}} ({{$type->alias}})">
                     </div>
 
                     <div class="form-group">
@@ -68,13 +70,12 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 1140,
                                 height: 300,
                             });
                         </script>
                     </div>
-                    <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
-                        <button type="button" class="btn btn-light">Cancel</button>
+                    <div class="d-flex justify-content-end">
+                        <a href="/invoice" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

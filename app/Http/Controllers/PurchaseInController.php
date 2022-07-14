@@ -29,7 +29,12 @@ class PurchaseInController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request = request();
+        $request->validate([
+            'attention' => 'required',  
+            'customer_number' => 'required',
+            'company_name' => 'required',  
+        ]);
+        // $request = request();
         $file = $request->file('file');
         if($file != null)
         {
@@ -59,8 +64,15 @@ class PurchaseInController extends Controller
 
     public function create(Request $request)
     {
-        $request = request();
+        $request->validate([
+            'attention' => 'required',  
+            'customer_number' => 'required',
+            'company_name' => 'required',  
+            'file' => 'required',
+        ]);
 
+        // $request = request();
+        
         $file = $request->file('file');
         $name = $file->getClientOriginalName();
         $filename = $name;
@@ -95,15 +107,12 @@ class PurchaseInController extends Controller
             $actionBtn = 
             '<td>
                 <div class="btn-group">
-                <a href=""  class="btn btn-primary btn-sm" id="submit" data-toggle="modal" data-target="#modalDetail">Detail</a>
-                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/edit_po_in/'.$row->id.'">Edit</a>
-                    <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
-                    <a class="dropdown-item" href="/invoice/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
-                </div>
+                    <a class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action  </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="/edit_po_in/'.$row->id.'">Edit</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
+                        <a class="dropdown-item" href="/invoice/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
+                    </div>
                 </div>
             
                 <form action="/delete/po_in/'.$row->id.'" method="POST">
@@ -119,7 +128,7 @@ class PurchaseInController extends Controller
                                 </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                             </div>
                             <div class="modal-body">
-                                <p class="text-muted">If you remove this item it will be gone forever. Are you sure you want to continue?</p>
+                                <p class="text-muted">If you remove this item it will be gone forever. <br>Are you sure you want to continue?</p>
                             </div>
                             <div class="modal-footer"> 
                             <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
