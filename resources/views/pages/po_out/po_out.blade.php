@@ -70,6 +70,7 @@
 @section('scripts')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
+    
     function format ( items , po_out) {
       var temp = [];
       var loop = 0;
@@ -100,6 +101,7 @@
         totalPrice = totalPrice + (element['price'] * element.qty);
         index++;
       })
+
       return (`<table class="table table-bordered table-sm" > 
             <thead>
               <tr class="font-weight-bold">
@@ -123,7 +125,9 @@
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>${totalPrice - po_out.ppn <= 0 ? 'FREE' : totalPrice - po_out.ppn}</td>
+              {number_format($ppn)}
+
+              <td>${totalPrice - (totalPrice * (po_out.ppn/100)) <= 0 ? 'FREE' : totalPrice - (totalPrice * (po_out.ppn/100))}</td>
             </tr>
           </table>`
         );

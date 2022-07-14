@@ -47,15 +47,58 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="quotation">Quotation</label>
                         <select class="form-control" id="quotation" name="quotationNo">
                             @foreach ($quotations as $quotation)
                                <option value="{{$quotation->id}}">{{$quotation->Quotation_No}}</option> 
                             @endforeach
                         </select>
+                    </div> --}}
+                    @php
+                        $onclick = 0;
+                    @endphp
+                    <div class="form-group">
+                        <label for="">Choose Options</label>
+                        <div class="d-flex">
+                            <div class="mr-2">
+                                <input type="radio" id="quotation" name="radio_selection" value="1" onclick="selection(1)" />
+                                <label for="Quotation">Quotation</label>
+                            </div>
+                            <div class="ml-2">
+                                <input type="radio" id="po_In" name="radio_selection" value="2" onclick="selection(2)"/>
+                                <label for="Quotation">PO IN</label>
+                            </div>
+                        </div>
+                        <select class="form-control" name="quotation_selection" id="quotation_selection" style="display: none">
+                            <option hidden value="empty"></option>
+                            @foreach ($quotations as $quotation)
+                               <option value="{{$quotation->Quotation_No}}">{{$quotation->Quotation_No}}</option> 
+                            @endforeach
+                        </select>
+                        <select class="form-control"  name="po_in_selection" id="po_in_selection" style="display: none">
+                            <option hidden value="empty"></option>
+                            @foreach ($po_ins as $po_in)
+                               <option value="{{$po_in->id}}">{{$po_in->id}}</option> 
+                            @endforeach
+                        </select>
+                        <script>
+                            function selection(value){
+                                
+                                if(value === 1){
+                                    document.getElementById("quotation_selection").style.display = "block";
+                                    document.getElementById("po_in_selection").style.display = "none";
+                                }else{
+                                    document.getElementById("quotation_selection").style.display = "none";
+                                    document.getElementById("po_in_selection").style.display = "block";
+                                }
+                            }
+                            
+                        </script>
                     </div>
-
+                    
+                    
+                    
                     <div class="form-group">
                         <label for="bill-to">Bill To</label>
                         <input class="form-control" type="text" placeholder="Input Bill To" @error('billTo')
@@ -93,3 +136,4 @@
         </div>   
     </div>
 @endsection
+

@@ -25,9 +25,10 @@ class PurchaseOutItemController extends Controller
             $actionBtn = 
             '<td>
             <div class="btn-group">
-                <a href="" class="btn btn-primary btn-sm" id="submit" data-toggle="modal" data-target="#modalDetail">Detail</a>
+                
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
+                    Options
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="/edit/po_out_item/'.$row->po_out_id.'/'.$row->id.'">Edit</a>
