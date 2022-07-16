@@ -95,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//roles
 	Route::get('/roles/index', 'App\Http\Controllers\RolesController@index');
-	Route::get('/roles/list', 'App\Http\Controllers\RolesController@list')->name('roles.data');
+	Route::get('/roles/list', 'App\Http\Controllers\RolesController@list')->name('roles_data');
 });
 
 

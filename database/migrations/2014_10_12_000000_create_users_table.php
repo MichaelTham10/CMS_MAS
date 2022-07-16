@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
-            $table->integer('roleId')->unsigned();
-            $table->foreign('roleId')->references('id')->on('roles');
             $table->timestamps();
         });
     }

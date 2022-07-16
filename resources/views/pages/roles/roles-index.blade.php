@@ -41,21 +41,25 @@
             <table class="table" id="datatable" style="width:98%; margin-left: 10px;">
             <thead>
                 <tr class="font-weight-bold">
-                <th scope="col"><strong>#</strong></th>
-                <th scope="col"><strong>Email</strong></th>
-                <th scope="col"><strong>Name</strong></th>
+                  <th scope="col"><strong>#</strong></th>
+                  <th scope="col"><strong>Email</strong></th>
+                  <th scope="col"><strong>Name</strong></th>
+                  <th scope="col"><strong>Action</strong></th>
+                  <th scope="col"><strong>Action</strong></th>
                 </tr>
             </thead>
             <tbody>
-              <script type="text/javascript">
-                window.data = {!! json_encode($users) !!};
-              </script>
+
             </tbody>
             </table>
             <div style="padding-bottom: 6px;"></div>
         </div>
     </div>
 @endsection
+
+<script type="text/javascript">
+ window.data = {!! json_encode($users) !!};
+</script>
 
 @section('scripts')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
@@ -65,14 +69,19 @@
         {
         processing: true,
         serverSide: true,
-        ajax: "{{ route('roles.data')}}",
+        ajax: "{{ route('roles_data')}}",
         columns : 
         [
           { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-          { "data" : 'email'},
           { "data" : "name"},
-          { "data" : 'password'}
-
+          { "data" : "email"},
+          { "data" : "email_verified_at"},
+          {
+            "class":          "details-control",
+            "orderable":      false,
+            "data":           'action',
+            "defaultContent": ""
+          }
         ]
       });
 
