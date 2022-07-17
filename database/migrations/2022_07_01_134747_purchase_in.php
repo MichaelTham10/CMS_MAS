@@ -20,6 +20,7 @@ class PurchaseIn extends Migration
             $table->string('company_name');
             $table->dateTime('date');
             $table->string('file');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

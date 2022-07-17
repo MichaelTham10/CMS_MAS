@@ -107,12 +107,16 @@ class PurchaseInController extends Controller
             $actionBtn = 
             '<td>
                 <div class="btn-group">
-                    <a class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action  </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="/edit_po_in/'.$row->id.'">Edit</a>
-                        <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
-                        <a class="dropdown-item" href="/invoice/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
-                    </div>
+               
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                    Options
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/edit_po_in/'.$row->id.'">Edit</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
+                    <a class="dropdown-item" href="/invoice/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
+                </div>
                 </div>
             
                 <form action="/delete/po_in/'.$row->id.'" method="POST">

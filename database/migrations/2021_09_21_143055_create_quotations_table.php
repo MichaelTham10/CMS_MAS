@@ -31,6 +31,7 @@ class CreateQuotationsTable extends Migration
             $table->string('Account Manager');
             $table->bigInteger('Discount');
             $table->string('Terms');
+            $table->string('active')->default(true);
             $table->timestamps();
         });
     }

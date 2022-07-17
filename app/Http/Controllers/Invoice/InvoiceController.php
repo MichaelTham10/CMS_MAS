@@ -10,6 +10,7 @@ use App\Models\Quotation;
 use App\Models\InvoiceType;
 use Illuminate\Support\Facades\DB;
 use App\Models\invoice\InvoiceTypeDetail;
+use App\Models\PurchaseIn;
 
 class InvoiceController extends Controller
 {
@@ -24,9 +25,9 @@ class InvoiceController extends Controller
     public function create()
     {
         $types = InvoiceType::all();
-        $quotations = Quotation::all();
-
-        return view('pages.invoice.create-invoice', compact('types', 'quotations'));
+        $quotations = Quotation::where('active', true)->get();
+        $po_ins = PurchaseIn::where('active', true)->get();
+        return view('pages.invoice.create-invoice', compact('types', 'quotations', 'po_ins'));
     }   
 
     public function store(Request $request)
@@ -34,11 +35,27 @@ class InvoiceController extends Controller
         $request->validate([
             'address' => 'required',
             'date' => 'required',
-            'quotationNo' => 'required',
             'billTo' => 'required',
             'note' => 'required',
         ]);
-
+        // dd($request->quotation_selection . " " . $request->po_in_selection);
+        if($request->po_in_selection != "empty" ){
+            $this->read_number = $request->po_in_selection;
+        }
+        if($request->quotation_selection != "empty")
+        {
+            $this->read_number = $request->quotation_selection;
+        }
+        else{
+            $this->read_number = "test";
+        }
+        // else if($request->quotation_selection == "empty" && $request->po_in_selection == "empty")
+        // {
+        //     $request->validate([
+        //         'po_in_selection' => 'required',
+        //         'quotation_selection' => 'required',
+        //     ]);
+        // }
         $this->temp = 0;
 
         $ivcs = InvoiceTypeDetail::all();
@@ -61,7 +78,7 @@ class InvoiceController extends Controller
                     'type_detail_quantity' => $detail->quantity,
                     'Address' => $request->address,
                     'Invoice Date' => $request->date,
-                    'Quotation No' => $request->quotationNo,
+                    'read_number' => $this->read_number,
                     'Bill To' => $request->billTo,
                     'Note' => $request->note
                 ]);
@@ -78,7 +95,7 @@ class InvoiceController extends Controller
             ]);
 
             $type_detail = DB::table('invoice_type_details')->orderBy('id', 'DESC')->first();
-
+            
             Invoice::create([
                 'type_id' => $request->type,
                 'type_detail_id' => $type_detail->id,
@@ -86,12 +103,26 @@ class InvoiceController extends Controller
                 'type_detail_quantity' => $type_detail->quantity,
                 'Address' => $request->address,
                 'Invoice Date' => $request->date,
-                'Quotation No' => $request->quotationNo,
+                'read_number' => $this->read_number,
                 'Bill To' => $request->billTo,
                 'Note' => $request->note
             ]);
         }
-
+        $explodedReadNumber = explode('/', $this->read_number);
+        $type = $explodedReadNumber[1];
+        if($type == "PO") 
+        {
+            PurchaseIn::findOrFail($this->read_number)->update([
+                "active" => false
+            ]);
+        }
+        else{
+            $updated_quotation = Quotation::where('Quotation_No', $this->read_number)->first();
+            $updated_quotation->update([
+                "active" => false
+            ]);
+        }
+        // dd($explodedReadNumber);
         return redirect('/invoice')->with('success', 'Invoice has been added');   
     }
     public function editpage($id)
