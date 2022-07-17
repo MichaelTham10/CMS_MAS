@@ -92,6 +92,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/edit/po_out_item/{po_out_id_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@edit_item')->name('edit-po-out-item');
 	Route::patch('/update/po_out_item/{po_out_id_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@update');
 	Route::delete('/delete/po_out_item/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@delete');
+
+	//roles
+	Route::get('/roles/index', 'App\Http\Controllers\RolesController@index');
+	Route::get('/roles/list', 'App\Http\Controllers\RolesController@list')->name('roles_data');
 });
 
 
