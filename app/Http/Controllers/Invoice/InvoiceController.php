@@ -110,7 +110,7 @@ class InvoiceController extends Controller
         }
         $explodedReadNumber = explode('/', $this->read_number);
         $type = $explodedReadNumber[1];
-        if($type == "PO")
+        if($type == "PO") 
         {
             PurchaseIn::findOrFail($this->read_number)->update([
                 "active" => false
