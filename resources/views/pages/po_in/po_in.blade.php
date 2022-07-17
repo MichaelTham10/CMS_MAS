@@ -1,12 +1,14 @@
 @extends('layouts.app', ['title' => 'Invoice'])
 
-@section('head-title')
-    Purchase In
+{{-- title web tab --}}
+@section('page-title')
+    Purchase In Order
 @endsection
 
-@section('page-title')
-    Purchase In
-@endsection
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Purchase In Order
+@endsection --}}
 
 @section('styles')
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
@@ -37,12 +39,14 @@
     @endif
         
     <div class="container-fluid">
-      <a href="{{asset('pdf/PT Kong Guan.pdf')}}">TEST</a>
-      <div class="rounded border mt-4" style="background-color: #fff">
-        <div class="btn-create">
-          <a class="btn btn-primary" href="/po_in/create/form">create</a>
-        </div>
-        <table class="table" id="datatable" style="width:98%; margin-left: 10px;">
+      {{-- <a href="{{asset('pdf/PT Kong Guan.pdf')}}">TEST</a> --}}
+      <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3>Purchase In Order</h3>
+          <a href="/po_in/create/form" class="btn btn-primary">Create PO In</a>
+        </div>   
+        <hr class="mt-0 mb-3"> 
+        <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
           <thead>
             <tr class="font-weight-bold">
               <th scope="col"><strong>#</strong></th>

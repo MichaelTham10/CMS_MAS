@@ -1,46 +1,40 @@
 @extends('layouts.app', ['title' => 'Edit Purchase Order Out'])
 
-@section('head-title')
-    Edit Purchase Order Out
+{{-- title web tab --}}
+@section('page-title')
+    Edit Purchase Out Order
 @endsection
 
-@section('page-title')
-    Edit Purchase Order Out
-@endsection
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Edit Purchase Out Order
+@endsection --}}
+
 @section('styles')
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
     
 @endsection
 @section('content')
 <style>
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
-    font-size: 14px;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  .btn-create{
-    padding: 5px;
-    position: relative;
-    left: 90.2%;
-  }
+        font-size: 15px;
+    }
 </style>
 @include('layouts.headers.cards')
     @if(Session::has('success'))
-
             <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <strong>{{Session::get('success')}}</strong>
             </div>
-
     @endif
 
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
-                <div>
-                    Edit PO No: {{$po_out['po_out_no']}}
-                </div>
-                <hr class="mt-2 mb-2">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="font-weight-bold">
+                <div class="mb-3">
+                    <h3>Edit PO Out {{$po_out['po_out_no']}}</h3>
+                </div>   
+                <hr class="mt-0 mb-3"> 
                 <form action="/update/po-out/{{$po_out->id}}" method="POST">
                     @csrf
                     @method('PATCH')
@@ -125,7 +119,6 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 1140,
                                 height: 300,
                             });
                         </script>
@@ -133,8 +126,8 @@
                         <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
-                    <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
-                        <a href="/po-out" class="btn btn-light">Cancel</a>
+                    <div class="d-flex justify-content-end">
+                        <a href="/po-out" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -148,15 +141,13 @@
         </style>
 
         <div class="" style="">
-            <div class="rounded border mt-4" style="background-color: #fff;padding: 10px;">
-                <div style="padding: 2px;">
-                    PO Out Items
-                </div>
-                <hr class="mt-0 mb-0">
-                <div class="btn-create">
-                    <a href="/create/po_out_item/{{$po_out['id']}}" class="btn btn-primary">Create</a>
-                </div>
-                <table class="table" id="datatable" style="width: 100%">
+            <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3>PO Out Items</h3>
+                    <a href="/create/po_out_item/{{$po_out['id']}}" class="btn btn-primary">Create Item</a>
+                </div>    
+                <hr class="mt-0 mb-3">
+                <table class="table pt-2 pb-3" id="datatable" style="width: 100%">
                     <thead>
                         <tr class="font-weight-bold">
                         <th scope="col"><strong>#</strong></th>

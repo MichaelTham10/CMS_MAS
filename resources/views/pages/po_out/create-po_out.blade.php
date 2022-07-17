@@ -1,18 +1,24 @@
 @extends('layouts.app', ['title' => 'Create Purchase Out Order'])
 
-@section('head-title')
-    Create Purchase Out Order
-@endsection
-
+{{-- title web tab --}}
 @section('page-title')
     Create Purchase Out Order
 @endsection
 
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Create Purchase Out Order
+@endsection --}}
+
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="font-weight-bold">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3>Create Purchase Out Order</h3>
+                </div>    
+                <hr class="mt-0 mb-3">
                 <form action="/po-out/store" method="POST">
                     @csrf
                     <div class="form-group">
@@ -101,7 +107,6 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 1140,
                                 height: 300,
                             });
                         </script>
@@ -109,8 +114,8 @@
                         <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
-                    <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
-                        <a href="/po-out" class="btn btn-light">Cancel</a>
+                    <div class="d-flex justify-content-end">
+                        <a href="/po-out" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

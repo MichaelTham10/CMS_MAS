@@ -1,28 +1,33 @@
 @extends('layouts.app', ['title' => 'Create Quotation'])
 
-@section('head-title')
-    Create Quotation
-@endsection
-
+{{-- title web tab --}}
 @section('page-title')
     Create Quotation
 @endsection
 
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Create Quotation
+@endsection --}}
 
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="font-weight-bold">
+                <div class="mb-3">
+                    <h3>Create Quotation</h3>
+                </div>   
+                <hr class="mt-0 mb-3"> 
                 <form action="/quotation/store" method="POST">
                     @csrf
                     <div class="form-group">
-                      <label for="type">Type</label>
-                      <select class="form-control" id="type" name="type">
-                        @foreach ($types as $type)
-                          <option value="{{$type->id}}">{{$type->name}} ({{$type->alias}})</option>
-                        @endforeach
-                      </select>
+                        <label for="type">Type</label>
+                        <select class="form-control" id="type" name="type">
+                            @foreach ($types as $type)
+                            <option value="{{$type->id}}">{{$type->name}} ({{$type->alias}})</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -46,13 +51,13 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="attetion">Payment Term</label>
-                      <input class="form-control" type="text" placeholder= "Input Payment Term" @error('payment')
-                      is invalid
-                      @enderror name="payment">
-                      @error('payment')
-                        <span class="text-danger">{{$message}}</span> 
-                      @enderror
+                        <label for="attetion">Payment Term</label>
+                        <input class="form-control" type="text" placeholder= "Input Payment Term" @error('payment')
+                        is invalid
+                        @enderror name="payment">
+                        @error('payment')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -101,14 +106,13 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 1140,
                                 height: 300,
                             });
                         </script>
                     </div>
-                    <div class="pr-4 pb-4">
+                    <div class="d-flex justify-content-end">
+                        <a href="/quotation" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Store</button>
-                        <button type="button" class="btn btn-light">Cancel</button>
                     </div>
                 </form>
 

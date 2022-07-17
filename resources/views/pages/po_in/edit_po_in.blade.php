@@ -1,33 +1,20 @@
 @extends('layouts.app', ['title' => 'Edit Quotation'])
 
-@section('head-title')
-    Edit Quotation
-@endsection
-
+{{-- title web tab --}}
 @section('page-title')
-    Edit Quotation
+    Edit Purchase In Order
 @endsection
 
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Edit Purchase In Order
+@endsection --}}
 @section('styles')
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
 @endsection
 
 @section('content')
 
-{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/> --}}
-<style>
-    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
-    font-size: 14px;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  .btn-create{
-    padding: 5px;
-    position: relative;
-    left: 90.2%;
-  }
-</style>
 @include('layouts.headers.cards')
     @if(Session::has('success'))
         <div class="alert alert-success">
@@ -37,28 +24,40 @@
     @endif
 
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
-                <div>
-                    Edit Purchase In:
-                </div>
-                <hr class="mt-2 mb-2">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="font-weight-bold">
+                <div class="mb-3">
+                    <h3>Edit Purchase In Order</h3>
+                </div>   
+                <hr class="mt-0 mb-3"> 
                 <form action="/edit_po_in/update/{{$purchaseIn->id}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="form-group">
-                      <label for="type">Attention</label>
-                      <input class="form-control" type="text" placeholder="Input Customer" name="attention" value="{{$purchaseIn->attention}}">
+                        <label for="type">Attention</label>
+                        <input class="form-control" type="text" placeholder="Input Customer" @error('attention')
+                        is invalid @enderror name="attention" value="{{$purchaseIn->attention}}">
+                        @error('attention')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="customer">Customer Number</label>
-                        <input class="form-control" type="text" placeholder="Input Customer" name="customer number" value="{{$purchaseIn->customer_number}}">
+                        <input class="form-control" type="text" placeholder="Input Customer" @error('customer_number')
+                        is invalid @enderror name="customer_number" value="{{$purchaseIn->customer_number}}">
+                        @error('customer_number')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="attention">Company Name</label>
-                        <input class="form-control" type="text" placeholder="Input Attention" name="company name" value="{{$purchaseIn->company_name}}">
+                        <input class="form-control" type="text" placeholder="Input Attention" @error('company_name')
+                        is invalid @enderror name="company_name" value="{{$purchaseIn->company_name}}">
+                        @error('company_name')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -70,9 +69,8 @@
                         <label for="attention">File Upload</label>
                         <input class="form-control" type="file" placeholder="Upload File" name="file" value="" accept="application/pdf" >
                     </div>
-
                     
-                    <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
+                    <div class="d-flex justify-content-end">
                         <a href="/po_in" class="btn btn-light">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
@@ -84,8 +82,8 @@
 
         <style>
             td{
-              white-space: normal !important;
-              text-align: justify;
+                white-space: normal !important;
+                text-align: justify;
             }
         </style>
 

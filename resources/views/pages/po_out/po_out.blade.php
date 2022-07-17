@@ -1,12 +1,14 @@
 @extends('layouts.app', ['title' => 'Purchase Out Order'])
 
-@section('head-title')
-    Purchase Out Order
-@endsection
-
+{{-- title web tab --}}
 @section('page-title')
     Purchase Out Order
 @endsection
+
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Purchase Out Order
+@endsection --}}
 
 @section('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
@@ -18,14 +20,7 @@
 
 <style>
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
-    font-size: 14px;
-    padding-left: 10px;
-    padding-right: 10px;
-    }
-    .btn-create{
-        padding: 5px;
-        position: relative;
-        left: 90.2%;
+        font-size: 15px;
     }
 </style>
 
@@ -37,11 +32,13 @@
     @endif
         
     <div class="container-fluid">
-        <div class="rounded border mt-4" style="background-color: #fff">
-            <div class="btn-create">
-            <a class="btn btn-primary" href="{{route('create-po-out')}}">Create</a>
-            </div>
-            <table class="table" id="datatable" style="width:98%; margin-left: 10px;">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3>Purchase Out Order</h3>
+              <a href="{{route('create-po-out')}}" class="btn btn-primary">Create PO Out</a>
+            </div>   
+            <hr class="mt-0 mb-3"> 
+            <table class="table pt-2 pb-3" id="datatable" style="width:100%">
             <thead>
                 <tr class="font-weight-bold">
                 <th scope="col"><strong>#</strong></th>
@@ -70,6 +67,18 @@
 @section('scripts')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
+    function formatNumber(number){
+      number = number.toFixed(0) + '';
+      x = number.split('.');
+      x1 = x[0];
+      x2 = x.length > 1 ? '.' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+          x1 = x1.replace(rgx, '$1' + ',' + '$2');
+      }
+        return x1 + x2;
+    }
+
     function format ( items , po_out) {
       var temp = [];
       var loop = 0;
@@ -90,9 +99,9 @@
         <tr>
           <td>${index}</td>
           <td>${element.item_description}</td>
-          <td>${element.qty}</td>
-          <td>${element['price']}</td>
-          <td>${element['price'] * element.qty}</td>
+          <td>${formatNumber(element.qty)}</td>
+          <td>${formatNumber(element['price'])}</td>
+          <td>${formatNumber(element['price'] * element.qty)}</td>
         </tr>`;
       }
       temp.forEach(element=>{
@@ -100,7 +109,25 @@
         totalPrice = totalPrice + (element['price'] * element.qty);
         index++;
       })
-      return (`<table class="table table-bordered table-sm" > 
+
+      if (totalPrice == 0) {
+        return (`<table class="table table-bordered table-sm" > 
+            <thead>
+              <tr class="font-weight-bold">
+                <th scope="col" style="width:5%;"><strong>#</strong></th>
+                <th scope="col" style="width:15%;"><strong>Name</strong></th>
+                <th scope="col" style="width:45%;"><strong>Description</strong></th>
+                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
+                <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
+                <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+              </tr>
+            </thead>
+          </table>
+          <h5 class="text-center">No Item Data</h5>`
+        );
+      }
+      else{
+        return (`<table class="table table-bordered table-sm" > 
             <thead>
               <tr class="font-weight-bold">
                 <th scope="col" style="width:5%;"><strong>#</strong></th>
@@ -111,22 +138,27 @@
               </tr>
             </thead>
             <tbody>
-            <tr>
-              ${td}
-            </tr>  
+              <tr>
+                ${td}
+              </tr>  
             </tbody>
           </table>
           <table class="table table-bordered no-margin table-sm">
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Discount</th>
-              <td>${po_out.ppn}</td>
+              <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+              <td>Rp. ${formatNumber(totalPrice)}</td>
+            </tr>
+            <tr>
+              <th colspan="2" style="width:78.5%" scope="row">PPN (${po_out.ppn}%)</th>
+              <td>Rp. ${formatNumber(totalPrice*(po_out.ppn/100))}</td>
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>${totalPrice - po_out.ppn <= 0 ? 'FREE' : totalPrice - po_out.ppn}</td>
+              <td>Rp. ${(totalPrice - (totalPrice*(po_out.ppn/100))) <= 0 ? 'FREE' : formatNumber((totalPrice - (totalPrice*(po_out.ppn/100))))}</td>
             </tr>
           </table>`
         );
+      }
     }
     $(document).ready( function () {
       var dt = $('#datatable').DataTable(

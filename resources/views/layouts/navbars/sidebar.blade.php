@@ -80,23 +80,44 @@
             <ul class="navbar-nav pt-0 pb-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        <i class="ni ni-tv-2" style="color: #2e4a78;"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
-               
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('quotation') }}">
-                       
-                        <i  class="ni ni-single-copy-04 text-success"></i> {{ __('Quotation') }}
+                        <i class="ni ni-single-copy-04" style="color: #2e4a78;"></i> {{ __('Quotation') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('invoice') }}">
-                       
-                        <i   class="fas fa-file-invoice text-warning"></i> {{ __('Invoices') }}
+                        <i class="fas fa-file-invoice" style="color: #2e4a78;"></i> {{ __('Invoices') }}
                     </a>
                 </li>
-
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-purchases" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <i class="ni ni-money-coins" style="color: #2e4a78;"></i>
+                        <span class="nav-link-text" style="color: #2e4a78;">{{ __('Purchases') }}</span>
+                    </a>
+    
+                    <div class="collapse show" id="navbar-purchases">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/po_in">
+                                    <i class="ni ni-bold-left" style="color: #2e4a78"></i>
+                                    {{ __('Purchase In') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/po-out">
+                                    <i class="ni ni-bold-right" style="color: #2e4a78"></i>
+                                    {{ __('Purchase Out') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
             <hr class="my-3">
             <ul class="navbar-nav">

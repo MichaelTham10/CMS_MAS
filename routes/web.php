@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//purchase in
 	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit');
 	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
-	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show');
+	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show')->name('po_in');;
 	Route::get('/po_in/list', 'App\Http\Controllers\PurchaseInController@list')->name('po_in_data');
 	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete');
 	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create');

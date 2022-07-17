@@ -1,20 +1,24 @@
 @extends('layouts.app', ['title' => 'Edit Item'])
 
-@section('head-title')
-    Edit Item
+{{-- title web tab --}}
+@section('page-title')
+    Edit Quotation Item
 @endsection
 
-@section('page-title')
+{{-- navbar title --}}
+{{-- @section('head-title')
     Edit Item
-@endsection
+@endsection --}}
 
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
-               
-                
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="mb-3">
+                <h3>Edit item - {{$item->name}}</h3>
+            </div>   
+            <hr class="mt-0 mb-3"> 
+            <div class="font-weight-bold">
                 <form action="/update/item/{{$quotation_id}}/{{$item->id}}" method="POST">
                     @csrf
                     @method('PATCH')
@@ -61,19 +65,16 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 970,
                                 height: 300,
                             });
                         </script>
                     </div>
-                    <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
-                        <a href="{{route('edit-controller', $quotation_id)}}" class="btn btn-light">Cancel</a>
+                    <div class="d-flex justify-content-end">
+                        <a href="{{route('edit-controller', $quotation_id)}}" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
-            </div>
-
-           
+            </div> 
         </div>   
     </div>
 @endsection

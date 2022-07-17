@@ -1,18 +1,24 @@
 @extends('layouts.app', ['title' => 'Edit Item'])
 
-@section('head-title')
-    Edit Purchase Out Item
+{{-- title web tab --}}
+@section('page-title')
+    Edit PO Out Item
 @endsection
 
-@section('page-title')
-    Edit Purchase Out Item
-@endsection
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Edit PO Out Item
+@endsection --}}
 
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="font-weight-bold">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3>Create PO Out Item</h3>
+                </div>    
+                <hr class="mt-0 mb-3">
                 <form action="/update/po_out_item/{{$po_out_id}}/{{$item->id}}" method="POST">
                     @csrf
                     @method('PATCH')
@@ -45,8 +51,8 @@
                         <span class="text-danger">{{$message}}</span> 
                     @enderror
                     </div> 
-                    <div class="d-flex justify-content-end pl-4 pr-4 pb-4 ">
-                        <a href="{{route('edit-po-out-controller', $po_out_id)}}" class="btn btn-light">Cancel</a>
+                    <div class="d-flex justify-content-end">
+                        <a href="{{route('edit-po-out-controller', $po_out_id)}}" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

@@ -1,27 +1,33 @@
 @extends('layouts.app', ['title' => 'Create Invoices'])
 
-@section('head-title')
-    Create Invoice
-@endsection
-
+{{-- title web tab --}}
 @section('page-title')
     Create Invoice
 @endsection
 
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Create Invoice
+@endsection --}}
+
 @section('content')
 @include('layouts.headers.cards')
     <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4" style="background-color: #fff">
-            <div class="pl-4 pt-4 pr-4 font-weight-bold">
+        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+            <div class="font-weight-bold">
+                <div class="mb-3">
+                    <h3>Create Invoice</h3>
+                </div>   
+                <hr class="mt-0 mb-3"> 
                 <form action="/invoice/store" method="POST">
                     @csrf
                     <div class="form-group">
-                      <label for="type">Type</label>
-                      <select class="form-control" id="type" name="type">
-                        @foreach ($types as $type)
-                          <option value="{{$type->id}}">{{$type->name}} ({{$type->alias}})</option>
-                        @endforeach
-                      </select>
+                        <label for="type">Type</label>
+                        <select class="form-control" id="type" name="type">
+                            @foreach ($types as $type)
+                            <option value="{{$type->id}}">{{$type->name}} ({{$type->alias}})</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -51,7 +57,7 @@
                         <label for="quotation">Quotation</label>
                         <select class="form-control" id="quotation" name="quotationNo">
                             @foreach ($quotations as $quotation)
-                               <option value="{{$quotation->id}}">{{$quotation->Quotation_No}}</option> 
+                                <option value="{{$quotation->id}}">{{$quotation->Quotation_No}}</option> 
                             @endforeach
                         </select>
                     </div>
@@ -76,7 +82,6 @@
                             tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
-                                width: 1140,
                                 height: 300,
                             });
                         </script>
@@ -84,8 +89,8 @@
                         <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
-                    <div class="d-flex justify-content-end pl-4 pb-4 ">
-                        <button type="button" class="btn btn-light">Cancel</button>
+                    <div class="d-flex justify-content-end">
+                        <a href="/invoice" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
