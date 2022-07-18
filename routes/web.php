@@ -96,6 +96,8 @@ Route::group(['middleware' => 'auth'], function () {
 	//roles
 	Route::get('/roles/index', 'App\Http\Controllers\RolesController@index');
 	Route::get('/roles/list', 'App\Http\Controllers\RolesController@list')->name('roles_data');
+	Route::patch('/update/role/{id}', 'App\Http\Controllers\RolesController@update');
+	
 });
 
 

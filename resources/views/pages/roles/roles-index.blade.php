@@ -44,7 +44,7 @@
                   <th scope="col"><strong>#</strong></th>
                   <th scope="col"><strong>Email</strong></th>
                   <th scope="col"><strong>Name</strong></th>
-                  <th scope="col"><strong>Action</strong></th>
+                  <th scope="col"><strong>Role</strong></th>
                   <th scope="col"><strong>Action</strong></th>
                 </tr>
             </thead>
@@ -64,6 +64,24 @@
 @section('scripts')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
+    function format ( users , roles) {
+    var temp = [];
+    var loop = 0;
+    
+    users.forEach(user => {
+      if (roles['id'] == user.role_id) {
+        temp[loop] = item;
+        loop++;
+      }
+    });
+
+    var td = "";
+    var index = 1;
+    var totalPrice = 0;
+
+
+    
+  }
     $(document).ready( function () {
       var dt = $('#datatable').DataTable(
         {
@@ -73,9 +91,9 @@
         columns : 
         [
           { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-          { "data" : "name"},
           { "data" : "email"},
-          { "data" : "email_verified_at"},
+          { "data" : "name"},
+          { "data" : "role.name"},
           {
             "class":          "details-control",
             "orderable":      false,
