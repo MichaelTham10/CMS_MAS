@@ -14,7 +14,7 @@ class Invoice extends Model
 
     protected $fillable = [
         'type_id','type_detail_id', 'Invoice No', 'type_detail_quantity', 'Address',
-        'Invoice Date', 'read_number', 'Bill To', 'Note',
+        'Invoice Date', 'Quotation No', 'Bill To', 'Note',
     ];
 
     public static function getFormatId($invoiceType_id,$invoiceType_detail_id,$invoiceDate)
