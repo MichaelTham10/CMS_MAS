@@ -89,14 +89,23 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/po-out-item/list/{po_out_id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@list')->name('po-out-item-data');
 	Route::get('/create/po_out_item/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@index')->name('create-po-out-item');
 	Route::post('/po_out_item/store/{po_out_id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@create')->name('store-po-out-item');
-	Route::get('/edit/po_out_item/{po_out_id_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@edit_item')->name('edit-po-out-item');
-	Route::patch('/update/po_out_item/{po_out_id_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@update');
+	Route::get('/edit/po_out_item/{po_out_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@edit_item')->name('edit-po-out-item');
+	Route::patch('/update/po_out_item/{po_out_id}/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@update');
 	Route::delete('/delete/po_out_item/{id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@delete');
 
-	//roles
-	Route::get('/roles/index', 'App\Http\Controllers\RolesController@index');
-	Route::get('/roles/list', 'App\Http\Controllers\RolesController@list')->name('roles_data');
-	Route::patch('/update/role/{id}', 'App\Http\Controllers\RolesController@update');
+	//roles buat kebutuhan nanti
+	// Route::get('/roles/index', 'App\Http\Controllers\RolesController@index');
+	// Route::get('/roles/list', 'App\Http\Controllers\RolesController@list')->name('roles_data');
+	// Route::patch('/update/role/{id}', 'App\Http\Controllers\RolesController@update');
+
+	//user
+	Route::get('/user', 'App\Http\Controllers\UserController@index');
+	Route::get('/user/list', 'App\Http\Controllers\UserController@list')->name('user_data');
+	Route::get('/create/user', 'App\Http\Controllers\UserController@create')->name('create-user');
+	Route::post('/store/user', 'App\Http\Controllers\UserController@store')->name('store-user');
+	Route::get('/edit-user/{id}', 'App\Http\Controllers\UserController@edit')->name('edit-user');
+	Route::patch('/update-user/{id}', 'App\Http\Controllers\UserController@update');
+	Route::delete('/delete-user/{id}', 'App\Http\Controllers\UserController@delete');
 	
 });
 

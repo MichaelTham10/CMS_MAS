@@ -11,7 +11,18 @@
 @endsection --}}
 
 @section('content')
-@include('layouts.headers.cards')
+    @include('layouts.headers.cards')
+    @if(Session::has('success'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{Session::get('success')}}</strong>
+        </div>
+    @elseif(Session::has('failed'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{Session::get('failed')}}</strong>
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
             <div class="font-weight-bold">
@@ -79,13 +90,13 @@
                         <select class="form-control" name="quotation_selection" id="quotation_selection" style="display: none">
                             <option hidden value="empty"></option>
                             @foreach ($quotations as $quotation)
-                               <option value="{{$quotation->Quotation_No}}">{{$quotation->Quotation_No}}</option> 
+                                <option value="{{$quotation->Quotation_No}}">{{$quotation->Quotation_No}}</option> 
                             @endforeach
                         </select>
                         <select class="form-control"  name="po_in_selection" id="po_in_selection" style="display: none">
                             <option hidden value="empty"></option>
                             @foreach ($po_ins as $po_in)
-                               <option value="{{$po_in->id}}">{{$po_in->id}}</option> 
+                                <option value="{{$po_in->id}}">{{$po_in->id}}</option> 
                             @endforeach
                         </select>
                         <script>
@@ -102,8 +113,6 @@
                             
                         </script>
                     </div>
-                    
-                    
                     
                     <div class="form-group">
                         <label for="bill-to">Bill To</label>

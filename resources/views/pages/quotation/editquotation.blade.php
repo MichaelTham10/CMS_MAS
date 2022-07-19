@@ -13,18 +13,25 @@
 @endsection
 
 @section('content')
+    <style>
+        .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
+            font-size: 15px;
+        }
 
-{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/> --}}
-<style>
-    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
-        font-size: 15px;
-    }
-</style>
-@include('layouts.headers.cards')
+        .paginate_button.page-item.active a.page-link {
+            background-color: #2a3880; 
+        }
+    </style>
+    @include('layouts.headers.cards')
     @if(Session::has('success'))
         <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>{{Session::get('success')}}</strong>
+        </div>
+    @elseif(Session::has('failed'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{Session::get('failed')}}</strong>
         </div>
     @endif
 
@@ -97,8 +104,6 @@
                     </div>
                 </form>
             </div>
-
-            
         </div>   
 
         <style>
@@ -136,8 +141,6 @@
             </div>
         </div>   
     </div>
-    
-    
 @endsection
 
 @section('scripts')

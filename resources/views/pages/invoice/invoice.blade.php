@@ -16,46 +16,54 @@
 @endsection
 
 @section('content')
-@include('layouts.headers.cards')
+  @include('layouts.headers.cards')
 
   <style>
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
         font-size: 15px;
     }
+    .paginate_button.page-item.active a.page-link {
+      background-color: #2a3880; 
+    }
   </style>
 
-    @if(Session::has('success'))
-      <div class="alert alert-success">
+  @if(Session::has('success'))
+    <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>{{Session::get('success')}}</strong>
-      </div>
-    @endif
-        
-    <div class="container-fluid">
-      <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h3>Invoice</h3>
-          <a href="{{route('create-invoice')}}" class="btn btn-primary">Create Invoice</a>
-        </div>   
-        <hr class="mt-0 mb-3"> 
-        <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
-          <thead>
-            <tr class="font-weight-bold">
-              <th scope="col"><strong>#</strong></th>
-              <th scope="col"><strong>Invoice No</strong></th>
-              <th scope="col"><strong>Invoice Date</strong></th>
-              <th scope="col"><strong>Bill To</strong></th>
-              <th scope="col"><strong>Quotation No</strong></th>
-              <th scope="col"><strong>Action</strong></th>
-            </tr>
-          </thead>
-          <tbody>
-            
-          </tbody>
-        </table>
-        <div style="padding-bottom: 6px;"></div>
-      </div>
     </div>
+  @elseif(Session::has('failed'))
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{Session::get('failed')}}</strong>
+    </div>
+  @endif
+        
+  <div class="container-fluid">
+    <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Invoice</h3>
+        <a href="{{route('create-invoice')}}" class="btn btn-primary">Create Invoice</a>
+      </div>   
+      <hr class="mt-0 mb-3"> 
+      <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
+        <thead>
+          <tr class="font-weight-bold">
+            <th scope="col"><strong>#</strong></th>
+            <th scope="col"><strong>Invoice No</strong></th>
+            <th scope="col"><strong>Invoice Date</strong></th>
+            <th scope="col"><strong>Bill To</strong></th>
+            <th scope="col"><strong>Quotation No</strong></th>
+            <th scope="col"><strong>Action</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+      <div style="padding-bottom: 6px;"></div>
+    </div>
+  </div>
 @endsection
 
 <script type="text/javascript">

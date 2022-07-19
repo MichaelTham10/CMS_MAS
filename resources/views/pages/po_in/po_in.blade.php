@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-@include('layouts.headers.cards')
+  @include('layouts.headers.cards')
 
   <style>
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
@@ -29,42 +29,50 @@
       position: relative;
       left: 90.2%;
     }
+    .paginate_button.page-item.active a.page-link {
+      background-color: #2a3880; 
+    }
   </style>
 
-    @if(Session::has('success'))
-      <div class="alert alert-success">
+  @if(Session::has('success'))
+    <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>{{Session::get('success')}}</strong>
-      </div>
-    @endif
-        
-    <div class="container-fluid">
-      {{-- <a href="{{asset('pdf/PT Kong Guan.pdf')}}">TEST</a> --}}
-      <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h3>Purchase In Order</h3>
-          <a href="/po_in/create/form" class="btn btn-primary">Create PO In</a>
-        </div>   
-        <hr class="mt-0 mb-3"> 
-        <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
-          <thead>
-            <tr class="font-weight-bold">
-              <th scope="col"><strong>#</strong></th>
-              <th scope="col"><strong>Attention</strong></th>
-              <th scope="col"><strong>Customer Number</strong></th>
-              <th scope="col"><strong>Copany Name</strong></th>
-              <th scope="col"><strong>Date</strong></th>
-              <th scope="col"><strong>PDF</strong></th>
-              <th scope="col"><strong>Action</strong></th>
-            </tr>
-          </thead>
-          <tbody>
-             
-          </tbody>
-        </table>
-        <div style="padding-bottom: 6px;"></div>
-      </div>
     </div>
+  @elseif(Session::has('failed'))
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{Session::get('failed')}}</strong>
+    </div>
+  @endif
+        
+  <div class="container-fluid">
+    {{-- <a href="{{asset('pdf/PT Kong Guan.pdf')}}">TEST</a> --}}
+    <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Purchase In Order</h3>
+        <a href="/po_in/create/form" class="btn btn-primary">Create PO In</a>
+      </div>   
+      <hr class="mt-0 mb-3"> 
+      <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
+        <thead>
+          <tr class="font-weight-bold">
+            <th scope="col"><strong>#</strong></th>
+            <th scope="col"><strong>Attention</strong></th>
+            <th scope="col"><strong>Customer Number</strong></th>
+            <th scope="col"><strong>Copany Name</strong></th>
+            <th scope="col"><strong>Date</strong></th>
+            <th scope="col"><strong>PDF</strong></th>
+            <th scope="col"><strong>Action</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+      </table>
+      <div style="padding-bottom: 6px;"></div>
+    </div>
+  </div>
 @endsection
 
 <script type="text/javascript">
@@ -72,7 +80,7 @@
 </script>
 
 @section('scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
     $(document).ready( function () {
       var dt = $('#datatable').DataTable(

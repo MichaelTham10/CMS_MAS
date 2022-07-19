@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="align-self-center" >
-                    <a href="{{route('invoice')}}" class="btn btn-primary ">View Details</a>
+                    <a href="{{route('invoice')}}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
         </div>

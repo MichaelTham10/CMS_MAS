@@ -16,48 +16,56 @@
 @endsection
 
 @section('content')
-@include('layouts.headers.cards')
+  @include('layouts.headers.cards')
 
-<style>
+  <style>
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
         font-size: 15px;
     }
-</style>
+    .paginate_button.page-item.active a.page-link {
+          background-color: #2a3880; 
+    }
+  </style>
 
-    @if(Session::has('success'))
-        <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{Session::get('success')}}</strong>
-        </div>
-    @endif
-        
-    <div class="container-fluid">
-        <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h3>Purchase Out Order</h3>
-              <a href="{{route('create-po-out')}}" class="btn btn-primary">Create PO Out</a>
-            </div>   
-            <hr class="mt-0 mb-3"> 
-            <table class="table pt-2 pb-3" id="datatable" style="width:100%">
-            <thead>
-                <tr class="font-weight-bold">
-                <th scope="col"><strong>#</strong></th>
-                <th scope="col"><strong>PO No</strong></th>
-                <th scope="col"><strong>PO Date</strong></th>
-                <th scope="col"><strong>Arrival Date</strong></th>
-                <th scope="col"><strong>To</strong></th>
-                <th scope="col"><strong>Action</strong></th>
-                </tr>
-            </thead>
-            <tbody>
-              <script type="text/javascript">
-                window.data = {!! json_encode($po_out_items) !!};
-              </script>
-            </tbody>
-            </table>
-            <div style="padding-bottom: 6px;"></div>
-        </div>
+  @if(Session::has('success'))
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{Session::get('success')}}</strong>
     </div>
+  @elseif(Session::has('failed'))
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{Session::get('failed')}}</strong>
+    </div>
+  @endif
+      
+  <div class="container-fluid">
+    <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3>Purchase Out Order</h3>
+          <a href="{{route('create-po-out')}}" class="btn btn-primary">Create PO Out</a>
+        </div>   
+        <hr class="mt-0 mb-3"> 
+        <table class="table pt-2 pb-3" id="datatable" style="width:100%">
+        <thead>
+            <tr class="font-weight-bold">
+            <th scope="col"><strong>#</strong></th>
+            <th scope="col"><strong>PO No</strong></th>
+            <th scope="col"><strong>PO Date</strong></th>
+            <th scope="col"><strong>Arrival Date</strong></th>
+            <th scope="col"><strong>To</strong></th>
+            <th scope="col"><strong>Action</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+          <script type="text/javascript">
+            window.data = {!! json_encode($po_out_items) !!};
+          </script>
+        </tbody>
+        </table>
+        <div style="padding-bottom: 6px;"></div>
+    </div>
+  </div>
 @endsection
 
 {{-- <script type="text/javascript">
@@ -65,7 +73,7 @@
 </script> --}}
 
 @section('scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
     function formatNumber(number){
       number = number.toFixed(0) + '';
