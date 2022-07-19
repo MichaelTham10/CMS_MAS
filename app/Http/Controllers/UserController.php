@@ -62,31 +62,59 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        if($request->password != null){
-            $request->validate([
-                'email' => 'required|unique:users,email,' . $id,
-                'username' => 'required|unique:users,name,' . $id,
-                'confirmPassword' => 'same:password'
-            ]);
-
-            User::findOrFail($id)->update([
-                'email' => $request->email,
-                'name' => $request->username,
-                'password' => Hash::make($request->password),
-                'role_id' => $request->role
-            ]);
+        if(Auth::user()->role_id == 1){
+            if($request->password != null){
+                $request->validate([
+                    'email' => 'required|unique:users,email,' . $id,
+                    'username' => 'required|unique:users,name,' . $id,
+                    'confirmPassword' => 'same:password'
+                ]);
+    
+                User::findOrFail($id)->update([
+                    'email' => $request->email,
+                    'name' => $request->username,
+                    'password' => Hash::make($request->password),
+                    'role_id' => $request->role
+                ]);
+            }
+            else{
+                $request->validate([
+                    'email' => 'required|unique:users,email,' . $id,
+                    'username' => 'required|unique:users,name,' . $id,
+                ]);
+    
+                User::findOrFail($id)->update([
+                    'email' => $request->email,
+                    'name' => $request->username,
+                    'role_id' => $request->role
+                ]);
+            }
         }
         else{
-            $request->validate([
-                'email' => 'required|unique:users,email,' . $id,
-                'username' => 'required|unique:users,name,' . $id,
-            ]);
-
-            User::findOrFail($id)->update([
-                'email' => $request->email,
-                'name' => $request->username,
-                'role_id' => $request->role
-            ]);
+            if($request->password != null){
+                $request->validate([
+                    'email' => 'required|unique:users,email,' . $id,
+                    'username' => 'required|unique:users,name,' . $id,
+                    'confirmPassword' => 'same:password'
+                ]);
+    
+                User::findOrFail($id)->update([
+                    'email' => $request->email,
+                    'name' => $request->username,
+                    'password' => Hash::make($request->password),
+                ]);
+            }
+            else{
+                $request->validate([
+                    'email' => 'required|unique:users,email,' . $id,
+                    'username' => 'required|unique:users,name,' . $id,
+                ]);
+    
+                User::findOrFail($id)->update([
+                    'email' => $request->email,
+                    'name' => $request->username,
+                ]);
+            }
         }
         
         return back()->with('success', 'User has been updated');

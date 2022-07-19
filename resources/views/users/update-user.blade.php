@@ -51,14 +51,21 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="role">Role</label>
-                        <select class="form-control" id="role" name="role">
-                            @foreach ($roles as $role)
-                                <option value="{{$role->id}}" {{$user->role_id == $role->id  ? 'selected' : ''}}>{{$role->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @if (Auth::user()->role_id != 1)
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <input type="text" class="form-control" readonly value="{{$user->role->name}}">
+                        </div>
+                    @else
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-control" id="role" name="role">
+                                @foreach ($roles as $role)
+                                    <option value="{{$role->id}}" {{$user->role_id == $role->id  ? 'selected' : ''}}>{{$role->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
 
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -83,10 +90,7 @@
                         <button type="submit" class="btn btn-primary">Store</button>
                     </div>
                 </form>
-
             </div>
-
-            
         </div>   
     </div>
 @endsection
