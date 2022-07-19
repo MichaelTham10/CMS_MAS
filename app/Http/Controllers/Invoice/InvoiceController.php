@@ -26,8 +26,8 @@ class InvoiceController extends Controller
     {
         $types = InvoiceType::all();
         $quotations = Quotation::where('active', true)->get();
-        $po_ins = PurchaseIn::where('active', true)->get();
-        return view('pages.invoice.create-invoice', compact('types', 'quotations', 'po_ins'));
+        
+        return view('pages.invoice.create-invoice', compact('types', 'quotations'));
     }   
 
     public function store(Request $request)
@@ -92,7 +92,7 @@ class InvoiceController extends Controller
                 'Note' => $request->note
             ]);
         }
-        $updated_quotation = Quotation::findOrFail($request->quotation_selection)->first();
+        $updated_quotation = Quotation::findOrFail($request->quotation_selection);
         $updated_quotation->update([
             "active" => false
         ]);

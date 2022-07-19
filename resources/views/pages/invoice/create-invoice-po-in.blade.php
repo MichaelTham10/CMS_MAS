@@ -2,7 +2,7 @@
 
 {{-- title web tab --}}
 @section('page-title')
-    Create Invoice
+    Create Invoice PO
 @endsection
 
 {{-- navbar title --}}
@@ -16,10 +16,10 @@
         <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
             <div class="font-weight-bold">
                 <div class="mb-3">
-                    <h3>Create Invoice</h3>
+                    <h3>Create Invoice PO</h3>
                 </div>   
                 <hr class="mt-0 mb-3"> 
-                <form action="/invoice/store" method="POST">
+                <form action="/invoice-po/store" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="type">Type</label>
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="invoiceDate">Quotation Date</label>
+                        <label for="invoiceDate">Invoice Date</label>
                         <input class="form-control" type="date" placeholder="Input Invoice Date" @error('invoiceDate')
                         is invalid @enderror onfocus="(this.type='date')" id="invoice-date" name="date">
                         @error('invoiceDate')
@@ -54,19 +54,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="quotation">Quotation No</label>
-                        <select class="form-control" id="quotation" name="quotation_selection" 
-                        @error('quotation_selection') is invalid @enderror
+                        <label for="po_selection">PO In No</label>
+                        <select class="form-control" id="po_selection" name="po_in_selection" 
+                        @error('po_in_selection') is invalid @enderror
+                        
                         required>
-                            @foreach ($quotations as $quotation)
-                                <option value="{{$quotation->id}}">{{$quotation->Quotation_No}}</option> 
+                            @foreach ($po_ins as $po_in)
+                                <option value="{{$po_in->id}}">{{$po_in->customer_number}}</option> 
                             @endforeach
                         </select>
-                        @error('quotation_selection')
+                        @error('po_in_selection')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
-
 
                     <div class="form-group">
                         <label for="bill-to">Bill To</label>
