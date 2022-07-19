@@ -50,9 +50,14 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::findorfail($id);
-        $roles = Role::all();
-        return view('users.update-user', compact('roles', 'user'));
+        if(Auth::user()->role_id == 1 || Auth::id() == $id){
+            $user = User::findorfail($id);
+            $roles = Role::all();
+            return view('users.update-user', compact('roles', 'user'));
+        }
+        else{
+            return view('error-page.401');
+        }
     }
 
     public function update(Request $request, $id)

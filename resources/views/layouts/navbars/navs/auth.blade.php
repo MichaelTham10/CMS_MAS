@@ -22,7 +22,7 @@
                     {{-- <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
                     </div> --}}
-                    <a href="edit-user/{{Auth::id()}}" class="dropdown-item" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                    <a href="/edit-user/{{Auth::id()}}" class="dropdown-item" style="text-decoration: none; color: #2a3880; font-weight: bold;">
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('My profile') }}</span>
                     </a>

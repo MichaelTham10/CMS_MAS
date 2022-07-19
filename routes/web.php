@@ -97,8 +97,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user/list', 'App\Http\Controllers\UserController@list')->name('user_data')->middleware('role:Superadmin');
 	Route::get('/create/user', 'App\Http\Controllers\UserController@create')->name('create-user')->middleware('role:Superadmin');
 	Route::post('/store/user', 'App\Http\Controllers\UserController@store')->name('store-user')->middleware('role:Superadmin');
-	Route::get('/edit-user/{id}', 'App\Http\Controllers\UserController@edit')->name('edit-user')->middleware('role:Superadmin');
-	Route::patch('/update-user/{id}', 'App\Http\Controllers\UserController@update')->middleware('role:Superadmin');
+	Route::get('/edit-user/{id}', 'App\Http\Controllers\UserController@edit')->name('edit-user')->middleware('role:Superadmin,Admin,Sales,Finance');
+	Route::patch('/update-user/{id}', 'App\Http\Controllers\UserController@update')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::delete('/delete-user/{id}', 'App\Http\Controllers\UserController@delete')->middleware('role:Superadmin');
 	
 });

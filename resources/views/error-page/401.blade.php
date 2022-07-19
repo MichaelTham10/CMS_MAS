@@ -23,7 +23,7 @@
             Please ask superadmin to grant you the access to this page
         </div>
         <br>
-        <a href="{{'login'}}" class="text-center btn btn-light text-dark" style="text-decoration: none">Back to dashboard</a>
+        <a href="/dashboard" class="text-center btn btn-light text-dark" style="text-decoration: none">Back to dashboard</a>
     </div>
     
 @endsection
