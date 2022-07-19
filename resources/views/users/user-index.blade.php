@@ -51,7 +51,7 @@
             <a href="{{route('create-user')}}" class="btn btn-primary">Create User</a>
             </div>   
             <hr class="mt-0 mb-3"> 
-            <table class="table pt-2 pb-3" id="datatable">
+            <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
             <thead>
                 <tr class="font-weight-bold">
                     <th scope="col"><strong>#</strong></th>

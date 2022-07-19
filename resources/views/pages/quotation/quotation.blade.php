@@ -43,13 +43,13 @@
   @endif
 
   <div class="container-fluid">
-    <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+    <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff;">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Quotation</h3>
         <a href="{{route('create')}}" class="btn btn-primary">Create Quotation</a>
       </div>   
       <hr class="mt-0 mb-3"> 
-      <table class="table pt-2 pb-3" id="datatable">
+      <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
           <thead>
             <tr class="font-weight-bold">
               <th scope="col"><strong>#</strong></th>
