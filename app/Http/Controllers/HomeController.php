@@ -28,4 +28,8 @@ class HomeController extends Controller
         
         return view('dashboard', compact('quotations', 'invoices'));
     }
+
+    public function unauthorized(){
+        return view('error-page.401');
+    }
 }
