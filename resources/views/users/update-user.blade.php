@@ -51,7 +51,7 @@
                         @enderror
                     </div>
 
-                    @if (Auth::user()->role_id != 1)
+                    @if (Auth::user()->role_id != 1 || Auth::user()->role_id == 1 && $user->id == Auth::user()->id)
                         <div class="form-group">
                             <label for="role">Role</label>
                             <input type="text" class="form-control" readonly value="{{$user->role->name}}">

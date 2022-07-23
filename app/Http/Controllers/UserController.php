@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -135,15 +136,11 @@ class UserController extends Controller
 
     public function list()
     {
-        $query = User::with('role');
-        $role = Role::all();
+        $query = User::with('role')->where('id', '!=', Auth::id())->get();
         
         return datatables($query)
         ->addIndexColumn()
         ->addColumn('action', function($row){
-
-            $options = '';
-
             $actionBtn = 
             '<td>
             <div class="btn-group">
