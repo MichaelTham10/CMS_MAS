@@ -69,13 +69,20 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/invoice/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice');
 
 	//purchase in
-	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit');
+	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit')->name('edit_po_in');
 	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
 	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show')->name('po_in');;
 	Route::get('/po_in/list', 'App\Http\Controllers\PurchaseInController@list')->name('po_in_data');
 	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete');
 	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create');
 	Route::post('/po_in/create', 'App\Http\Controllers\PurchaseInController@create');
+	//po_in Item
+	Route::get('/po_in/item/list/{id}', 'App\Http\Controllers\PurchaseInController@item_list');
+	Route::get('/po_in/create/item/{id}', 'App\Http\Controllers\PurchaseInController@create_item');
+	Route::post('/po_in/store_item/{id}', 'App\Http\Controllers\PurchaseInController@store_item');
+	Route::get('/po_in/edit/item/{po_in_id}/{id}', 'App\Http\Controllers\PurchaseInController@edit_item_page');
+	Route::patch('/po_in/update/item/{po_in_id}/{id}','App\Http\Controllers\PurchaseInController@update_item_po_in');
+	Route::delete('/po_in/delete/{id}', 'App\Http\Controllers\PurchaseInController@delete_item_po_in');
 	//po_out
 	Route::get('/po-out', 'App\Http\Controllers\PO_Out\PurchaseOutController@index')->name('po-out');
 	Route::get('/po-out/list', 'App\Http\Controllers\PO_Out\PurchaseOutController@list')->name('po-outData');
