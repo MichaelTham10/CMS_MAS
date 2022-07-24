@@ -7,7 +7,7 @@ use App\Models\InvoicePO;
 use App\Models\InvoicePOTypeDetail;
 use App\Models\InvoiceType;
 use App\Models\Item;
-use App\Models\PurchaseIn;
+use App\Models\PurchaseOrderIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,15 +16,15 @@ class InvoicePOController extends Controller
     public function index(Request $request = null, $show = null)
     {
         $items = Item::all();
-        $purchaseIn = PurchaseIn::all();
+
         $invoices =  InvoicePO::all();
-        return view('pages.invoice.po-in-invoice', compact('invoices', 'items', 'purchaseIn'));
+        return view('pages.invoice.po-in-invoice', compact('invoices', 'items'));
     }
 
     public function create()
     {
         $types = InvoiceType::all();
-        $po_ins = PurchaseIn::where('active', true)->get();
+        $po_ins = PurchaseOrderIn::where('active', true)->get();
         
         return view('pages.invoice.create-invoice-po-in', compact('types', 'po_ins'));
     }   
@@ -36,7 +36,8 @@ class InvoicePOController extends Controller
             'date' => 'required',
             'billTo' => 'required',
             'note' => 'required',
-            'po_in_selection' => 'required'
+            'po_in_selection' => 'required',
+            'serviceCost' => 'required',
         ]);
         
         $this->temp = 0;
@@ -63,7 +64,8 @@ class InvoicePOController extends Controller
                     'Invoice Date' => $request->date,
                     'PO_In_Id' => $request->po_in_selection,
                     'Bill To' => $request->billTo,
-                    'Note' => $request->note
+                    'Note' => $request->note,
+                    'service_cost' => $request->serviceCost
                 ]);
                 break;
             }
@@ -88,19 +90,27 @@ class InvoicePOController extends Controller
                 'Invoice Date' => $request->date,
                 'PO_In_Id' => $request->po_in_selection,
                 'Bill To' => $request->billTo,
-                'Note' => $request->note
+                'Note' => $request->note,
+                'service_cost' => $request->serviceCost
             ]);
         }
-        $updated_po_in = PurchaseIn::findOrFail($request->po_in_selection);
+        $updated_po_in = PurchaseOrderIn::findOrFail($request->po_in_selection);
         $updated_po_in->update([
             "active" => false
         ]);
         return redirect('/invoice/po')->with('success', 'Invoice has been added');   
     }
 
+    public function delete($invoice_id)
+    {
+        InvoicePO::destroy($invoice_id);
+
+        return back()->with('success', 'Invoice has been deleted');
+    }
+
     public function list()
     {
-        $query = InvoicePO::with('purchaseIn');
+        $query = InvoicePO::with('poin');
         
         return datatables($query)
         ->addIndexColumn()
@@ -114,13 +124,13 @@ class InvoicePOController extends Controller
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/editinvoice/'.$row->id.'">Edit</a>
+                    <a class="dropdown-item" href="/editinvoice-po/'.$row->id.'">Edit</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
                     <a class="dropdown-item" href="/invoice/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
                 </div>
                 </div>
             
-                <form action="/delete/invoice/'.$row->id.'" method="POST">
+                <form action="/delete/invoice-po/'.$row->id.'" method="POST">
             
                 '.csrf_field().'
                 '.method_field('DELETE').'
@@ -150,6 +160,93 @@ class InvoicePOController extends Controller
         })
         ->escapeColumns(null)
         ->make(true);
+    }
+
+    public function editpage($id)
+    {
+        $invoice = InvoicePO::findOrFail($id);
+        $type = InvoiceType::findOrFail($invoice->type_id);
+        return view('pages.invoice.edit-invoice-po', compact('invoice', 'type'));
+    }
+
+    public function update($invoice_id, Request $request)
+    {
+        
+        $invoice = InvoicePO::findOrFail($invoice_id);
+        $type = InvoiceType::findOrFail($invoice->type_id);
+        $itds = InvoicePOTypeDetail::all();
+        if($invoice['Invoice Date'] != $request->date)
+        {
+            $itd = InvoicePOTypeDetail::findOrFail($invoice->type_detail_id);
+            InvoicePOTypeDetail::findOrFail($invoice->type_detail_id)->update([
+                'quantity' => ($itd->quantity - 1),
+            ]);
+
+            $temp = InvoicePOTypeDetail::findOrFail($invoice->type_detail_id);
+
+            foreach($itds as $invoice_detail)
+            {  
+                if($invoice_detail->invoice_date == $request->date && $invoice_detail->type_id == $invoice->type_id)
+                {
+                    InvoicePOTypeDetail::findOrFail($invoice_detail->id)->update([
+                        'quantity' => ($invoice_detail->quantity + 1),
+                    ]);
+
+                    $detail = InvoicePOTypeDetail::findOrFail($invoice_detail->id);
+
+                    $invoice->update([
+                        'type_detail_id' =>$detail->id,
+                        'Invoice No' => InvoicePO::getFormatId($type->id, $detail->quantity, $request->date),
+                        'type_detail_quantity' => $detail->quantity,
+                        'Address' => $request->address,
+                        'Invoice Date' => $request->date,
+                        'Bill To' => $request->billTo,
+                        'Note' => $request->note,
+                        'service_cost' => $request->serviceCost                  
+                    ]);
+
+                    if($temp->quantity == 0){
+                        InvoicePOTypeDetail::destroy($temp->id);
+                    }
+
+                    return back()->with('success', 'Invoice has been updated');
+                }
+            }
+           
+            InvoicePOTypeDetail::create([
+                'type_id' => $invoice->type_id,
+                'invoice_date' => $request->date,
+            ]);
+
+            $type_detail = DB::table('invoice_type_details')->orderBy('id', 'DESC')->first();
+
+            $invoice->update([  
+                'type_detail_id' =>$type_detail->id,
+                'Invoice No' => InvoicePO::getFormatId($type->id, $type_detail->quantity, $request->date),
+                'type_detail_quantity' => $type_detail->quantity,
+                'Address' => $request->address,
+                'Invoice Date' => $request->date,
+                'Bill To' => $request->billTo,
+                'Note' => $request->note,
+                'service_cost' => $request->serviceCost  
+            ]);
+
+            if($temp->quantity == 0){
+                InvoicePOTypeDetail::destroy($temp->id);
+            }
+
+            return back()->with('success', 'Invoice has been updated');
+        }
+        
+        $invoice->update([
+            'Address' => $request->address,
+            'Invoice Date' => $request->date,
+            'Bill To' => $request->billTo,
+            'Note' => $request->note, 
+            'service_cost' => $request->serviceCost  
+        ]);
+
+        return back()->with('success', 'Invoice has been updated');
     }
 
 }

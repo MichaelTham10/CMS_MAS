@@ -76,6 +76,15 @@
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="serviceCost">Service Cost</label>
+                        <input class="form-control" type="number" placeholder="Input Service Cost" @error('serviceCost')
+                        is invalid @enderror name="serviceCost" required>
+                        @error('serviceCost')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
                     
                     <div class="form-group">
                         <label for="note">Note</label>

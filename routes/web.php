@@ -59,7 +59,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('invoice/po/list', 'App\Http\Controllers\Invoice\InvoicePOController@list')->name('invoicePOData');
 	Route::get('create-invoice-po', 'App\Http\Controllers\Invoice\InvoicePOController@create')->name('create-invoice-po');
 	Route::post('/invoice-po/store', 'App\Http\Controllers\Invoice\InvoicePOController@store');
-	
+	Route::get('/editinvoice-po/{id}', 'App\Http\Controllers\Invoice\InvoicePOController@editpage')->name('edit-invoice-controller-po');
+	Route::patch('/update/invoice-po/{invoice_id}', 'App\Http\Controllers\Invoice\InvoicePOController@update');
+	Route::delete('/delete/invoice-po/{invoice_id}', 'App\Http\Controllers\Invoice\InvoicePOController@delete');
+
 	//item
 	Route::get('/create/items/{id}', 'App\Http\Controllers\ItemController@index')->name('create-items');
 	Route::get('/edit-items/{quotation_id}/{id}', 'App\Http\Controllers\ItemController@edit_item')->name('edit-item');

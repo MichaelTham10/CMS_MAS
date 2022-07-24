@@ -10,7 +10,7 @@ class InvoicePO extends Model
     use HasFactory;
     protected $fillable = [
         'type_id','type_detail_id', 'Invoice No', 'type_detail_quantity', 'Address',
-        'Invoice Date', 'PO_In_Id', 'Bill To', 'Note',
+        'Invoice Date', 'PO_In_Id', 'Bill To', 'Note', 'service_cost'
     ];
 
     public static function getFormatId($invoiceType_id,$invoiceType_detail_id,$invoiceDate)
@@ -26,8 +26,8 @@ class InvoicePO extends Model
         return $this->belongsTo('App\Models\InvoiceType');
     }
 
-    public function purchaseIn(){
-        return $this->belongsTo('App\Models\PurchaseIn');
+    public function poin(){
+        return $this->belongsTo('App\Models\PurchaseOrderIn', "PO_In_Id");
     }
 
     public function POitems($id)

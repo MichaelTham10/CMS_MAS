@@ -41,11 +41,13 @@
         <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
           <thead>
             <tr class="font-weight-bold">
+
               <th scope="col"><strong>#</strong></th>
               <th scope="col"><strong>Invoice No</strong></th>
               <th scope="col"><strong>Invoice Date</strong></th>
               <th scope="col"><strong>Bill To</strong></th>
               <th scope="col"><strong>Customer Number</strong></th>
+              <th scope="col"><strong>Service Cost</strong></th>
               <th scope="col"><strong>Action</strong></th>
             </tr>
           </thead>
@@ -176,7 +178,8 @@
         { "data" : 'Invoice No'},
         { "data" : "Invoice Date"},
         { "data" : "Bill To"},
-        { "data" : "purchaseIn.id"},
+        { "data" : "poin.customer_number"},
+        { "data" : "service_cost"},
         {
           "class":          "details-control",
           "orderable":      false,

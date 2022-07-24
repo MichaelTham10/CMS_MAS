@@ -24,9 +24,10 @@ class CreateInvoicePOSTable extends Migration
             $table->string('Address');
             $table->date('Invoice Date');
             $table->bigInteger('PO_In_Id')->unsigned();
-            $table->foreign('PO_In_Id')->references('id')->on('purchase_order_in');
+            $table->foreign('PO_In_Id')->references('id')->on('purchase_order_ins');
             $table->string('Bill To');
             $table->string('Note');
+            $table->bigInteger('service_cost');
             $table->timestamps();
         });
     }
