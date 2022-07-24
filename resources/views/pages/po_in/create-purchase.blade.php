@@ -1,14 +1,8 @@
 @extends('layouts.app', ['title' => 'Create Purchase In'])
 
-{{-- title web tab --}}
 @section('page-title')
     Create Purchase In Order
 @endsection
-
-{{-- navbar title --}}
-{{-- @section('head-title')
-    Create Purchase In Order
-@endsection --}}
 
 @section('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
@@ -34,14 +28,6 @@
                 <form action="/po_in/create/" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
-                    <div class="form-group">
-                        <label for="type">Attention</label>
-                        <input class="form-control" type="text" placeholder="Input Customer" @error('attention')
-                        is invalid @enderror name="attention" value="">
-                        @error('attention')
-                            <span class="text-danger">{{$message}}</span> 
-                        @enderror
-                    </div>
 
                     <div class="form-group">
                         <label for="customer">Customer Number</label>
@@ -53,10 +39,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="attention">Company Name</label>
-                        <input class="form-control" type="text" placeholder="Input Attention" @error('company_name')
-                        is invalid @enderror name="company_name" value="">
-                        @error('company_name')
+                        <label for="attention">Customer Name</label>
+                        <input class="form-control" type="text" placeholder="Input Attention" @error('customer_name')
+                        is invalid @enderror name="customer_name" value="">
+                        @error('customer_name')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
@@ -76,48 +62,14 @@
                     </div>
                 </form>
             </div>
-
-            
         </div>   
-
-        <style>
-            td{
-                white-space: normal !important;
-                text-align: justify;
-            }
-        </style>
-
-        {{-- <div class="" style="">
-            <div class="rounded border mt-4" style="background-color: #fff;padding: 10px;">
-                <div style="padding: 2px;">
-                    Items
-                </div>
-                <hr class="mt-0 mb-0">
-                <div class="btn-create">
-                    <a href="/create/items/{{$quotation->id}}" class="btn btn-primary">create</a>
-                </div>
-                <table class="table" id="datatable" style="width: 100%">
-                    <thead>
-                        <tr class="font-weight-bold">
-                        <th scope="col"><strong>#</strong></th>
-                        <th scope="col"><strong>Name</strong></th>
-                        <th scope="col"><strong>Description</strong></th>
-                        <th scope="col"><strong>Qty</strong></th>
-                        <th scope="col"><strong>Unit Price</strong></th>
-                        <th scope="col"><strong>Total Price</strong></th>
-                        <th scope="col"><strong>Action</strong></th>
-                        </tr>
-                </thead>
-                <tbody>
-                    <script type="text/javascript">
-                            window.data = {!! json_encode($quotation->id) !!};
-                        </script>
-                    </tbody>
-                </table>
-            </div>
-        </div>    --}}
     </div>
-    
+    <style>
+        td{
+            white-space: normal !important;
+            text-align: justify;
+        }
+    </style>
 @endsection
 
 

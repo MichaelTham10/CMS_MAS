@@ -49,11 +49,8 @@
         <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
           <thead>
             <tr class="font-weight-bold">
-              <th scope="col"><strong>#</strong></th>
-              <th scope="col"><strong>Attention</strong></th>
               <th scope="col"><strong>Customer Number</strong></th>
-              <th scope="col"><strong>Copany Name</strong></th>
-              <th scope="col"><strong>Date</strong></th>
+              <th scope="col"><strong>Customer Name</strong></th>
               <th scope="col"><strong>PDF</strong></th>
               <th scope="col"><strong>Action</strong></th>
             </tr>
@@ -68,9 +65,9 @@
 @endsection
 
 <script type="text/javascript">
-  window.data = {!! json_encode($po_in) !!};
+  window.data = {!! json_encode($po_in_items) !!};
 </script>
-
+{{-- 
 @section('scripts')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
@@ -82,11 +79,8 @@
         ajax: "{{ route('po_in_data')}}",
         columns : 
         [
-          { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-          { "data" : 'attention'},
           { "data" : "customer_number"},
-          { "data" : "company_name"},
-          { "data" : "date"},
+          { "data" : "customer_name"},
           { 
             "data" : "file",
             render: function ( data, type, row, meta ) {
@@ -108,34 +102,179 @@
 
     var test;
  
-    // $('#datatable tbody').on( 'click', '#submit', function () {
-    //     var tr = $(this).closest('tr');
-    //     var row = dt.row( tr );
-    //     var idx = $.inArray( tr.attr('id'), detailRows );
+    $('#datatable tbody').on( 'click', '#submit', function () {
+        var tr = $(this).closest('tr');
+        var row = dt.row( tr );
+        var idx = $.inArray( tr.attr('id'), detailRows );
 
-    //     if ( row.child.isShown() ) {
-    //         tr.removeClass( 'details' );
-    //         row.child.hide();
+        if ( row.child.isShown() ) {
+            tr.removeClass( 'details' );
+            row.child.hide();
 
-    //         detailRows.splice( idx, 1 );
-    //     }
-    //     else {
-    //         tr.addClass( 'details' );
-    //         row.child( format( values, row.data() ) ).show();
+            detailRows.splice( idx, 1 );
+        }
+        else {
+            tr.addClass( 'details' );
+            row.child( format( values, row.data() ) ).show();
 
-    //         if ( idx === -1 ) {
-    //             detailRows.push( tr.attr('id') );
-    //         }
-    //     }
-    //       dt.on( 'draw', function (){
-    //         $.each( detailRows, function ( i, id ) 
-    //         {
-    //             $('#'+id+' td.details-control').trigger( 'click' );
-    //         });
-    //     });
-    //   });
-        
+            if ( idx === -1 ) {
+                detailRows.push( tr.attr('id') );
+            }
+        }
+          dt.on( 'draw', function (){
+            $.each( detailRows, function ( i, id ) 
+            {
+                $('#'+id+' td.details-control').trigger( 'click' );
+            });
+        });
+      });
     });
 
+  </script>
+@endsection --}}
+
+
+@section('scripts')
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
+  <script>
+    function formatNumber(number){
+      number = number.toFixed(0) + '';
+      x = number.split('.');
+      x1 = x[0];
+      x2 = x.length > 1 ? '.' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+          x1 = x1.replace(rgx, '$1' + ',' + '$2');
+      }
+        return x1 + x2;
+    }
+
+    function format ( items , po_in) {
+      var temp = [];
+      var loop = 0;
+      
+      items.forEach(item => {
+        if (po_in['id'] == item.po_in_id) {
+          temp[loop] = item;
+          loop++;
+        }
+      });
+      
+      var td = "";
+      var index = 1;
+      var totalPrice = 0;
+      
+      const generateElementString = (index,element) =>{
+        return `
+        <tr>
+          <td>${index}</td>
+          <td>${element.description}</td>
+          <td>${formatNumber(element.quantity)}</td>
+          <td>${formatNumber(element['price'])}</td>
+          <td>${formatNumber(element['price'] * element.quantity)}</td>
+        </tr>`;
+      }
+      temp.forEach(element=>{
+        td = td + generateElementString(index,element);
+        totalPrice = totalPrice + (element['price'] * element.quantity);
+        index++;
+      })
+
+      if (totalPrice == 0) {
+        return (`<table class="table table-bordered table-sm" > 
+            <thead>
+              <tr class="font-weight-bold">
+                <th scope="col" style="width:5%;"><strong>#</strong></th>
+                <th scope="col" style="width:15%;"><strong>Name</strong></th>
+                <th scope="col" style="width:45%;"><strong>Description</strong></th>
+                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
+                <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
+                <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+              </tr>
+            </thead>
+          </table>
+          <h5 class="text-center">No Item Data</h5>`
+        );
+      }
+      else{
+        return (`<table class="table table-bordered table-sm" > 
+            <thead>
+              <tr class="font-weight-bold">
+                <th scope="col" style="width:5%;"><strong>#</strong></th>
+                <th scope="col" style="width:15%;"><strong>Item Description</strong></th>
+                <th scope="col" style="width:5%;"><strong>Quantity</strong></th>
+                <th scope="col" style="width:15%;"><strong>Price</strong></th>
+                <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                ${td}
+              </tr>  
+            </tbody>
+          </table>
+          <table class="table table-bordered no-margin table-sm">
+            <tr>
+              <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+              <td>Rp. ${formatNumber(totalPrice)}</td>
+            </tr>
+          </table>`
+        );
+      }
+    }
+    $(document).ready( function () {
+      var dt = $('#datatable').DataTable(
+        {
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('po_in_data')}}",
+        columns : 
+        [
+          { "data" : "customer_number"},
+          { "data" : "customer_name"},
+          { 
+            "data" : "file",
+            render: function ( data, type, row, meta ) {
+              data = '<a href="/pdf/' + data + '" target="_blank">' + data + '</a>';
+              return data;
+            }
+          },
+          {
+            "class":          "details-control",
+            "orderable":      false,
+            "data":           'action',
+            "defaultContent": ""
+          }
+        ]
+      });
+    var detailRows = [];
+    var values = window.data;
+    var test;
+ 
+    $('#datatable tbody').on( 'click', '#submit', function () {
+        var tr = $(this).closest('tr');
+        var row = dt.row( tr );
+        var idx = $.inArray( tr.attr('id'), detailRows );
+        if ( row.child.isShown() ) {
+            tr.removeClass( 'details' );
+            row.child.hide();
+            detailRows.splice( idx, 1 );
+        }
+        else {
+            tr.addClass( 'details' );
+            row.child( format( values, row.data() ) ).show();
+            if ( idx === -1 ) {
+                detailRows.push( tr.attr('id') );
+            }
+        }
+          dt.on( 'draw', function (){
+            $.each( detailRows, function ( i, id ) 
+            {
+                $('#'+id+' td.details-control').trigger( 'click' );
+            });
+        });
+      });
+        
+    });
   </script>
 @endsection

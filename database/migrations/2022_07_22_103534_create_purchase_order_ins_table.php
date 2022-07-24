@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PurchaseIn extends Migration
+class CreatePurchaseOrderInsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class PurchaseIn extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_order_in', function (Blueprint $table) {
+        Schema::create('purchase_order_ins', function (Blueprint $table) {
             $table->id();
-            $table->string('attention');
             $table->string('customer_number');
-            $table->string('company_name');
-            $table->dateTime('date');
+            $table->string('customer_name');
             $table->string('file');
             $table->boolean('active')->default(true);
             $table->timestamps();
@@ -32,7 +30,6 @@ class PurchaseIn extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('purchase_order_in');
+        Schema::dropIfExists('purchase_order_ins');
     }
 }
