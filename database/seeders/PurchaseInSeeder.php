@@ -29,5 +29,10 @@ class PurchaseInSeeder extends Seeder
             'customer_name' => 'PT Test',
             'file' => 'public/pdf/test.pdf'
         ]);
+        DB::table('purchase_order_ins')->insert([
+            'customer_number' => '100',
+            'customer_name' => 'PT Test',
+            'file' => 'public/pdf/test.pdf'
+        ]);
     }
 }

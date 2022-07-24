@@ -90,8 +90,32 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('invoice') }}">
+                        
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-purchases" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
                         <i class="fas fa-file-invoice" style="color: #2e4a78;"></i> {{ __('Invoices') }}
                     </a>
+    
+                    <div class="collapse show" id="navbar-purchases">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('invoice-po') }}">
+                                    <i class="ni ni-bold-left" style="color: #2e4a78"></i>
+                                    {{ __('Purchase Order Invoice') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="{{ route('invoice') }}">
+                                    <i class="ni ni-bold-right" style="color: #2e4a78"></i>
+                                    {{ __('Quotation Invoice') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav">

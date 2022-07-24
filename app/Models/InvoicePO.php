@@ -4,17 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\InvoiceType;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\Item;
 
-class Invoice extends Model
+class InvoicePO extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'type_id','type_detail_id', 'Invoice No', 'type_detail_quantity', 'Address',
-        'Invoice Date', 'Quotation No', 'Bill To', 'Note',
+        'Invoice Date', 'PO_In_Id', 'Bill To', 'Note', 'service_cost'
     ];
 
     public static function getFormatId($invoiceType_id,$invoiceType_detail_id,$invoiceDate)
@@ -30,11 +26,11 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\InvoiceType');
     }
 
-    public function quotation(){
-        return $this->belongsTo('App\Models\Quotation', 'Quotation No');
+    public function poin(){
+        return $this->belongsTo('App\Models\PurchaseOrderIn', "PO_In_Id");
     }
 
-    public function items($id)
+    public function POitems($id)
     {
         $items = Item::where('quotation_id', $id)->get();
         return $items;
