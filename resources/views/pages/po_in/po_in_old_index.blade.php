@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => 'Old Quotation'])
+@extends('layouts.app', ['title' => 'Old Purchase In'])
 
 {{-- title web tab --}}
 @section('page-title')
-    Old Quotation
+    Old Purchase In
 @endsection
 
 {{-- navbar title --}}
@@ -45,15 +45,15 @@
     <div class="container-fluid">
         <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff;">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Old Quotation</h3>
-            <a href="{{route('create-old-quotation')}}" class="btn btn-primary">Create Old Quotation</a>
+            <h3>Old Purchase In</h3>
+            <a href="/po_in/old/create/form" class="btn btn-primary">Create Old Purchase In</a>
         </div>   
         <hr class="mt-0 mb-3"> 
         <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
             <thead>
                 <tr class="font-weight-bold">
                     <th scope="col"><strong>#</strong></th>
-                    <th scope="col"><strong>Quotation Number</strong></th>
+                    <th scope="col"><strong>Purchase Number</strong></th>
                     <th scope="col"><strong>PDF</strong></th>
                     <th scope="col"><strong>Action</strong></th>
                 </tr>
@@ -74,17 +74,15 @@
     <script>
         
 
-        
-
         $(document).ready( function () {
             var dt = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('old-quotation-data')}}",
+            ajax: "{{ route('old-purchaseIn-data')}}",
             columns : 
             [
                 { "data": 'DT_RowIndex'},
-                { "data" : "Quotation_No"},
+                { "data" : "purchase_number"},
                 { 
                     "data" : "file",
                     render: function ( data, type, row, meta ) {
