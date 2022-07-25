@@ -55,14 +55,17 @@
 
                     <div class="form-group">
                         <label for="po_selection">PO In No</label>
-                        <select class="form-control" id="po_selection" name="po_in_selection" 
-                        @error('po_in_selection') is invalid @enderror
-                        
-                        required>
-                            @foreach ($po_ins as $po_in)
-                                <option value="{{$po_in->id}}">{{$po_in->customer_number}}</option> 
-                            @endforeach
-                        </select>
+                        @if (!blank($po_ins))
+                            <select class="form-control" id="po_selection" name="po_in_selection" 
+                            @error('po_in_selection') is invalid @enderror required>
+                                @foreach ($po_ins as $po_in)
+                                    <option value="{{$po_in->id}}">{{$po_in->customer_number}}</option> 
+                                @endforeach
+                            </select>
+                        @else
+                            <input class="form-control" type="text" placeholder="No PO In Data" readonly
+                            @error('po_in_selection') is invalid @enderror required>
+                        @endif                      
                         @error('po_in_selection')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
@@ -105,7 +108,7 @@
                         @enderror
                     </div>
                     <div class="d-flex justify-content-end">
-                        <a href="/invoice" class="btn btn-light">Back</a>
+                        <a href="/invoice/po" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

@@ -66,16 +66,20 @@
 
                     <div class="form-group">
                         <label for="quotation">Quotation No</label>
-                        <select class="form-control" id="quotation" name="quotation_selection" 
-                        @error('quotation_selection') is invalid @enderror
-                        required>
-                            @foreach ($quotations as $quotation)
-                                <option value="{{$quotation->id}}">{{$quotation->Quotation_No}}</option> 
-                            @endforeach
-                        </select>
+                        @if (!blank($quotations))
+                            <select class="form-control" id="quotation" name="quotation_selection" 
+                            @error('quotation_selection') is invalid @enderror required>
+                                @foreach ($quotations as $quotation)
+                                    <option value="{{$quotation->id}}">{{$quotation->Quotation_No}}</option> 
+                                @endforeach
+                            </select>
+                        @else
+                            <input class="form-control" type="text" placeholder="No Quotations Data" readonly
+                            @error('quotation_selection') is invalid @enderror required>
+                        @endif        
                         @error('quotation_selection')
                             <span class="text-danger">{{$message}}</span> 
-                        @enderror
+                        @enderror             
                     </div>
 
 
