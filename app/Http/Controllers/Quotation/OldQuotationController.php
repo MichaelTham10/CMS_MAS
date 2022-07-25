@@ -1,51 +1,43 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Quotation;
 
+use App\Http\Controllers\Controller;
+use App\Models\OldQuotation;
+use App\Models\QuotationType;
 use Illuminate\Http\Request;
-use App\Models\Item;
 
-
-class ItemController extends Controller
+class OldQuotationController extends Controller
 {
-    public function index($id)
+    public function index($show = null)
     {
+        $quotations = OldQuotation::all();
 
-        return view('pages.item.create-item', compact('id'));
+        return view('pages.quotation.old-quotation', compact('quotations'));
     }
 
-    public function list($quotation_id)
+    public function list()
     {
-        $query = Item::where('quotation_id', $quotation_id)->get();
+        $query = OldQuotation::all();
         
         return datatables($query)
         ->addIndexColumn()
-        ->addColumn('quantity', function($row){
-            return number_format($row->quantity);
-        })
-        ->addColumn('unit price', function($row){
-            return number_format($row['unit price']);
-        })
-        ->addColumn('Total Price', function($row){
-            return number_format($row->quantity*$row['unit price']);
-        })
         ->addColumn('action', function($row){
             $actionBtn = 
             '<td>
-            <div class="btn-group">         
+            <div class="btn-group">
+                <a href="" class="btn btn-primary btn-sm" id="submit" data-toggle="modal" data-target="#modalDetail">Detail</a>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
-                    Options
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/edit-items/'.$row->quotation_id.'/'.$row->id.'">Edit</a>
+                    <a class="dropdown-item" href="/edit/old/quotation/'.$row->id.'">Edit</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
-                    <a class="dropdown-item" href="/quotation/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
                 </div>
             </div>
 
             
-            <form action="/delete/item/'.$row->id.'" method="POST">
+            <form action="/delete/old/quotation/'.$row->id.'" method="POST">          
                 '.csrf_field().'
                 '.method_field('DELETE').'
                 <div class="modal fade" id="ModalDelete'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,65 +59,78 @@ class ItemController extends Controller
                     </div>
                 </div>
             </form>
+            
             </td>
             ';
             return $actionBtn;
         })
         ->escapeColumns(null)
         ->make(true);
+
     }
 
+    public function create()
+    {
+        return view('pages.quotation.create-old-quotation');
+    }
 
-    public function create($quotation_id,Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'description' => 'required',
+            'quotation_number' => 'required',
+            'file' => 'required',
         ]);
 
-        Item::create([
-            'quotation_id' => $quotation_id,
-            'name' => $request->name,
-            'unit price' => $request->price,
-            'quantity' => $request->quantity,
-            'description' => $request->description,
+        $file = $request->file('file');
+        $name = $file->getClientOriginalName();
+        $filename = $name;
+        $file->move('pdf/', $filename);
+        OldQuotation::create([
+            'Quotation_No' => $request->quotation_number,
+            'file' => $filename
         ]);
 
-        return redirect('/editquotation/'.$quotation_id)->with('success', 'item has been added');
+        $quotations = OldQuotation::all();
+        return redirect('/old/quotation')->with(['quotations' => $quotations]);
     }
 
-    public function edit_item($quotation_id, $id)
+    public function edit($id)
     {
-        $item = Item::findOrFail($id);
-        return view('pages.item.edit-items', compact('quotation_id', 'item'));
+        $quotation = OldQuotation::findorfail($id);
+        return view('pages.quotation.edit-old-quotation', compact('quotation'));
     }
 
-    public function update($quotation_id,$id, Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'description' => 'required',
+            'quotation_number' => 'required',
         ]);
 
-        Item::findOrFail($id)->update([
-            'name' => $request->name,
-            'unit price' => $request->price,
-            'quantity' => $request->quantity,
-            'description' => $request->description,
-        ]);
+        $file = $request->file('file');
+        if($file != null)
+        {
+            $name = $file->getClientOriginalName();
+            $filename = $name;
+            $file->move('pdf/', $filename);
 
-        return redirect('/editquotation/'.$quotation_id)->with('success', 'item has been updated');
+            OldQuotation::findOrFail($id)->update([
+                'Quotation_No' => $request->quotation_number,
+                'file' => $filename,
+            ]);
+        }
+        else{
+            OldQuotation::findOrFail($id)->update([
+                'Quotation_No' => $request->quotation_number,
+            ]);
+        }
 
+        $quotations = OldQuotation::all();
+        return redirect('/old/quotation')->with(['quotations' => $quotations]);
     }
 
     public function delete($id)
     {
-        Item::destroy($id);
-
-        return back()->with('success', 'item has been deleted');
+        OldQuotation::destroy($id);
+        return back()->with('success', 'Purchase in has been deleted');
     }
 }

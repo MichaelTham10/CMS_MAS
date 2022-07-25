@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Create Item'])
+@extends('layouts.app', ['title' => 'Create Purchase In Item'])
 
 {{-- title web tab --}}
 @section('page-title')

@@ -41,6 +41,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/editquotation/{id}', 'App\Http\Controllers\Quotation\QuotationController@editpage')->name('edit-controller')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::delete('/delete/quotation/{quotation_id}', 'App\Http\Controllers\Quotation\QuotationController@delete')->middleware('role:Superadmin,Admin,Sales,Finance');
 
+	Route::get('/old/quotation', 'App\Http\Controllers\Quotation\OldQuotationController@index')->name('old-quotation')->middleware('role:Superadmin,Admin,Sales,Finance');
+	Route::get('/old/quotation/list', 'App\Http\Controllers\Quotation\OldQuotationController@list')->name('old-quotation-data')->middleware('role:Superadmin,Admin,Sales,Finance');
+	Route::get('/create/old/quotation', 'App\Http\Controllers\Quotation\OldQuotationController@create')->name('create-old-quotation')->middleware('role:Superadmin,Admin,Sales,Finance');
+	Route::post('/old/quotation/store', 'App\Http\Controllers\Quotation\OldQuotationController@store')->middleware('role:Superadmin,Admin,Sales,Finance');
+	Route::get('/edit/old/quotation/{id}', 'App\Http\Controllers\Quotation\OldQuotationController@edit')->name('edit-old-quotation')->middleware('role:Superadmin,Admin,Sales,Finance');
+	Route::delete('/delete/old/quotation/{id}', 'App\Http\Controllers\Quotation\OldQuotationController@delete')->middleware('role:Superadmin,Admin,Sales,Finance');
+	Route::patch('/update/old/quotation/{id}', 'App\Http\Controllers\Quotation\OldQuotationController@update')->middleware('role:Superadmin,Admin,Sales,Finance');
+
 	//invoice
 	Route::get('create-invoice', 'App\Http\Controllers\Invoice\InvoiceController@create')->name('create-invoice')->middleware('role:Superadmin,Admin,Finance');
 	Route::post('/invoice/store', 'App\Http\Controllers\Invoice\InvoiceController@store')->middleware('role:Superadmin,Admin,Finance');
