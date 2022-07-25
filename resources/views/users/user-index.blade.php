@@ -1,8 +1,8 @@
 @extends('layouts.app', ['title' => 'User Management'])
 
-@section('head-title')
+{{-- @section('head-title')
     User Management
-@endsection
+@endsection --}}
 
 @section('page-title')
     User Management
