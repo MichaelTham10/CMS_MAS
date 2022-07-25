@@ -37,9 +37,7 @@
                         Total Quotation
                     </div>
                     <div class="font-weight-bold display-4">
-
                         @foreach ($quotations as $quotation)
-                            
                             @php
                                 $totalQuotation = 0;
                             @endphp
@@ -51,11 +49,10 @@
                             @endforeach
 
                             @php
-                            if($totalQuotation - $quotation->Discount > 0)
-                            {
-                                $totalItemQuotation += $totalQuotation - $quotation->Discount;
-                            }
-                                
+                                if($totalQuotation - $quotation->Discount > 0)
+                                {
+                                    $totalItemQuotation += $totalQuotation - ($totalQuotation*($quotation->Discount/100));
+                                }
                             @endphp
                         @endforeach
                         IDR. {{number_format($totalItemQuotation)}}
@@ -76,37 +73,29 @@
                         Total Invoice
                     </div>
                     <div class="font-weight-bold display-4">
-
                         @foreach ($invoices as $invoice)
                             @php
                                 $totalInvoice = 0;
                             @endphp
 
                             @foreach ($invoice->quotation->items as $item)
-                        
                                 @php
-
                                     $totalInvoice += $item['unit price'] * $item->quantity;
-
                                 @endphp
-
                             @endforeach
 
                             @php
-                            if($totalInvoice - $invoice->quotation->Discount > 0)
-                            {
-                                $totalItemInvoice += $totalInvoice - $invoice->quotation->Discount;
-                            }
-                                
+                                if($totalInvoice - $invoice->quotation->Discount > 0)
+                                {
+                                    $totalItemInvoice += $totalInvoice - ($totalInvoice*($invoice->Discount/100));
+                                }
                             @endphp
                         @endforeach
-
-
                         IDR. {{number_format($totalItemInvoice)}}
                     </div>
                 </div>
                 <div class="align-self-center" >
-                    <a href="{{route('invoice')}}" class="btn btn-primary ">View Details</a>
+                    <a href="{{route('invoice')}}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
         </div>

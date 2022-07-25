@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-@include('layouts.headers.cards')
+  @include('layouts.headers.cards')
 
   <style>
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
@@ -29,14 +29,22 @@
       position: relative;
       left: 90.2%;
     }
+    .paginate_button.page-item.active a.page-link {
+      background-color: #2a3880; 
+    }
   </style>
 
-    @if(Session::has('success'))
-      <div class="alert alert-success">
+  @if(Session::has('success'))
+    <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>{{Session::get('success')}}</strong>
-      </div>
-    @endif
+    </div>
+  @elseif(Session::has('failed'))
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{Session::get('failed')}}</strong>
+    </div>
+  @endif
         
     <div class="container-fluid">
       {{-- <a href="{{asset('pdf/PT Kong Guan.pdf')}}">TEST</a> --}}
@@ -62,6 +70,7 @@
         <div style="padding-bottom: 6px;"></div>
       </div>
     </div>
+  </div>
 @endsection
 
 <script type="text/javascript">
@@ -69,7 +78,7 @@
 </script>
 {{-- 
 @section('scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
   <script>
     $(document).ready( function () {
       var dt = $('#datatable').DataTable(

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Purchase Out Order'])
+{{-- @extends('layouts.app', ['title' => 'Purchase Out Order'])
 
 @section('head-title')
     Roles Management
@@ -37,23 +37,28 @@
     @endif
         
     <div class="container-fluid">
-        <div class="rounded border mt-4" style="background-color: #fff">
-            <table class="table" id="datatable" style="width:98%; margin-left: 10px;">
-            <thead>
-                <tr class="font-weight-bold">
-                  <th scope="col"><strong>#</strong></th>
-                  <th scope="col"><strong>Email</strong></th>
-                  <th scope="col"><strong>Name</strong></th>
-                  <th scope="col"><strong>Role</strong></th>
-                  <th scope="col"><strong>Action</strong></th>
-                </tr>
-            </thead>
-            <tbody>
+      <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3>Role Management</h3>
+          <a href="{{route('create')}}" class="btn btn-primary">Create User</a>
+        </div>   
+        <hr class="mt-0 mb-3"> 
+        <table class="table pt-2 pb-3" id="datatable">
+          <thead>
+              <tr class="font-weight-bold">
+                <th scope="col"><strong>#</strong></th>
+                <th scope="col"><strong>Email</strong></th>
+                <th scope="col"><strong>Name</strong></th>
+                <th scope="col"><strong>Role</strong></th>
+                <th scope="col"><strong>Action</strong></th>
+              </tr>
+          </thead>
+          <tbody>
 
-            </tbody>
-            </table>
-            <div style="padding-bottom: 6px;"></div>
-        </div>
+          </tbody>
+        </table>
+        <div style="padding-bottom: 6px;"></div>
+      </div>
     </div>
 @endsection
 

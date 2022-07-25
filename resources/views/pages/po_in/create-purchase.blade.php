@@ -9,12 +9,16 @@
 @endsection
 
 @section('content')
-
-@include('layouts.headers.cards')
+    @include('layouts.headers.cards')
     @if(Session::has('success'))
         <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>{{Session::get('success')}}</strong>
+        </div>
+    @elseif(Session::has('failed'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{Session::get('failed')}}</strong>
         </div>
     @endif
 
