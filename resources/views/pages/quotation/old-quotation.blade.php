@@ -72,9 +72,104 @@
 @section('scripts')
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
     <script>
-        
+        function formatNumber(number){
+        number = number.toFixed(0) + '';
+        x = number.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+            return x1 + x2;
+        }
 
+        function format ( item , quotation) {
+        var temp = [];
+        var loop = 0;
         
+        item.forEach(element => {
+            if (quotation.id == element.quotation_id) {
+                temp[loop] = element;
+                loop++;
+            } 
+        });
+
+        var td = "";
+        var index = 1;
+        var totalPrice = 0;
+
+        const generateElementString = (index,element) =>{
+            return `
+            <tr>
+            <td>${index}</td>
+            <td>${element.name}</td>
+            <td>${element.description}</td>
+            <td>${formatNumber(element.quantity)}</td>
+            <td>${formatNumber(element['unit price'])}</td>
+            <td>${formatNumber(element['unit price'] * element.quantity)}</td>
+            </tr>`;
+        }
+
+        temp.forEach(element=>{
+            td = td + generateElementString(index,element);
+            totalPrice = totalPrice + (element['unit price'] * element.quantity);
+            index++;
+        })
+
+        if(totalPrice != 0){
+            return (`<table class="table table-bordered table-sm"> 
+                <thead>
+                <tr class="font-weight-bold">
+                    <th scope="col" style="width:5%;"><strong>#</strong></th>
+                    <th scope="col" style="width:15%;"><strong>Name</strong></th>
+                    <th scope="col" style="width:30%;"><strong>Description</strong></th>
+                    <th scope="col" style="width:5%;"><strong>Qty</strong></th>
+                    <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
+                    <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                ${td}
+                </tr>  
+                </tbody>
+            </table>
+            <table class="table table-bordered no-margin table-sm">
+                <tr>
+                <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+                <td>Rp. ${formatNumber(totalPrice)}</td>
+                </tr>
+                <tr>
+                <th colspan="2" style="width:78.5%" scope="row">Discount (${quotation.Discount}%)</th>
+                <td>Rp. ${formatNumber((totalPrice * (quotation.Discount/100)))}</td>
+                </tr>
+                <tr>
+                <th colspan="2" scope="row">Grand Total</th>
+                <td>Rp. ${(totalPrice - (totalPrice * (quotation.Discount/100))) <= 0 ? 'FREE' : formatNumber((totalPrice - (totalPrice * (quotation.Discount/100))))}</td>
+                </tr>
+            </table>`
+            );
+        } 
+        else{
+            return (
+            `
+            <table class="table table-bordered table-sm"> 
+                <thead>
+                <tr class="font-weight-bold">
+                    <th scope="col" style="width:5%;"><strong>#</strong></th>
+                    <th scope="col" style="width:15%;"><strong>Name</strong></th>
+                    <th scope="col" style="width:30%;"><strong>Description</strong></th>
+                    <th scope="col" style="width:5%;"><strong>Qty</strong></th>
+                    <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
+                    <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
+                </tr>
+                </thead>
+            </table>
+            <h5 class="text-center">No Item Data</h5>`
+            );
+        }
+        }
 
         $(document).ready( function () {
             var dt = $('#datatable').DataTable({

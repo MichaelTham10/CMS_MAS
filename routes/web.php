@@ -86,14 +86,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete');
 	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create');
 	Route::post('/po_in/create', 'App\Http\Controllers\PurchaseInController@create');
-	//po_in_old
-	Route::get('/po_in/old','App\Http\Controllers\PurchaseInOldController@index');
-	Route::get('/po_in/old/create/form','App\Http\Controllers\PurchaseInOldController@create');
-	Route::get('/po_in/old/list','App\Http\Controllers\PurchaseInOldController@list')->name('old-purchaseIn-data');
-	Route::post('/po_in/old/create','App\Http\Controllers\PurchaseInOldController@store');
-	Route::get('/edit/old/po_in/{id}', 'App\Http\Controllers\PurchaseInOldController@edit');
-	Route::patch('/update/old/po_in/{id}', 'App\Http\Controllers\PurchaseInOldController@update');
-	Route::delete('/delete/old/po-in/{id}', 'App\Http\Controllers\PurchaseInOldController@delete');
 	//po_in Item
 	Route::get('/po_in/item/list/{id}', 'App\Http\Controllers\PurchaseInController@item_list');
 	Route::get('/po_in/create/item/{id}', 'App\Http\Controllers\PurchaseInController@create_item');
