@@ -48,7 +48,7 @@
             </li>
         </ul> --}}
         <!-- Collapse -->
-        <div class="collapse navbar-collapse pt-0 pb-0" id="sidenav-collapse-main">
+        <div class="collapse navbar-collapse pt-0 pb-0" id="sidenav-collapse-main"  style="text-decoration: none; color: #2a3880; font-weight: bold;">
             <!-- Collapse header -->
             {{-- <div class="navbar-collapse-header d-md-none">
                 <div class="row">
@@ -84,51 +84,40 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('quotation') }}">
+                    <a class="nav-link" href="{{ route('quotation') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
                         <i class="ni ni-single-copy-04" style="color: #2e4a78;"></i> {{ __('Quotation') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('invoice') }}">
-                        
-                    </a>
-                </li>
             </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-purchases" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fas fa-file-invoice" style="color: #2e4a78;"></i> {{ __('Invoices') }}
-                    </a>
-    
-                    <div class="collapse show" id="navbar-purchases">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('invoice-po') }}">
-                                    <i class="ni ni-bold-left" style="color: #2e4a78"></i>
-                                    {{ __('Purchase Order Invoice') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="{{ route('invoice') }}">
-                                    <i class="ni ni-bold-right" style="color: #2e4a78"></i>
-                                    {{ __('Quotation Invoice') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 4 )
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('invoice') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
-                                <i class="fas fa-file-invoice" style="color: #2a3880;"></i> {{ __('Invoices') }}
-                            </a>
-                        </li>
-                    @endif
+            <ul class="navbar-nav">            
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 4 )
+                    <li class="nav-item">
+                        <a class="nav-link" href="#navbar-invoices" style="text-decoration: none; color: #2a3880; font-weight: bold;" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-invoices">
+                            <i class="fas fa-file-invoice" style="color: #2a3880;"></i> {{ __('Invoices') }}
+                        </a>
+                        <div class="collapse" id="navbar-invoices">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('invoice-po') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                                        <i class="ni ni-bold-left" style="color: #2a3880;"></i>
+                                        {{ __('Purchase Order Invoice') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ route('invoice') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                                        <i class="ni ni-bold-right" style="color: #2a3880;"></i>
+                                        {{ __('Quotation Invoice') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
             </ul>
             <ul class="navbar-nav">
                 @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                     <li class="nav-item">
-                        <a class="nav-link active" style="text-decoration: none; color: #2a3880; font-weight: bold;" href="#navbar-purchases" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <a class="nav-link" style="text-decoration: none; color: #2a3880; font-weight: bold;" href="#navbar-purchases" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-purchases">
                             <i class="ni ni-money-coins" style="color: #2a3880;"></i>
                             <span class="nav-link-text" style="color: #2a3880;">{{ __('Purchases') }}</span>
                         </a>
