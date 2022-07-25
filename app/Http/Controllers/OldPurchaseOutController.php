@@ -1,24 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Quotation;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\OldQuotation;
-use App\Models\QuotationType;
+use App\Models\OldPurchaseOut;
 use Illuminate\Http\Request;
 
-class OldQuotationController extends Controller
+class OldPurchaseOutController extends Controller
 {
     public function index($show = null)
     {
-        $quotations = OldQuotation::all();
+        $po_out = OldPurchaseOut::all();
 
-        return view('pages.quotation.old-quotation', compact('quotations'));
+        return view('pages.po_out.old-po_out', compact('po_out'));
     }
 
     public function list()
     {
-        $query = OldQuotation::all();
+        $query = OldPurchaseOut::all();
         
         return datatables($query)
         ->addIndexColumn()
@@ -31,13 +29,13 @@ class OldQuotationController extends Controller
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/edit/old/quotation/'.$row->id.'">Edit</a>
+                    <a class="dropdown-item" href="/edit/old/po-out/'.$row->id.'">Edit</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
                 </div>
             </div>
 
             
-            <form action="/delete/old/quotation/'.$row->id.'" method="POST">          
+            <form action="/delete/old/po-out/'.$row->id.'" method="POST">          
                 '.csrf_field().'
                 '.method_field('DELETE').'
                 <div class="modal fade" id="ModalDelete'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -71,13 +69,13 @@ class OldQuotationController extends Controller
 
     public function create()
     {
-        return view('pages.quotation.create-old-quotation');
+        return view('pages.po_out.create-old-po_out');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'quotation_number' => 'required',
+            'po_out_number' => 'required',
             'file' => 'required',
         ]);
 
@@ -85,25 +83,25 @@ class OldQuotationController extends Controller
         $name = $file->getClientOriginalName();
         $filename = $name;
         $file->move('pdf/', $filename);
-        OldQuotation::create([
-            'Quotation_No' => $request->quotation_number,
+        OldPurchaseOut::create([
+            'po_out_no' => $request->po_out_number,
             'file' => $filename
         ]);
 
-        $quotations = OldQuotation::all();
-        return redirect('/old/quotation')->with(['quotations' => $quotations]);
+        $po_outs = OldPurchaseOut::all();
+        return redirect('/old/po-out')->with(['po_outs' => $po_outs]);
     }
 
     public function edit($id)
     {
-        $quotation = OldQuotation::findorfail($id);
-        return view('pages.quotation.edit-old-quotation', compact('quotation'));
+        $po_out = OldPurchaseOut::findorfail($id);
+        return view('pages.po_out.edit-old-po_out', compact('po_out'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'quotation_number' => 'required',
+            'po_out_number' => 'required',
         ]);
 
         $file = $request->file('file');
@@ -113,24 +111,24 @@ class OldQuotationController extends Controller
             $filename = $name;
             $file->move('pdf/', $filename);
 
-            OldQuotation::findOrFail($id)->update([
-                'Quotation_No' => $request->quotation_number,
+            OldPurchaseOut::findOrFail($id)->update([
+                'po_out_no' => $request->po_out_number,
                 'file' => $filename,
             ]);
         }
         else{
-            OldQuotation::findOrFail($id)->update([
-                'Quotation_No' => $request->quotation_number,
+            OldPurchaseOut::findOrFail($id)->update([
+                'po_out_no' => $request->po_out_number,
             ]);
         }
 
-        $quotations = OldQuotation::all();
-        return redirect('/old/quotation')->with(['quotations' => $quotations]);
+        $po_outs = OldPurchaseOut::all();
+        return redirect('/old/po-out')->with(['po_outs' => $po_outs]);
     }
 
     public function delete($id)
     {
-        OldQuotation::destroy($id);
-        return back()->with('success', 'Quotation has been deleted');
+        OldPurchaseOut::destroy($id);
+        return back()->with('success', 'Purchase Out has been deleted');
     }
 }

@@ -7,7 +7,14 @@
 @section('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
 @endsection
-
+<style>
+    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
+        font-size: 15px;
+    }
+    .paginate_button.page-item.active a.page-link {
+        background-color: #2a3880; 
+    }
+</style>
 @section('content')
     @include('layouts.headers.cards')
     @if(Session::has('success'))

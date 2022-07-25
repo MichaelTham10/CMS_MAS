@@ -32,7 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 	
 	//quotation
-
 	Route::get('quotation', 'App\Http\Controllers\Quotation\QuotationController@index')->name('quotation')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('quotation/list', 'App\Http\Controllers\Quotation\QuotationController@list')->name('test')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('create', 'App\Http\Controllers\Quotation\QuotationController@create')->name('create')->middleware('role:Superadmin,Admin,Sales,Finance');
@@ -40,7 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::patch('/update/quotation/{quotation_id}', 'App\Http\Controllers\Quotation\QuotationController@update')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('/editquotation/{id}', 'App\Http\Controllers\Quotation\QuotationController@editpage')->name('edit-controller')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::delete('/delete/quotation/{quotation_id}', 'App\Http\Controllers\Quotation\QuotationController@delete')->middleware('role:Superadmin,Admin,Sales,Finance');
-
+	
+	//old quotation
 	Route::get('/old/quotation', 'App\Http\Controllers\Quotation\OldQuotationController@index')->name('old-quotation')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('/old/quotation/list', 'App\Http\Controllers\Quotation\OldQuotationController@list')->name('old-quotation-data')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('/create/old/quotation', 'App\Http\Controllers\Quotation\OldQuotationController@create')->name('create-old-quotation')->middleware('role:Superadmin,Admin,Sales,Finance');
@@ -79,20 +79,20 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/invoice/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice')->middleware('role:Superadmin,Admin,Finance');
 
 	//purchase in
-	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit')->name('edit_po_in');
-	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
-	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show')->name('po_in');;
-	Route::get('/po_in/list', 'App\Http\Controllers\PurchaseInController@list')->name('po_in_data');
-	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete');
-	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create');
-	Route::post('/po_in/create', 'App\Http\Controllers\PurchaseInController@create');
+	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit')->name('edit_po_in')->middleware('role:Superadmin,Admin');
+	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update')->middleware('role:Superadmin,Admin');
+	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show')->name('po_in')->middleware('role:Superadmin,Admin');
+	Route::get('/po_in/list', 'App\Http\Controllers\PurchaseInController@list')->name('po_in_data')->middleware('role:Superadmin,Admin');
+	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete')->middleware('role:Superadmin,Admin');
+	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create')->middleware('role:Superadmin,Admin');
+	Route::post('/po_in/create', 'App\Http\Controllers\PurchaseInController@create')->middleware('role:Superadmin,Admin');
 	//po_in Item
-	Route::get('/po_in/item/list/{id}', 'App\Http\Controllers\PurchaseInController@item_list');
-	Route::get('/po_in/create/item/{id}', 'App\Http\Controllers\PurchaseInController@create_item');
-	Route::post('/po_in/store_item/{id}', 'App\Http\Controllers\PurchaseInController@store_item');
-	Route::get('/po_in/edit/item/{po_in_id}/{id}', 'App\Http\Controllers\PurchaseInController@edit_item_page');
-	Route::patch('/po_in/update/item/{po_in_id}/{id}','App\Http\Controllers\PurchaseInController@update_item_po_in');
-	Route::delete('/po_in/delete/{id}', 'App\Http\Controllers\PurchaseInController@delete_item_po_in');
+	Route::get('/po_in/item/list/{id}', 'App\Http\Controllers\PurchaseInController@item_list')->middleware('role:Superadmin,Admin');
+	Route::get('/po_in/create/item/{id}', 'App\Http\Controllers\PurchaseInController@create_item')->middleware('role:Superadmin,Admin');
+	Route::post('/po_in/store_item/{id}', 'App\Http\Controllers\PurchaseInController@store_item')->middleware('role:Superadmin,Admin');
+	Route::get('/po_in/edit/item/{po_in_id}/{id}', 'App\Http\Controllers\PurchaseInController@edit_item_page')->middleware('role:Superadmin,Admin');
+	Route::patch('/po_in/update/item/{po_in_id}/{id}','App\Http\Controllers\PurchaseInController@update_item_po_in')->middleware('role:Superadmin,Admin');
+	Route::delete('/po_in/delete/{id}', 'App\Http\Controllers\PurchaseInController@delete_item_po_in')->middleware('role:Superadmin,Admin');
 	//po_out
 	Route::get('/po-out', 'App\Http\Controllers\PO_Out\PurchaseOutController@index')->name('po-out')->middleware('role:Superadmin,Admin');
 	Route::get('/po-out/list', 'App\Http\Controllers\PO_Out\PurchaseOutController@list')->name('po-outData')->middleware('role:Superadmin,Admin');
@@ -101,6 +101,15 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::patch('/update/po-out/{po_id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@update')->middleware('role:Superadmin,Admin');
 	Route::get('/edit-po-out/{id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@editpage')->name('edit-po-out-controller')->middleware('role:Superadmin,Admin');
 	Route::delete('/delete/po-out/{po_id}', 'App\Http\Controllers\PO_Out\PurchaseOutController@delete')->middleware('role:Superadmin,Admin');
+
+	//old po_out
+	Route::get('/old/po-out', 'App\Http\Controllers\OldPurchaseOutController@index')->name('old-po-out')->middleware('role:Superadmin,Admin');
+	Route::get('/old/po-out/list', 'App\Http\Controllers\OldPurchaseOutController@list')->name('old-po-out-data')->middleware('role:Superadmin,Admin');
+	Route::get('/create/old/po-out', 'App\Http\Controllers\OldPurchaseOutController@create')->name('create-old-po-out')->middleware('role:Superadmin,Admin');
+	Route::post('/old/po-out/store', 'App\Http\Controllers\OldPurchaseOutController@store')->middleware('role:Superadmin,Admin');
+	Route::get('/edit/old/po-out/{id}', 'App\Http\Controllers\OldPurchaseOutController@edit')->name('edit-old-po-out')->middleware('role:Superadmin,Admin');
+	Route::delete('/delete/old/po-out/{id}', 'App\Http\Controllers\OldPurchaseOutController@delete')->middleware('role:Superadmin,Admin');
+	Route::patch('/update/old/po-out/{id}', 'App\Http\Controllers\OldPurchaseOutController@update')->middleware('role:Superadmin,Admin');
 
 	//po_out item
 	Route::get('/po-out-item/list/{po_out_id}', 'App\Http\Controllers\PO_Out_Item\PurchaseOutItemController@list')->name('po-out-item-data')->middleware('role:Superadmin,Admin');
