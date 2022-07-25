@@ -42,12 +42,20 @@ class PurchaseInController extends Controller
             $name = $file->getClientOriginalName();
             $filename = $name;
             $file->move('pdf/', $filename);
+
+            PurchaseOrderIn::findOrFail($id)->update([
+                'customer_number' => $request->customer_number,
+                'customer_name' => $request->customer_name,
+                'file' => $filename,
+            ]);
+        }
+        else{
+            PurchaseOrderIn::findOrFail($id)->update([
+                'customer_number' => $request->customer_number,
+                'customer_name' => $request->customer_name,
+            ]);
         }
 
-        PurchaseOrderIn::findOrFail($id)->update([
-            'customer_number' => $request->customer_number,
-            'customer_name' => $request->customer_name,
-        ]);
         $po_in = PurchaseOrderIn::all();
         return redirect('/po_in')->with(['po_in' => $po_in]);
     }

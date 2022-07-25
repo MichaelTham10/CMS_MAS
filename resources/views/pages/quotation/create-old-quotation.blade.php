@@ -1,12 +1,14 @@
-@extends('layouts.app', ['title' => 'Create Purchase In Order'])
+@extends('layouts.app', ['title' => 'Create Quotation'])
 
+{{-- title web tab --}}
 @section('page-title')
-    Create Purchase In Order
+    Create Old Quotation
 @endsection
 
-@section('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.css"/>
-@endsection
+{{-- navbar title --}}
+{{-- @section('head-title')
+    Create Quotation
+@endsection --}}
 
 @section('content')
     @include('layouts.headers.cards')
@@ -21,36 +23,24 @@
             <strong>{{Session::get('failed')}}</strong>
         </div>
     @endif
-
     <div class="container-fluid">
         <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
             <div class="font-weight-bold">
                 <div class="mb-3">
-                    <h3>Create Purchase In Order</h3>
+                    <h3>Create Old Quotation</h3>
                 </div>   
                 <hr class="mt-0 mb-3"> 
-                <form action="/po_in/create/" method="POST" enctype="multipart/form-data">
+                <form action="/old/quotation/store" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
-
                     <div class="form-group">
-                        <label for="customer">Customer Number</label>
-                        <input class="form-control" type="text" placeholder="Input Customer" @error('customer_number')
-                        is invalid @enderror name="customer_number" value="">
-                        @error('customer_number')
+                        <label for="quotation-number">Quotation No</label>
+                        <input class="form-control" type="text" placeholder="Input Quotation Number" @error('quotation_number')
+                        is invalid @enderror name="quotation_number">
+                        @error('quotation_number')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
-
-                    <div class="form-group">
-                        <label for="attention">Customer Name</label>
-                        <input class="form-control" type="text" placeholder="Input Attention" @error('customer_name')
-                        is invalid @enderror name="customer_name" value="">
-                        @error('customer_name')
-                            <span class="text-danger">{{$message}}</span> 
-                        @enderror
-                    </div>
-
                     <div class="form-group">
                         <label for="attention">File Upload</label>
                         <input class="form-control" type="file" placeholder="Upload File" @error('file')
@@ -59,22 +49,12 @@
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
-                    
                     <div class="d-flex justify-content-end">
-                        <a href="/po_in" class="btn btn-light">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="/old/quotation" class="btn btn-light">Back</a>
+                        <button type="submit" class="btn btn-primary">Store</button>
                     </div>
                 </form>
             </div>
         </div>   
     </div>
-    <style>
-        td{
-            white-space: normal !important;
-            text-align: justify;
-        }
-    </style>
 @endsection
-
-
-

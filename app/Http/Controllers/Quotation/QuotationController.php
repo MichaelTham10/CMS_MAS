@@ -55,11 +55,11 @@ class QuotationController extends Controller
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="container d-flex pl-0"><img src="">
-                                    <h3 class="modal-title ml-2" id="exampleModalLabel">Delete this item?</h3>
+                                    <h3 class="modal-title" id="exampleModalLabel" style="text-decoration: none; color: #2a3880; font-weight: bold;">Delete this item?</h3>
                                 </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                             </div>
                             <div class="modal-body">
-                                <p class="text-muted">If you remove this item it will be gone forever. <br>Are you sure you want to continue?</p>
+                                <p style="text-decoration: none; color: #2a3880; font-weight: normal;">If you remove this item it will be gone forever. <br>Are you sure you want to continue?</p>
                             </div>
                             <div class="modal-footer"> 
                                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>

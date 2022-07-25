@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Invoice'])
+@extends('layouts.app', ['title' => 'Purchase In Order'])
 
 {{-- title web tab --}}
 @section('page-title')
@@ -57,6 +57,7 @@
         <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
           <thead>
             <tr class="font-weight-bold">
+              <th scope="col"><strong>#</strong></th>
               <th scope="col"><strong>Customer Number</strong></th>
               <th scope="col"><strong>Customer Name</strong></th>
               <th scope="col"><strong>PDF</strong></th>
@@ -64,7 +65,7 @@
             </tr>
           </thead>
           <tbody>
-             
+              
           </tbody>
         </table>
         <div style="padding-bottom: 6px;"></div>
@@ -233,12 +234,13 @@
     }
     $(document).ready( function () {
       var dt = $('#datatable').DataTable(
-        {
+      {
         processing: true,
         serverSide: true,
         ajax: "{{ route('po_in_data')}}",
         columns : 
         [
+          { "data": 'DT_RowIndex'},
           { "data" : "customer_number"},
           { "data" : "customer_name"},
           { 

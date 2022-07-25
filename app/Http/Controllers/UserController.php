@@ -128,6 +128,9 @@ class UserController extends Controller
         if($user->role_id == 1){
             return back()->with('failed', 'Cannot delete superadmin user');
         }
+        elseif($user->role_id == Auth::id()){
+            return back()->with('failed', 'Cannot delete yourself!');
+        }
         else{
             User::destroy($id);
             return back()->with('success', 'User has been deleted');
@@ -162,11 +165,11 @@ class UserController extends Controller
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="container d-flex pl-0"><img src="">
-                                    <h3 class="modal-title ml-2" id="exampleModalLabel">Delete this item?</h3>
+                                    <h3 class="modal-title" id="exampleModalLabel" style="text-decoration: none; color: #2a3880; font-weight: bold;">Delete this item?</h3>
                                 </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                             </div>
                             <div class="modal-body">
-                                <p class="text-muted">If you remove this item it will be gone forever. <br>Are you sure you want to continue?</p>
+                                <p style="text-decoration: none; color: #2a3880; font-weight: normal;">If you remove this item it will be gone forever. <br>Are you sure you want to continue?</p>
                             </div>
                             <div class="modal-footer"> 
                                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>

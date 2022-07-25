@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Edit Quotation'])
+@extends('layouts.app', ['title' => 'Edit Purchase In Order'])
 
 @section('page-title')
     Edit Purchase In Order

@@ -84,9 +84,27 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('quotation') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
-                        <i class="ni ni-single-copy-04" style="color: #2e4a78;"></i> {{ __('Quotation') }}
-                    </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#navbar-quotations" style="text-decoration: none; color: #2a3880; font-weight: bold;" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-quotations">
+                            <i class="fas fa-file-invoice" style="color: #2a3880;"></i> {{ __('Quotation') }}
+                        </a>
+                        <div class="collapse" id="navbar-quotations">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('quotation') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                                        <i class="ni ni-bold-left" style="color: #2a3880;"></i>
+                                        {{ __('Quotation') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ route('old-quotation') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                                        <i class="ni ni-bold-right" style="color: #2a3880;"></i>
+                                        {{ __('Old Quotation') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </li>
             </ul>
             <ul class="navbar-nav">            
@@ -100,7 +118,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('invoice-po') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
                                         <i class="ni ni-bold-left" style="color: #2a3880;"></i>
-                                        {{ __('Purchase Order Invoice') }}
+                                        {{ __('PO In Invoice') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
