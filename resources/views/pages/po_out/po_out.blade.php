@@ -162,7 +162,7 @@
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>Rp. ${(totalPrice - (totalPrice*(po_out.ppn/100))) <= 0 ? 'FREE' : formatNumber((totalPrice - (totalPrice*(po_out.ppn/100))))}</td>
+              <td>Rp. ${(totalPrice + (totalPrice*(po_out.ppn/100))) <= 0 ? 'FREE' : formatNumber((totalPrice + (totalPrice*(po_out.ppn/100))))}</td>
             </tr>
           </table>`
         );

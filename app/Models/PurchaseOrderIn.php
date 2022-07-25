@@ -10,9 +10,10 @@ class PurchaseOrderIn extends Model
     use HasFactory;
     protected $fillable = [
         'customer_number','customer_name','file', 'active'
-     ];
-     public function items()
+    ];
+
+    public function items()
     {
-        return $this->hasMany('App\Models\ItemPurchaseIn');
+        return $this->hasMany('App\Models\ItemPurchaseIn', 'po_in_id');
     }
 }

@@ -23,8 +23,10 @@
     @php
         $totalItemInvoice = 0;
         $totalItemQuotation = 0;
+        $totalItemPurchase = 0;
         $totalQuotation = 0;
         $totalInvoice = 0;
+        $totalPurchase = 0;
     @endphp
     <div class="container-fluid" >
         <div class="d-flex  mt-4 border rounded p-2 align-self-center" style="background-color: #fff">
@@ -110,31 +112,39 @@
                             Purchase Order
                         </div>
                         <div class="font-weight-bold display-4">
-    
-                            {{-- @foreach ($invoices as $invoice)
-                                @php
-                                    $totalInvoice = 0;
-                                @endphp
-    
-                                @foreach ($invoice->quotation->items as $item)
-                            
+                            <div class="font-weight-bold display-4">
+                                @foreach ($po_ins as $po_in)     
                                     @php
-    
-                                        $totalInvoice += $item['unit price'] * $item->quantity;
-    
+                                        $totalPurchase = 0;
                                     @endphp
-    
+
+                                    @foreach ($po_in->items as $item)
+                                        @php
+                                            $totalPurchase += $item['price'] * $item->quantity;
+                                        @endphp
+                                    @endforeach
+        
+                                    @php
+                                        $totalItemPurchase += $totalPurchase;
+                                    @endphp
                                 @endforeach
-    
-                                @php
-                                if($totalInvoice - $invoice->quotation->Discount > 0)
-                                {
-                                    $totalItemInvoice += $totalInvoice - $invoice->quotation->Discount;
-                                }
-                                    
-                                @endphp
-                            @endforeach
-                            IDR. {{$totalItemInvoice}}.- --}}
+                                @foreach ($po_outs as $po_out)
+                                    @php
+                                        $totalPurchase = 0;
+                                    @endphp
+        
+                                    @foreach ($po_out->items as $item)
+                                        @php
+                                            $totalPurchase += $item['price'] * $item->qty;
+                                        @endphp
+                                    @endforeach
+        
+                                    @php
+                                        $totalItemPurchase += $totalPurchase + ($totalPurchase*($po_out->ppn/100));
+                                    @endphp
+                                @endforeach
+                                IDR. {{number_format($totalItemPurchase)}}
+                            </div>
                         </div>
                     </div>
                     <div class="align-self-center" >
@@ -142,14 +152,31 @@
                     </div>
                 </div>
                 <div class="m-2" id="myPO" style="display: none">
-                    <hr class="new5 mt-3 mb-3">
                     <div class="d-flex border rounded p-2 align-self-center justify-content-between" style="background-color: #fff; margin-top: 25px">
                         <div class="pl-3">
                             <div class="opacity-5 font-weight-bold">
-                                Order Masuk
+                                Purchase In Order
                             </div>
                             <div class="font-weight-bold display-4">
-                                IDR. {{$totalItemInvoice}}.-
+                                @php
+                                    $totalItemPurchase = 0;
+                                @endphp
+                                @foreach ($po_ins as $po_in)     
+                                    @php
+                                        $totalPurchase = 0;
+                                    @endphp
+
+                                    @foreach ($po_in->items as $item)
+                                        @php
+                                            $totalPurchase += $item['price'] * $item->quantity;
+                                        @endphp
+                                    @endforeach
+        
+                                    @php
+                                        $totalItemPurchase += $totalPurchase;
+                                    @endphp
+                                @endforeach
+                                IDR. {{number_format($totalItemPurchase)}}.-
                             </div>
                         </div>
                         <div class="align-self-center">
@@ -160,10 +187,28 @@
                     <div class="d-flex border rounded p-2 align-self-center justify-content-between" style="background-color: #fff">
                         <div class="pl-3">
                             <div class="opacity-5 font-weight-bold">
-                                Order Keluar
+                                Purchase Out Order
                             </div>
                             <div class="font-weight-bold display-4">
-                                IDR. {{$totalItemInvoice}}.-
+                                @php
+                                    $totalItemPurchase = 0;
+                                @endphp
+                                @foreach ($po_outs as $po_out)
+                                    @php
+                                        $totalPurchase = 0;
+                                    @endphp
+        
+                                    @foreach ($po_out->items as $item)
+                                        @php
+                                            $totalPurchase += $item['price'] * $item->qty;
+                                        @endphp
+                                    @endforeach
+        
+                                    @php
+                                        $totalItemPurchase += $totalPurchase + ($totalPurchase*($po_out->ppn/100));
+                                    @endphp
+                                @endforeach
+                                IDR. {{number_format($totalItemPurchase)}}.-
                             </div>
                         </div>
                         <div class="align-self-center">

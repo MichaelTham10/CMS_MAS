@@ -20,9 +20,14 @@ class PurchaseOrderOut extends Model
         'attn_makro',
         "makro_phone_no", 
     ];
+
+    public function items()
+    {
+        return $this->hasMany('App\Models\PurchaseOutItem', 'po_out_id');
+    }
+
     public static function getFormatId($id, $po_date)
     {
-   
         $date = date('Ym', strtotime($po_date));
         echo($date);
         return sprintf('MAS/PO/'.$date.'%02d',$id);

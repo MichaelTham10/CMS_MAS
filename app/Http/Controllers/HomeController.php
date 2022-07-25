@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Quotation;
 use App\Models\Invoice;
+use App\Models\PurchaseOrderIn;
+use App\Models\PurchaseOrderOut;
 
 class HomeController extends Controller
 {
@@ -25,8 +27,10 @@ class HomeController extends Controller
     {
         $quotations = Quotation::all();   
         $invoices = Invoice::all();
+        $po_outs = PurchaseOrderOut::all();
+        $po_ins = PurchaseOrderIn::all();
         
-        return view('dashboard', compact('quotations', 'invoices'));
+        return view('dashboard', compact('quotations', 'invoices', 'po_outs', 'po_ins'));
     }
 
     public function unauthorized(){
