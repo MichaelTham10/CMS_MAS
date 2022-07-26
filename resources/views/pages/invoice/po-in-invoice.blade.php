@@ -84,7 +84,7 @@
     var loop = 0;
     
     items.forEach(item => {
-      if (invoice['Quotation No'] == item.quotation_id) {
+      if (invoice['PO_In_Id'] == item.po_in_id) {
         temp[loop] = item;
         loop++;
       }
@@ -101,14 +101,14 @@
         <td>${element.name}</td>
         <td>${element.description}</td>
         <td>${element.quantity}</td>
-        <td>${formatNumber(element['unit price'])}</td>
-        <td>${formatNumber(element['unit price'] * element.quantity)}</td>
+        <td>${formatNumber(element.price)}</td>
+        <td>${formatNumber(element.price * element.quantity)}</td>
       </tr>`;
     }
 
     temp.forEach(element=>{
       td = td + generateElementString(index,element);
-      totalPrice = totalPrice + (element['unit price'] * element.quantity);
+      totalPrice = totalPrice + (element.price * element.quantity);
       index++;
     })
 

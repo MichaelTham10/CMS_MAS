@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InvoicePO;
 use App\Models\InvoicePOTypeDetail;
 use App\Models\InvoiceType;
-use App\Models\Item;
+use App\Models\ItemPurchaseIn;
 use App\Models\PurchaseOrderIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +15,7 @@ class InvoicePOController extends Controller
 {
     public function index(Request $request = null, $show = null)
     {
-        $items = Item::all();
+        $items = ItemPurchaseIn::all();
 
         $invoices =  InvoicePO::all();
         return view('pages.invoice.po-in-invoice', compact('invoices', 'items'));
@@ -126,7 +126,7 @@ class InvoicePOController extends Controller
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="/editinvoice-po/'.$row->id.'">Edit</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
-                    <a class="dropdown-item" href="/invoice/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
+                    <a class="dropdown-item" href="/invoice/item/export-pdf-po/'.$row->id.'" target="_blank">Export PDF</a>
                 </div>
                 </div>
             

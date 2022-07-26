@@ -66,6 +66,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::patch('/update/invoice-po/{invoice_id}', 'App\Http\Controllers\Invoice\InvoicePOController@update');
 	Route::delete('/delete/invoice-po/{invoice_id}', 'App\Http\Controllers\Invoice\InvoicePOController@delete');
 
+	Route::get('old/invoice', 'App\Http\Controllers\Invoice\OldInvoiceController@oldIndex')->name('old-invoice');
+	Route::get('create-old-invoice', 'App\Http\Controllers\Invoice\OldInvoiceController@oldCreate')->name('create-old-invoice');
+	Route::get('old/invoice/list', 'App\Http\Controllers\Invoice\OldInvoiceController@list')->name('oldInvoiceData');
+	Route::post('/old/invoice/store', 'App\Http\Controllers\Invoice\OldInvoiceController@store')->middleware('role:Superadmin,Admin,Finance');
+	Route::get('/edit/old/invoice/{id}', 'App\Http\Controllers\Invoice\OldInvoiceController@editpage')->name('edit-old-invoice-controller');
+	Route::delete('/delete/old/invoice/{invoice_id}', 'App\Http\Controllers\Invoice\OldInvoiceController@delete');
+	Route::patch('/update/old/invoice/{invoice_id}', 'App\Http\Controllers\Invoice\OldInvoiceController@update');
 	//item
 	Route::get('/create/items/{id}', 'App\Http\Controllers\ItemController@index')->name('create-items')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('/edit-items/{quotation_id}/{id}', 'App\Http\Controllers\ItemController@edit_item')->name('edit-item')->middleware('role:Superadmin,Admin,Sales,Finance');
@@ -77,7 +84,8 @@ Route::group(['middleware' => 'auth'], function () {
 	//pdf
 	Route::get('/quotation/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('/invoice/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice')->middleware('role:Superadmin,Admin,Finance');
-
+	Route::get('/invoice/item/export-pdf-po/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice_po')->middleware('role:Superadmin,Admin,Finance');
+	
 	//purchase in
 	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit')->name('edit_po_in');
 	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
