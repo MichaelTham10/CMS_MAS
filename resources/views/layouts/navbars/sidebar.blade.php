@@ -88,6 +88,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="/po_in/old" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                                        <i class="ni ni-bold-left" style="color: #2a3880;"></i>
+                                        {{ __('Old Purchase In') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link " href="/po-out" style="text-decoration: none; color: #2a3880; font-weight: bold;">
                                         <i class="ni ni-bold-right" style="color: #2a3880;"></i>
                                         {{ __('Purchase Out') }}

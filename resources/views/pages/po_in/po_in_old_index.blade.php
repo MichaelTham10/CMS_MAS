@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => 'Old Quotation'])
+@extends('layouts.app', ['title' => 'Old Purchase In'])
 
 {{-- title web tab --}}
 @section('page-title')
-    Old Quotation
+    Old Purchase In
 @endsection
 
 {{-- navbar title --}}
@@ -45,15 +45,15 @@
     <div class="container-fluid">
         <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff;">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Old Quotation</h3>
-            <a href="{{route('create-old-quotation')}}" class="btn btn-primary">Create Old Quotation</a>
+            <h3>Old Purchase In</h3>
+            <a href="/po_in/old/create/form" class="btn btn-primary">Create Old Purchase In</a>
         </div>   
         <hr class="mt-0 mb-3"> 
         <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
             <thead>
                 <tr class="font-weight-bold">
                     <th scope="col"><strong>#</strong></th>
-                    <th scope="col"><strong>Quotation Number</strong></th>
+                    <th scope="col"><strong>Purchase Number</strong></th>
                     <th scope="col"><strong>PDF</strong></th>
                     <th scope="col"><strong>Action</strong></th>
                 </tr>
@@ -72,33 +72,17 @@
 @section('scripts')
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
     <script>
-<<<<<<< HEAD
-        function formatNumber(number){
-            number = number.toFixed(0) + '';
-            x = number.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1)) {
-                x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            }
-                return x1 + x2;
-        }
-=======
         
-
-        
->>>>>>> parent of 0682789 (Revert "po in old done")
 
         $(document).ready( function () {
             var dt = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('old-quotation-data')}}",
+            ajax: "{{ route('old-purchaseIn-data')}}",
             columns : 
             [
                 { "data": 'DT_RowIndex'},
-                { "data" : "Quotation_No"},
+                { "data" : "purchase_number"},
                 { 
                     "data" : "file",
                     render: function ( data, type, row, meta ) {
@@ -113,7 +97,41 @@
                     "defaultContent": ""
                 }
             ]
+        });
+
+        var detailRows = [];
+        var values = window.data;
+        $('#datatable tbody').on( 'click', '#submit', function () {
+            var tr = $(this).closest('tr');
+            var row = dt.row( tr );
+            var idx = $.inArray( tr.attr('id'), detailRows );
+
+            if ( row.child.isShown() ) {
+                tr.removeClass( 'details' );
+                row.child.hide();
+
+                // Remove from the 'open' array
+                detailRows.splice( idx, 1 );
+            }
+            else {
+                tr.addClass( 'details' );
+                row.child( format( values, row.data() ) ).show();
+
+                // Add to the 'open' array
+                if ( idx === -1 ) {
+                    detailRows.push( tr.attr('id') );
+                }
+            }
+        } );
+
+        // On each draw, loop over the `detailRows` array and show any child rows
+        dt.on( 'draw', function () 
+        {
+            $.each( detailRows, function ( i, id ) 
+            {
+                $('#'+id+' td.details-control').trigger( 'click' );
             });
+        } );
         } );   
     </script>
 @endsection
