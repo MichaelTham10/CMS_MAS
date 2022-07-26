@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Document</title>
+  <title></title>
   @php
       $total = 0;
       $ppn = 0; 
@@ -65,7 +65,7 @@
   }
   .tab1 {
       display: inline-block;
-      margin-left: 58px;
+      margin-left: 42.5px;
   }
   .tab2 {
       display: inline-block;
@@ -81,7 +81,11 @@
   }
   .tab5 {
       display: inline-block;
-      margin-left: 12px;
+      margin-left: 55.5px;
+  }
+  .tab6 {
+      display: inline-block;
+      margin-left: 48px;
   }
   p {
     padding: 0;
@@ -116,7 +120,7 @@
 </head>
 <body>
   <div style="position: fixed; left:170px">
-    <img src="assets/img/brand/logo.png" style="width: 800px; opacity: 0.3; margin-top: 63%;">
+    <img src="assets/img/brand/logo.png" style="width: 800px; opacity: 0.3; margin-top: 60.5%;">
   </div>
   <div style="position: fixed; bottom: -45px" class="footer-pdf">
     <div class="footer-pdf">
@@ -128,38 +132,40 @@
       88 Kasablanka Office Tower, Lt. 10 Unit E Jakarta | www.makroalphasolusindo.com
     </div>
   </div>
-  </div>
-  <img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -20px; margin-top: 20px;" loading="lazy">
-  <div>
+  
+</div>
+<img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -40px; margin-top: 20px;" loading="lazy">
+<div>
     <div class="title" style="padding-top: -20px;"> 
-      QUOTATION
+      Invoice PO
     </div>
     <div style="display: flex">
       <div style="font-size: 12px;">
         <span>
-          Customer<span class="tab0  break-word"></span>: {{$quotation['Customer']}} <br> 
+          Bill To<span class="tab0  break-word"></span>: {{$invoice['Bill To']}} <br> 
         </span>
         <span>
-          Attention<span class="tab1  break-word"></span>: {{$quotation['Attention']}}<br>
-        </span>
-        <span>
-          Payment Term<span class="tab2  break-word"></span>: {{$quotation['Payment Term']}}<br>
+          Address<span class="tab1  break-word"></span>: {{$invoice['Address']}}<br>
         </span>
       </div>
       <div style="padding-left: 470px; font-size: 12 px; width: 100%;">
+        <span>
+          PO No<span class="tab5 break-word"></span>: {{$invoice['PO_In_Id']}} <br>
+        </span>
         <span class="break-word">
-          Quotation No<span class="tab3 break-word"></span>: {{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_quantity, $quotation['Quotation Date'])}} <br>
+          Invoice No<span class="tab3 break-word"></span>: {{$invoice['Invoice No']}}  <br>
         </span>
         <span>
-          Quotation Date<span class="tab4 break-word"></span>: {{$quotation['Quotation Date']}} <br>
+          Invoice Date<span class="tab4 break-word"></span>: {{$invoice['Invoice Date']}} <br>
         </span>
+        
         <span>
-          Account Manager<span class="tab5 break-word"></span>: {{$quotation['Account Manager']}}<br>
+          Customer Number<span class="tab6 break-word"></span>: {{$invoice->poin['customer_number']}} <br>
         </span>
       </div>
     </div>
     
-    <table class="table" style="margin-top: -30px">
+    <table class="table" style="margin-top: -15px">
       <thead>
         <tr>
           <th scope="col" style="width:8%; text-align: center;
@@ -173,38 +179,38 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($quotation->items as $item)
-          <tr>
-            <td class="break-word" style="text-align: center;
-            vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
-            <td class="break-word">{{$item->name}}</td>
-            <td class="break-word">{!!$item->description!!}</td>
-            <td class="break-word" style="text-align: center;
-            vertical-align: middle;">{{$item->quantity}}</td>
-            <td class="break-word">{{$item['unit price']}}</td>
-            <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
-          </tr>
+        @foreach ($invoice->POitems($invoice['PO_In_Id']) as $item)
+        <tr>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+          <td class="break-word">{{$item->name}}</td>
+          <td class="break-word">{!!$item->description!!}</td>
+          <td class="break-word" style="text-align: center;
+          vertical-align: middle;">{{$item->quantity}}</td>
+          <td class="break-word">{{$item['price']}}</td>
+          <td class="break-word">{{$item['price'] * $item->quantity}}</td>
+        </tr>
         @php
-          $total += ($item['unit price'] * $item->quantity);
+          $total += ($item['price'] * $item->quantity);
         @endphp
         @endforeach
       </tbody>
     </table>
     @php
         $ppn = (($total / 100) * 11);
-        // $discount = ($total/100) * $quotation['Discount'];
+        // $discount = ($total/100);
     @endphp
     <br>
     <div class="table-responsive">
       <div class="table-responsive m-10">
         <table class="table table-bordered no-margin table-sm">
           <tr>
-            <th colspan="2" style="background-color: rgb(235, 216, 131);" class="border-total" scope="row">Total</th>
-            <td style="background-color: rgb(235, 216, 131);" class="border-total break-word ">Rp. {{number_format($total)}}</td>
+            <th colspan="2" style="width:44rem; background-color: #bbbcbd;" class="border-total" scope="row">Service Cost</th>
+            <td class="border-total" style="background-color: #bbbcbd;">Rp. {{number_format($invoice->service_cost)}}</td>
           </tr>
           <tr>
-            <th colspan="2" style="width:44rem; background-color: #bbbcbd;" class="border-total" scope="row">Discount</th>
-            <td class="border-total" style="background-color: #bbbcbd;">Rp. {{number_format(($total/100) * $quotation['Discount'])}}</td>
+            <th colspan="2" style="background-color: rgb(235, 216, 131);" class="border-total" scope="row">Total</th>
+            <td style="background-color: rgb(235, 216, 131);" class="border-total break-word ">Rp. {{number_format($total)}}</td>
           </tr>
           <tr>
             <th colspan="2" style="background-color: rgb(139, 219, 166);" class="border-total" scope="row">Ppn (11%)</th>
@@ -212,17 +218,19 @@
           </tr>
           <tr>
             <th colspan="2" scope="row" style="background-color: rgb(235, 216, 131); border-bottom: 2px solid black; border-top: 2px solid black;">Grand Total</th>
-            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">IDR {{number_format(($total + $ppn) - ($total/100) * $quotation['Discount'])}}</td>
+            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">Rp. {{number_format(($total + $ppn) + $invoice->service_cost)}}</td>
           </tr>
         </table>
       </div>
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-    {!!$quotation['Terms']!!}
+    <span>
+      {!!$invoice['Note']!!}
+    </span>
     <br>
     <div style="display: block">
-      <p>Sincerely Yours,</p>
+      <p><strong>Jakarta, {{ date('M-d-Y') }}</strong></p>
       <br>
       <br>
       <br>

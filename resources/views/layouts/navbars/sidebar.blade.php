@@ -117,7 +117,7 @@
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('invoice-po') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
-                                        <i class="ni ni-bold-left" style="color: #2a3880;"></i>
+                                        <i class="ni ni-bold-right" style="color: #2a3880;"></i>
                                         {{ __('PO In Invoice') }}
                                     </a>
                                 </li>
@@ -125,6 +125,12 @@
                                     <a class="nav-link " href="{{ route('invoice') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
                                         <i class="ni ni-bold-right" style="color: #2a3880;"></i>
                                         {{ __('Quotation Invoice') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ route('old-invoice') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                                        <i class="ni ni-bold-right" style="color: #2a3880;"></i>
+                                        {{ __('Old Invoice') }}
                                     </a>
                                 </li>
                             </ul>

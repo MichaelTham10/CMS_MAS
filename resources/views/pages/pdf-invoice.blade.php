@@ -156,7 +156,7 @@
           Invoice Date<span class="tab4 break-word"></span>: {{$invoice['Invoice Date']}} <br>
         </span>
         <span>
-          PO No<span class="tab5 break-word"></span>: {{$invoice->quotation['Quotation_No']}} <br>
+          Quotation No<span class="tab5 break-word"></span>: {{$invoice->quotation['Quotation_No']}} <br>
         </span>
         <span>
           PO Date<span class="tab6 break-word"></span>: {{$invoice->quotation['Quotation Date']}} <br>
@@ -196,7 +196,7 @@
       </tbody>
     </table>
     @php
-        $ppn = (($total / 100) * 10);
+        $ppn = (($total / 100) * 11);
         // $discount = ($total/100);
     @endphp
     <br>
@@ -204,20 +204,20 @@
       <div class="table-responsive m-10">
         <table class="table table-bordered no-margin table-sm">
           <tr>
-            <th colspan="2" style="width:44rem; background-color: #bbbcbd;" class="border-total" scope="row">Discount</th>
-            <td class="border-total" style="background-color: #bbbcbd;">IDR {{number_format($invoice->quotation['Discount'])}}</td>
-          </tr>
-          <tr>
             <th colspan="2" style="background-color: rgb(235, 216, 131);" class="border-total" scope="row">Total</th>
-            <td style="background-color: rgb(235, 216, 131);" class="border-total break-word ">IDR {{number_format($total)}}</td>
+            <td style="background-color: rgb(235, 216, 131);" class="border-total break-word ">Rp. {{number_format($total)}}</td>
           </tr>
           <tr>
-            <th colspan="2" style="background-color: rgb(139, 219, 166);" class="border-total" scope="row">Ppn (10%)</th>
-            <td style="background-color: rgb(139, 219, 166);" class="border-total break-word">IDR {{number_format($ppn)}}</td>
+            <th colspan="2" style="width:44rem; background-color: #bbbcbd;" class="border-total" scope="row">Discount</th>
+            <td class="border-total" style="background-color: #bbbcbd;">Rp. {{number_format(($total/100) * $invoice->quotation['Discount'])}}</td>
+          </tr>
+          <tr>
+            <th colspan="2" style="background-color: rgb(139, 219, 166);" class="border-total" scope="row">Ppn (11%)</th>
+            <td style="background-color: rgb(139, 219, 166);" class="border-total break-word">Rp. {{number_format($ppn)}}</td>
           </tr>
           <tr>
             <th colspan="2" scope="row" style="background-color: rgb(235, 216, 131); border-bottom: 2px solid black; border-top: 2px solid black;">Grand Total</th>
-            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">IDR {{number_format(($total + $ppn) - $invoice->quotation['Discount'])}}</td>
+            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">Rp. {{number_format(($total + $ppn) - (($total/100) * $invoice->quotation['Discount']))}}</td>
           </tr>
         </table>
       </div>
