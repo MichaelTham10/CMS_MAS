@@ -87,15 +87,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/invoice/item/export-pdf-po/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice_po')->middleware('role:Superadmin,Admin,Finance');
 	
 	//purchase in
-<<<<<<< HEAD
-	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit')->name('edit_po_in')->middleware('role:Superadmin,Admin');
-	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update')->middleware('role:Superadmin,Admin');
-	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show')->name('po_in')->middleware('role:Superadmin,Admin');
-	Route::get('/po_in/list', 'App\Http\Controllers\PurchaseInController@list')->name('po_in_data')->middleware('role:Superadmin,Admin');
-	Route::delete('/delete/po_in/{id}', 'App\Http\Controllers\PurchaseInController@delete')->middleware('role:Superadmin,Admin');
-	Route::get('/po_in/create/form','App\Http\Controllers\PurchaseInController@index_create')->middleware('role:Superadmin,Admin');
-	Route::post('/po_in/create', 'App\Http\Controllers\PurchaseInController@create')->middleware('role:Superadmin,Admin');
-=======
 	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit')->name('edit_po_in');
 	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update');
 	Route::get('/po_in', 'App\Http\Controllers\PurchaseInController@show')->name('po_in');;
@@ -111,7 +102,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/edit/old/po_in/{id}', 'App\Http\Controllers\PurchaseInOldController@edit');
 	Route::patch('/update/old/po_in/{id}', 'App\Http\Controllers\PurchaseInOldController@update');
 	Route::delete('/delete/old/po-in/{id}', 'App\Http\Controllers\PurchaseInOldController@delete');
->>>>>>> parent of 0682789 (Revert "po in old done")
 	//po_in Item
 	Route::get('/po_in/item/list/{id}', 'App\Http\Controllers\PurchaseInController@item_list')->middleware('role:Superadmin,Admin');
 	Route::get('/po_in/create/item/{id}', 'App\Http\Controllers\PurchaseInController@create_item')->middleware('role:Superadmin,Admin');
