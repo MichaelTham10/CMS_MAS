@@ -32,7 +32,7 @@ class InvoicePO extends Model
 
     public function POitems($id)
     {
-        $items = Item::where('quotation_id', $id)->get();
+        $items = ItemPurchaseIn::where('PO_In_Id', $id)->get();
         return $items;
     }
 }

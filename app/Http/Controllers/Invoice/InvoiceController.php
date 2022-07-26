@@ -10,7 +10,7 @@ use App\Models\Quotation;
 use App\Models\InvoiceType;
 use Illuminate\Support\Facades\DB;
 use App\Models\invoice\InvoiceTypeDetail;
-use App\Models\PurchaseIn;
+use App\Models\OldInvoice;
 
 class InvoiceController extends Controller
 {
@@ -22,6 +22,7 @@ class InvoiceController extends Controller
         return view('pages.invoice.invoice', compact('invoices', 'items', 'quotations'));
     }
 
+    
     public function create()
     {
         $types = InvoiceType::all();

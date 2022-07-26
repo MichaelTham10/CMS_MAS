@@ -60,6 +60,12 @@
                                         {{ __('Quotation Invoice') }}
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ route('old-invoice') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                                        <i class="ni ni-bold-right" style="color: #2a3880;"></i>
+                                        {{ __('Old Invoice') }}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
