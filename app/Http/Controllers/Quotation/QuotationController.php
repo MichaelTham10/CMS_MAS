@@ -11,7 +11,6 @@ use App\Models\quotation\QuotationTypeDetail;
 use App\Models\Invoice;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class QuotationController extends Controller
@@ -106,8 +105,15 @@ class QuotationController extends Controller
 
         foreach($qtds as $qtd)
         {
-            if($qtd->quotation_date == $request->date && $qtd->type_id == $request->type)
+            $request_date = date('Y-m', strtotime($request->date));
+            // Split between '-' in date
+            $dateSplit = explode('-', $qtd->quotation_date);
+            $yearAndMonth = $dateSplit[0].'-'.$dateSplit[1];
+            // $validDate = date('Y-m', strtotime($yearAndMonth));
+            // dd($request_date.'-------'.$validDate);
+            if($yearAndMonth == $request_date && $qtd->type_id == $request->type)
             {   
+                
                 $this->temp = 1;
                 QuotationTypeDetail::findOrFail($qtd->id)->update([
                     'quantity' => ($qtd->quantity + 1),

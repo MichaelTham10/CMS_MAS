@@ -17,7 +17,7 @@ class InvoicePO extends Model
     {
         $type = InvoiceType::findOrFail($invoiceType_id);
         
-        $date = date('Ym', strtotime($invoiceDate));
+        $date = date('Y', strtotime($invoiceDate));
 
         return sprintf('MAS/'.$type->alias.'/'.$date.'%03d',$invoiceType_detail_id);
     }

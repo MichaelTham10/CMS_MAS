@@ -46,7 +46,12 @@ class InvoicePOController extends Controller
 
         foreach($ivcs as $ivc)
         {
-            if($ivc->invoice_date == $request->date && $ivc->type_id == $request->type)
+            $request_date = date('Y', strtotime($request->date));
+            // Split between '-' in date
+            $dateSplit = explode('-', $ivc->invoice_date);
+            $year = $dateSplit[0];
+            // dd($request_date.'-------'.$year);
+            if($year == $request_date && $ivc->type_id == $request->type)
             {   
                 $this->temp = 1;
                 InvoicePOTypeDetail::findOrFail($ivc->id)->update([
