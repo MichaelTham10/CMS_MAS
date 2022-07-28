@@ -219,9 +219,9 @@
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-      <div style="padding: 10px">
-        {!!$quotation['Terms']!!}
-      </div>
+    <div class="break-word" style="padding: 10px">
+      {!!$quotation['Terms']!!}
+    </div>
     <br>
     <div style="display: block;">
       <p><strong>Jakarta, {{ date('M-d-Y') }}</strong></p>

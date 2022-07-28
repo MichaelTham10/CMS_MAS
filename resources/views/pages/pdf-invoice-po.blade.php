@@ -179,7 +179,7 @@
       <tbody>
         @foreach ($invoice->POitems($invoice['PO_In_Id']) as $item)
         <tr>
-          <td class="break-word" style="width: 6%, text-align: center;
+          <td class="break-word" style="width: 6%; text-align: center;
           vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
           <td class="break-word" style="width: 18%,">{{$item->name}}</td>
           <td class="break-word" style="width: 42%,">{!!$item->description!!}</td>
@@ -223,7 +223,7 @@
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-    <div style="padding: 10px">
+    <div class="break-word" style="padding: 10px">
       {!!$invoice['Note']!!}
     </div>
     <br>
