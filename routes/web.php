@@ -85,7 +85,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/quotation/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf')->middleware('role:Superadmin,Admin,Sales,Finance');
 	Route::get('/invoice/item/export-pdf/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice')->middleware('role:Superadmin,Admin,Finance');
 	Route::get('/invoice/item/export-pdf-po/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice_po')->middleware('role:Superadmin,Admin,Finance');
-	
+	Route::get('/invoice/item/export-pdf-po-out/{id}', 'App\Http\Controllers\ExportPDFController@pdf_invoice_po_out')->middleware('role:Superadmin,Admin,Finance');
+
 	//purchase in
 	Route::get('/edit_po_in/{id}', 'App\Http\Controllers\PurchaseInController@edit')->name('edit_po_in')->middleware('role:Superadmin,Admin');
 	Route::patch('/edit_po_in/update/{id}', 'App\Http\Controllers\PurchaseInController@update')->middleware('role:Superadmin,Admin');

@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Document</title>
+  <title>{{$quotation['Quotation_No']}}</title>
   @php
       $total = 0;
       $ppn = 0; 
@@ -122,7 +122,7 @@
     <div class="footer-pdf">
     </div>
   </div>
-  <div style="position: fixed; bottom: 10px" class="location-mail">
+  <div style="position: fixed; padding-bottom: 10px" class="location-mail">
     <div>
       Head Office : <br>
       88 Kasablanka Office Tower, Lt. 10 Unit E Jakarta | www.makroalphasolusindo.com
@@ -131,11 +131,11 @@
   </div>
   <img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -20px; margin-top: 20px;" loading="lazy">
   <div>
-    <div class="title" style="padding-top: -20px;"> 
+    <div class="title" style="margin-top: 20px;"> 
       QUOTATION
     </div>
-    <div style="display: flex">
-      <div style="font-size: 12px;">
+    <div style="">
+      <div style="float: left; width: 50%; font-size: 12px; margin-top: 20px;">
         <span>
           Customer<span class="tab0  break-word"></span>: {{$quotation['Customer']}} <br> 
         </span>
@@ -146,7 +146,7 @@
           Payment Term<span class="tab2  break-word"></span>: {{$quotation['Payment Term']}}<br>
         </span>
       </div>
-      <div style="padding-left: 470px; font-size: 12 px; width: 100%;">
+      <div style="padding-left: 450px; font-size: 12 px; width: 50%; margin-top: 20px;">
         <span class="break-word">
           Quotation No<span class="tab3 break-word"></span>: {{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_quantity, $quotation['Quotation Date'])}} <br>
         </span>
@@ -159,30 +159,30 @@
       </div>
     </div>
     
-    <table class="table" style="margin-top: -30px">
+    <table class="table" style="margin-top: 20px; table-layout: fixed;">
       <thead>
         <tr>
-          <th scope="col" style="width:8%; text-align: center;
+          <th scope="col" style="width:6%; text-align: center;
           vertical-align: middle;"><strong>No</strong></th>
-          <th scope="col" style="width:20%;"><strong>Name</strong></th>
-          <th scope="col" style="width:45%;"><strong>Description</strong></th>
-          <th scope="col" style="width:8%; text-align: center;
+          <th scope="col" style="width:18%;"><strong>Name</strong></th>
+          <th scope="col" style="width:42%;"><strong>Description</strong></th>
+          <th scope="col" style="width:15%; text-align: center;
           vertical-align: middle;"><strong>Qty</strong></th>
-          <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-          <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+          <th scope="col" style="width:20%;"><strong>Unit Price</strong></th>
+          <th scope="col" style="width:20%;"><strong>Total Price</strong></th>
         </tr>
       </thead>
       <tbody>
         @foreach ($quotation->items as $item)
           <tr>
-            <td class="break-word" style="text-align: center;
+            <td class="break-word" style="width:6%; text-align: center;
             vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
-            <td class="break-word">{{$item->name}}</td>
-            <td class="break-word">{!!$item->description!!}</td>
-            <td class="break-word" style="text-align: center;
+            <td class="break-word" style="width:18%;">{{$item->name}}</td>
+            <td class="break-word" style="width:42%;">{!!$item->description!!}</td>
+            <td class="break-word" style="width:15%; text-align: center;
             vertical-align: middle;">{{$item->quantity}}</td>
-            <td class="break-word">{{$item['unit price']}}</td>
-            <td class="break-word">{{$item['unit price'] * $item->quantity}}</td>
+            <td class="break-word" style="width:20%;">Rp. {{number_format($item['unit price'])}}</td>
+            <td class="break-word" style="width:20%;">Rp. {{number_format($item['unit price'] * $item->quantity)}}</td>
           </tr>
         @php
           $total += ($item['unit price'] * $item->quantity);
@@ -196,33 +196,35 @@
     @endphp
     <br>
     <div class="table-responsive">
-      <div class="table-responsive m-10">
+      <div class="table-responsive">
         <table class="table table-bordered no-margin table-sm">
           <tr>
-            <th colspan="2" style="background-color: rgb(235, 216, 131);" class="border-total" scope="row">Total</th>
-            <td style="background-color: rgb(235, 216, 131);" class="border-total break-word ">Rp. {{number_format($total)}}</td>
+            <th colspan="2" style="width: 31.2rem; background-color: rgb(235, 216, 131); padding-left: 2%" class="border-total" scope="row">Total</th>
+            <td style="background-color: rgb(235, 216, 131);" class="border-total">Rp. {{number_format($total)}}</td>
           </tr>
           <tr>
-            <th colspan="2" style="width:44rem; background-color: #bbbcbd;" class="border-total" scope="row">Discount</th>
+            <th colspan="2" style="background-color: #bbbcbd; padding-left: 2%" class="border-total" scope="row">Discount</th>
             <td class="border-total" style="background-color: #bbbcbd;">Rp. {{number_format(($total/100) * $quotation['Discount'])}}</td>
           </tr>
           <tr>
-            <th colspan="2" style="background-color: rgb(139, 219, 166);" class="border-total" scope="row">Ppn (11%)</th>
+            <th colspan="2" style="background-color: rgb(139, 219, 166); padding-left: 2%" class="border-total" scope="row">Ppn (11%)</th>
             <td style="background-color: rgb(139, 219, 166);" class="border-total break-word">Rp. {{number_format($ppn)}}</td>
           </tr>
           <tr>
-            <th colspan="2" scope="row" style="background-color: rgb(235, 216, 131); border-bottom: 2px solid black; border-top: 2px solid black;">Grand Total</th>
-            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">IDR {{number_format(($total + $ppn) - ($total/100) * $quotation['Discount'])}}</td>
+            <th colspan="2" scope="row" style="background-color: rgb(235, 216, 131); border-bottom: 2px solid black; border-top: 2px solid black; padding-left: 2%">Grand Total</th>
+            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131); font-weight: bold;">Rp. {{number_format(($total + $ppn) - ($total/100) * $quotation['Discount'])}}</td>
           </tr>
         </table>
       </div>
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-    {!!$quotation['Terms']!!}
+    <div class="break-word" style="padding: 10px">
+      {!!$quotation['Terms']!!}
+    </div>
     <br>
-    <div style="display: block">
-      <p>Sincerely Yours,</p>
+    <div style="display: block;">
+      <p><strong>Jakarta, {{ date('M-d-Y') }}</strong></p>
       <br>
       <br>
       <br>

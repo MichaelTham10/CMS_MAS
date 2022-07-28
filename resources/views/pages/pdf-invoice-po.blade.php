@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title></title>
+  <title>{{$invoice['Invoice No']}}</title>
   @php
       $total = 0;
       $ppn = 0; 
@@ -126,7 +126,7 @@
     <div class="footer-pdf">
     </div>
   </div>
-  <div style="position: fixed; bottom: 10px" class="location-mail">
+  <div style="position: fixed; padding-bottom: 10px" class="location-mail">
     <div>
       Head Office : <br>
       88 Kasablanka Office Tower, Lt. 10 Unit E Jakarta | www.makroalphasolusindo.com
@@ -134,13 +134,13 @@
   </div>
   
 </div>
-<img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -40px; margin-top: 20px;" loading="lazy">
+<img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -20px; margin-top: 20px;" loading="lazy">
 <div>
-    <div class="title" style="padding-top: -20px;"> 
-      Invoice PO
+    <div class="title" style="margin-top: 20px;"> 
+      PO INVOICE
     </div>
-    <div style="display: flex">
-      <div style="font-size: 12px;">
+    <div style="">
+      <div style="float: left; width: 50%; font-size: 12px; margin-top: 20px;">
         <span>
           Bill To<span class="tab0  break-word"></span>: {{$invoice['Bill To']}} <br> 
         </span>
@@ -148,47 +148,45 @@
           Address<span class="tab1  break-word"></span>: {{$invoice['Address']}}<br>
         </span>
       </div>
-      <div style="padding-left: 470px; font-size: 12 px; width: 100%;">
+      <div style="padding-left: 450px; font-size: 12 px; width: 50%; margin-top: 20px;">
         <span>
-          PO No<span class="tab5 break-word"></span>: {{$invoice['PO_In_Id']}} <br>
+          PO No<span class="break-word" style="display: inline-block; margin-left: 72px;"></span>: {{$invoice['PO_In_Id']}} <br>
         </span>
         <span class="break-word">
-          Invoice No<span class="tab3 break-word"></span>: {{$invoice['Invoice No']}}  <br>
+          Invoice No<span class="break-word" style="display: inline-block; margin-left: 51px;"></span>: {{$invoice['Invoice No']}}  <br>
         </span>
         <span>
-          Invoice Date<span class="tab4 break-word"></span>: {{$invoice['Invoice Date']}} <br>
-        </span>
-        
+          Invoice Date<span class="break-word" style="display: inline-block; margin-left: 41px;"></span>: {{$invoice['Invoice Date']}} <br>
+        </span> 
         <span>
-          Customer Number<span class="tab6 break-word"></span>: {{$invoice->poin['customer_number']}} <br>
+          Customer Number<span class="break-word" style="display: inline-block; margin-left: 10px;"></span>: {{$invoice->poin['customer_number']}} <br>
         </span>
       </div>
-    </div>
-    
-    <table class="table" style="margin-top: -15px">
+    </div>  
+    <table class="table" style="margin-top: 20px; table-layout: fixed;">
       <thead>
         <tr>
-          <th scope="col" style="width:8%; text-align: center;
+          <th scope="col" style="width:6%; text-align: center;
           vertical-align: middle;"><strong>No</strong></th>
-          <th scope="col" style="width:20%;"><strong>Name</strong></th>
-          <th scope="col" style="width:45%;"><strong>Description</strong></th>
-          <th scope="col" style="width:8%; text-align: center;
+          <th scope="col" style="width:18%;"><strong>Name</strong></th>
+          <th scope="col" style="width:42%;"><strong>Description</strong></th>
+          <th scope="col" style="width:15%; text-align: center;
           vertical-align: middle;"><strong>Qty</strong></th>
-          <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-          <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+          <th scope="col" style="width:20%;"><strong>Unit Price</strong></th>
+          <th scope="col" style="width:20%;"><strong>Total Price</strong></th>
         </tr>
       </thead>
       <tbody>
         @foreach ($invoice->POitems($invoice['PO_In_Id']) as $item)
         <tr>
-          <td class="break-word" style="text-align: center;
+          <td class="break-word" style="width: 6%; text-align: center;
           vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
-          <td class="break-word">{{$item->name}}</td>
-          <td class="break-word">{!!$item->description!!}</td>
-          <td class="break-word" style="text-align: center;
-          vertical-align: middle;">{{$item->quantity}}</td>
-          <td class="break-word">{{$item['price']}}</td>
-          <td class="break-word">{{$item['price'] * $item->quantity}}</td>
+          <td class="break-word" style="width: 18%,">{{$item->name}}</td>
+          <td class="break-word" style="width: 42%,">{!!$item->description!!}</td>
+          <td class="break-word" style="width: 15%; text-align: center;
+          vertical-align: middle;">{{number_format($item->quantity)}}</td>
+          <td class="break-word" style="width:20%;">Rp. {{number_format($item['price'])}}</td>
+          <td class="break-word" style="width:20%;">Rp. {{number_format($item['price'] * $item->quantity)}}</td>
         </tr>
         @php
           $total += ($item['price'] * $item->quantity);
@@ -205,19 +203,19 @@
       <div class="table-responsive m-10">
         <table class="table table-bordered no-margin table-sm">
           <tr>
-            <th colspan="2" style="width:44rem; background-color: #bbbcbd;" class="border-total" scope="row">Service Cost</th>
+            <th colspan="2" style="width: 31.2rem; background-color: #bbbcbd; padding-left: 2%" class="border-total" scope="row">Service Cost</th>
             <td class="border-total" style="background-color: #bbbcbd;">Rp. {{number_format($invoice->service_cost)}}</td>
           </tr>
           <tr>
-            <th colspan="2" style="background-color: rgb(235, 216, 131);" class="border-total" scope="row">Total</th>
+            <th colspan="2" style="background-color: rgb(235, 216, 131); padding-left: 2%" class="border-total" scope="row">Total</th>
             <td style="background-color: rgb(235, 216, 131);" class="border-total break-word ">Rp. {{number_format($total)}}</td>
           </tr>
           <tr>
-            <th colspan="2" style="background-color: rgb(139, 219, 166);" class="border-total" scope="row">Ppn (11%)</th>
+            <th colspan="2" style="background-color: rgb(139, 219, 166); padding-left: 2%" class="border-total" scope="row">Ppn (11%)</th>
             <td style="background-color: rgb(139, 219, 166);" class="border-total break-word">Rp. {{number_format($ppn)}}</td>
           </tr>
           <tr>
-            <th colspan="2" scope="row" style="background-color: rgb(235, 216, 131); border-bottom: 2px solid black; border-top: 2px solid black;">Grand Total</th>
+            <th colspan="2" scope="row" style="background-color: rgb(235, 216, 131); border-bottom: 2px solid black; border-top: 2px solid black; padding-left: 2%">Grand Total</th>
             <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(235, 216, 131);">Rp. {{number_format(($total + $ppn) + $invoice->service_cost)}}</td>
           </tr>
         </table>
@@ -225,9 +223,9 @@
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-    <span>
+    <div class="break-word" style="padding: 10px">
       {!!$invoice['Note']!!}
-    </span>
+    </div>
     <br>
     <div style="display: block">
       <p><strong>Jakarta, {{ date('M-d-Y') }}</strong></p>

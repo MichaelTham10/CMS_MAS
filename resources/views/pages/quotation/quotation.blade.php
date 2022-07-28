@@ -24,7 +24,6 @@
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
       font-size: 15px;
     }
-
     .paginate_button.page-item.active a.page-link {
       background-color: #2a3880; 
     }
@@ -49,25 +48,25 @@
         <a href="{{route('create')}}" class="btn btn-primary">Create Quotation</a>
       </div>   
       <hr class="mt-0 mb-3"> 
-      <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
-          <thead>
-            <tr class="font-weight-bold">
-              <th scope="col"><strong>#</strong></th>
-              <th scope="col"><strong>Quotation No</strong></th>
-              <th scope="col"><strong>Quotation Date</strong></th>
-              <th scope="col"><strong>Customer</strong></th>
-              <th scope="col"><strong>Attention</strong></th>
-              <th scope="col"><strong>Payment Term</strong></th>
-              <th scope="col"><strong>Account Manager</strong></th>
-              <th scope="col"><strong>Action</strong></th>
-            </tr>
-          </thead>
-          <tbody>
-            <script type="text/javascript">
-              window.data = {!! json_encode($items) !!};
-            </script>
-          </tbody>
-        </table>
+      <table class="table pt-2 pb-3" id="datatable" style="width:100%; table-layout: fixed; word-wrap: break-word;">
+        <thead>
+          <tr class="font-weight-bold">
+            <th scope="col" style="width: 1%"><strong>#</strong></th>
+            <th scope="col"><strong>Quotation No</strong></th>
+            <th scope="col"><strong>Quotation Date</strong></th>
+            <th scope="col"><strong>Customer</strong></th>
+            <th scope="col"><strong>Attention</strong></th>
+            <th scope="col"><strong>Payment Term</strong></th>
+            <th scope="col"><strong>Account Manager</strong></th>
+            <th scope="col" style="width: 6%"><strong>Action</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <script type="text/javascript">
+            window.data = {!! json_encode($items) !!};
+          </script>
+        </tbody>
+      </table>
       <div style="padding-bottom: 4px;"></div>
     </div>
   </div>
@@ -122,15 +121,15 @@
       })
 
       if(totalPrice != 0){
-        return (`<table class="table table-bordered table-sm"> 
+        return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                <th scope="col" style="width:30%;"><strong>Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
-                <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width:1%;"><strong>#</strong></th>
+                <th scope="col"><strong>Name</strong></th>
+                <th scope="col" style="width:40%;"><strong>Description</strong></th>
+                <th scope="col" style="width:10%;"><strong>Qty</strong></th>
+                <th scope="col"><strong>Unit Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -141,11 +140,11 @@
           </table>
           <table class="table table-bordered no-margin table-sm">
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+              <th colspan="2" style="width:85%" scope="row">Total Price</th>
               <td>Rp. ${formatNumber(totalPrice)}</td>
             </tr>
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Discount (${quotation.Discount}%)</th>
+              <th colspan="2" style="width:85%" scope="row">Discount (${quotation.Discount}%)</th>
               <td>Rp. ${formatNumber((totalPrice * (quotation.Discount/100)))}</td>
             </tr>
             <tr>
@@ -161,12 +160,12 @@
           <table class="table table-bordered table-sm"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                <th scope="col" style="width:30%;"><strong>Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
-                <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width:1%;"><strong>#</strong></th>
+                <th scope="col"><strong>Name</strong></th>
+                <th scope="col" style="width:40%;"><strong>Description</strong></th>
+                <th scope="col" style="width:10%;"><strong>Qty</strong></th>
+                <th scope="col"><strong>Unit Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
           </table>

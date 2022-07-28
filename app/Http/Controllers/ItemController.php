@@ -40,7 +40,6 @@ class ItemController extends Controller
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="/edit-items/'.$row->quotation_id.'/'.$row->id.'">Edit</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#ModalDelete'.$row->id.'" href="#">Delete</a>
-                    <a class="dropdown-item" href="/quotation/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
                 </div>
             </div>
 

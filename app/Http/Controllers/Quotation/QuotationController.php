@@ -44,10 +44,8 @@ class QuotationController extends Controller
                     <a class="dropdown-item" href="/quotation/item/export-pdf/'.$row->id.'" target="_blank">Export PDF</a>
                 </div>
             </div>
-
             
-            <form action="/delete/quotation/'.$row->id.'" method="POST">
-            
+            <form action="/delete/quotation/'.$row->id.'" method="POST">       
                 '.csrf_field().'
                 '.method_field('DELETE').'
                 <div class="modal fade" id="ModalDelete'.$row->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -224,10 +222,9 @@ class QuotationController extends Controller
                         QuotationTypeDetail::destroy($temp->id);
                     }
 
-                    return back()->with('success', 'Quotation has been updated');
+                    return redirect('/quotation')->with('success', 'Quotation has been updated');
                 }
             }
-           
             QuotationTypeDetail::create([
                 'type_id' => $quotation->type_id,
                 'quotation_date' => $request->date,
@@ -264,7 +261,7 @@ class QuotationController extends Controller
             'Terms' => $request->terms
         ]);
 
-        return back()->with('success', 'Quotation has been updated');
+        return redirect('/quotation')->with('success', 'Quotation has been updated');
     }
 
 
