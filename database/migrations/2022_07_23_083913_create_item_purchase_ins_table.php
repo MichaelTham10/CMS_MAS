@@ -18,7 +18,7 @@ class CreateItemPurchaseInsTable extends Migration
             $table->bigInteger('po_in_id')->unsigned();
             $table->foreign('po_in_id')->references('id')->on('purchase_order_ins')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
-            $table->string('description');
+            $table->longText('description');
             $table->bigInteger('quantity');
             $table->bigInteger('price');
             $table->timestamps();

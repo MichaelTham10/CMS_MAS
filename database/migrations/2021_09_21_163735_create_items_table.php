@@ -20,7 +20,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->bigInteger('unit price');
             $table->bigInteger('quantity');
-            $table->string('description');
+            $table->longText('description');
             $table->timestamps();
         });
     }

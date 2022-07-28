@@ -26,7 +26,7 @@ class CreateInvoicesTable extends Migration
             $table->bigInteger('Quotation No')->unsigned();
             $table->foreign('Quotation No')->references('id')->on('quotations');
             $table->string('Bill To');
-            $table->string('Note');
+            $table->longText('Note');
             $table->timestamps();
         });
     }

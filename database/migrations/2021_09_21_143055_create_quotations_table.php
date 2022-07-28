@@ -17,10 +17,8 @@ class CreateQuotationsTable extends Migration
             $table->id();
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('quotation_types');
-
             $table->bigInteger('type_detail_id')->unsigned();
             $table->foreign('type_detail_id')->references('id')->on('quotation_type_details');
-
             $table->string('Quotation_No');
             $table->bigInteger('type_detail_quantity');
             $table->bigInteger('item_id')->nullable();
@@ -30,7 +28,7 @@ class CreateQuotationsTable extends Migration
             $table->date('Quotation Date');
             $table->string('Account Manager');
             $table->bigInteger('Discount');
-            $table->string('Terms');
+            $table->longText('Terms');
             $table->string('active')->default(true);
             $table->timestamps();
         });

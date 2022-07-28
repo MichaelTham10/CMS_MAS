@@ -22,7 +22,7 @@ class CreatePurchaseOrderOutsTable extends Migration
             $table->string('attn');
             $table->string('email');
             $table->integer('ppn');
-            $table->string('terms');
+            $table->longText('terms');
             $table->string('deliver_to');
             $table->string('attn_makro');
             $table->string('makro_phone_no');
