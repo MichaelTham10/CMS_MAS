@@ -49,13 +49,13 @@
             <a href="/po_in/old/create/form" class="btn btn-primary">Create Old Purchase In</a>
         </div>   
         <hr class="mt-0 mb-3"> 
-        <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
+        <table class="table pt-2 pb-3" id="datatable" style="width:100%; table-layout: fixed; word-wrap: break-word;">
             <thead>
                 <tr class="font-weight-bold">
-                    <th scope="col"><strong>#</strong></th>
+                    <th scope="col" style="width: 1%"><strong>#</strong></th>
                     <th scope="col"><strong>Purchase Number</strong></th>
                     <th scope="col"><strong>PDF</strong></th>
-                    <th scope="col"><strong>Action</strong></th>
+                    <th scope="col" style="width: 8%"><strong>Action</strong></th>
                 </tr>
             </thead>
             <tbody>

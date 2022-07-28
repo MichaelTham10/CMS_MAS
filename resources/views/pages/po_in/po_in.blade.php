@@ -32,6 +32,10 @@
     .paginate_button.page-item.active a.page-link {
       background-color: #2a3880; 
     }
+    td{
+      white-space: normal !important;
+      text-align: justify;
+    }
   </style>
 
   @if(Session::has('success'))
@@ -54,14 +58,14 @@
           <a href="/po_in/create/form" class="btn btn-primary">Create PO In</a>
         </div>   
         <hr class="mt-0 mb-3"> 
-        <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
+        <table class="table pt-2 pb-3" id="datatable" style="width:100%; table-layout: fixed; word-wrap: break-word;">
           <thead>
             <tr class="font-weight-bold">
-              <th scope="col"><strong>#</strong></th>
+              <th scope="col" style="width: 1%"><strong>#</strong></th>
               <th scope="col"><strong>Customer Number</strong></th>
               <th scope="col"><strong>Customer Name</strong></th>
               <th scope="col"><strong>PDF</strong></th>
-              <th scope="col"><strong>Action</strong></th>
+              <th scope="col" style="width: 6%"><strong>Action</strong></th>
             </tr>
           </thead>
           <tbody>
@@ -112,10 +116,11 @@
         return `
         <tr>
           <td>${index}</td>
+          <td>${element.name}</td>
           <td>${element.description}</td>
           <td>${formatNumber(element.quantity)}</td>
           <td>${formatNumber(element['price'])}</td>
-          <td>${formatNumber(element['price'] * element.quantity)}</td>
+          <td>${formatNumber(element.price * element.quantity)}</td>
         </tr>`;
       }
       temp.forEach(element=>{
@@ -125,15 +130,15 @@
       })
 
       if (totalPrice == 0) {
-        return (`<table class="table table-bordered table-sm" > 
+        return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                <th scope="col" style="width:45%;"><strong>Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-                <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width: 1%"><strong>#</strong></th>
+                <th scope="col" style="width: 15%"><strong>Name</strong></th>
+                <th scope="col" style="width: 40%"><strong>Item Description</strong></th>
+                <th scope="col" style="width: 8.5%"><strong>Quantity</strong></th>
+                <th scope="col"><strong>Unit Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
           </table>
@@ -141,14 +146,15 @@
         );
       }
       else{
-        return (`<table class="table table-bordered table-sm" > 
+        return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Item Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Quantity</strong></th>
-                <th scope="col" style="width:15%;"><strong>Price</strong></th>
-                <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width: 1%"><strong>#</strong></th>
+                <th scope="col" style="width: 15%"><strong>Name</strong></th>
+                <th scope="col" style="width: 40%"><strong>Item Description</strong></th>
+                <th scope="col" style="width: 8.5%"><strong>Quantity</strong></th>
+                <th scope="col"><strong>Unit Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -159,7 +165,7 @@
           </table>
           <table class="table table-bordered no-margin table-sm">
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+              <th colspan="2" style="width:85%" scope="row">Total Price</th>
               <td>Rp. ${formatNumber(totalPrice)}</td>
             </tr>
           </table>`

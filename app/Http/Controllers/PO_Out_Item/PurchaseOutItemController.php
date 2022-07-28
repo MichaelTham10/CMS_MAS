@@ -18,8 +18,14 @@ class PurchaseOutItemController extends Controller
         
         return datatables($query)
         ->addIndexColumn()
+        ->addColumn('qty', function($row){
+            return number_format($row->qty);
+        })
+        ->addColumn('price', function($row){
+            return number_format($row['price']);
+        })
         ->addColumn('Total Price', function($row){
-            return $row->qty*$row['price'];
+            return number_format($row->qty*$row['price']);
         })
         ->addColumn('action', function($row){
             $actionBtn = 

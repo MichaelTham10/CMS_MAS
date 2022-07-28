@@ -155,19 +155,19 @@
                     <a href="/create/po_out_item/{{$po_out['id']}}" class="btn btn-primary">Create Item</a>
                 </div>    
                 <hr class="mt-0 mb-3">
-                <table class="table pt-2 pb-3" id="datatable" style="width: 100%">
+                <table class="table pt-2 pb-3" id="datatable" style="width: 100%; table-layout: fixed; word-wrap: break-word;">
                     <thead>
                         <tr class="font-weight-bold">
-                        <th scope="col"><strong>#</strong></th>
-                        <th scope="col"><strong>Item Description</strong></th>
-                        <th scope="col"><strong>Qty</strong></th>
-                        <th scope="col"><strong>Unit Price</strong></th>
-                        <th scope="col"><strong>Total Price</strong></th>
-                        <th scope="col"><strong>Action</strong></th>
+                            <th scope="col" style="width:1%;"><strong>#</strong></th>
+                            <th scope="col" style="width:45%;"><strong>Item Description</strong></th>
+                            <th scope="col" style="width:5%;"><strong>Qty</strong></th>
+                            <th scope="col"><strong>Unit Price</strong></th>
+                            <th scope="col"><strong>Total Price</strong></th>
+                            <th scope="col" style="width:8%;"><strong>Action</strong></th>
                         </tr>
-                </thead>
-                <tbody>
-                    <script type="text/javascript">
+                    </thead>
+                    <tbody>
+                        <script type="text/javascript">
                             window.data = {!! json_encode($po_out['id']) !!};
                         </script>
                     </tbody>
@@ -190,8 +190,16 @@
             columns : [
                 { "data": 'DT_RowIndex'},
                 { "data" : "item_description"},
-                { "data" : "qty"},
-                { "data" : "price"},
+                {   data: 'qty', 
+                    name: 'qty', 
+                    orderable: true, 
+                    searchable: true
+                },
+                {   data: 'price', 
+                    name: 'price', 
+                    orderable: true, 
+                    searchable: true
+                },
                 {
                     data: 'Total Price', 
                     name: 'Total Price', 

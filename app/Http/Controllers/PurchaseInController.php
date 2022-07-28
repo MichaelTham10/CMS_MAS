@@ -182,8 +182,7 @@ class PurchaseInController extends Controller
         ->addColumn('action', function($row){
             $actionBtn = 
             '<td>
-            <div class="btn-group">
-                
+            <div class="btn-group">             
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                     Options

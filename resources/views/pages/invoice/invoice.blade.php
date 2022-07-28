@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => 'Invoice'])
+@extends('layouts.app', ['title' => 'Quotation Invoice'])
 
 {{-- title web tab --}}
 @section('page-title')
-    Invoice
+    Quotation Invoice
 @endsection
 
 {{-- navbar title --}}
@@ -19,6 +19,10 @@
   @include('layouts.headers.cards')
 
   <style>
+    td{
+      white-space: normal !important;
+      text-align: justify;
+    }
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
         font-size: 15px;
     }
@@ -42,26 +46,26 @@
   <div class="container-fluid">
     <div class="rounded border mt-4 mb-4 p-4" style="background-color: #fff">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Invoice</h3>
+        <h3>Quotation Invoice</h3>
         <a href="{{route('create-invoice')}}" class="btn btn-primary">Create Invoice</a>
       </div>   
       <hr class="mt-0 mb-3"> 
-      <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
+      <table class="table pt-2 pb-3" id="datatable" style="width:100%; table-layout: fixed; word-wrap: break-word;">
         <thead>
           <tr class="font-weight-bold">
-            <th scope="col"><strong>#</strong></th>
+            <th scope="col" style="width: 1%"><strong>#</strong></th>
             <th scope="col"><strong>Invoice No</strong></th>
             <th scope="col"><strong>Invoice Date</strong></th>
             <th scope="col"><strong>Bill To</strong></th>
             <th scope="col"><strong>Quotation No</strong></th>
-            <th scope="col"><strong>Action</strong></th>
+            <th scope="col" style="width: 6%"><strong>Action</strong></th>
           </tr>
         </thead>
         <tbody>
           
         </tbody>
       </table>
-      <div style="padding-bottom: 6px;"></div>
+      <div style="padding-bottom: 4px;"></div>
     </div>
   </div>
 @endsection
@@ -119,15 +123,15 @@
     })
 
     if (totalPrice != 0) {
-      return (`<table class="table table-bordered table-sm" > 
+      return (`<table class="table table-bordered table-sm" style="width:100%; table-layout: fixed; word-wrap: break-word;"> 
           <thead>
             <tr class="font-weight-bold">
-              <th scope="col" style="width:5%;"><strong>#</strong></th>
-              <th scope="col" style="width:15%;"><strong>Name</strong></th>
-              <th scope="col" style="width:45%;"><strong>Description</strong></th>
-              <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-              <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-              <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+              <th scope="col" style="width:1%;"><strong>#</strong></th>
+              <th scope="col"><strong>Name</strong></th>
+              <th scope="col" style="width:40%;"><strong>Description</strong></th>
+              <th scope="col" style="width:10%;"><strong>Qty</strong></th>
+              <th scope="col"><strong>Unit Price</strong></th>
+              <th scope="col"><strong>Total Price</strong></th>
             </tr>
           </thead>
           <tbody>
@@ -138,11 +142,11 @@
         </table>
         <table class="table table-bordered no-margin table-sm">
           <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+              <th colspan="2" style="width:85%" scope="row">Total Price</th>
               <td>Rp. ${formatNumber(totalPrice)}</td>
             </tr>
           <tr>
-            <th colspan="2" style="width:78.5%" scope="row">Discount (${invoice.quotation.Discount}%)</th>
+            <th colspan="2" style="width:85%" scope="row">Discount (${invoice.quotation.Discount}%)</th>
             <td>Rp. ${formatNumber((totalPrice * (invoice.quotation.Discount/100)))}</td>
           </tr>
           <tr>
@@ -155,15 +159,15 @@
     else{
       return (
           `
-          <table class="table table-bordered table-sm"> 
+          <table class="table table-bordered table-sm" style="width:100%; table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                <th scope="col" style="width:30%;"><strong>Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
-                <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width:1%;"><strong>#</strong></th>
+                <th scope="col"><strong>Name</strong></th>
+                <th scope="col" style="width:40%;"><strong>Description</strong></th>
+                <th scope="col" style="width:10%;"><strong>Qty</strong></th>
+                <th scope="col"><strong>Unit Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
           </table>

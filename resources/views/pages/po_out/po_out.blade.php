@@ -19,11 +19,16 @@
   @include('layouts.headers.cards')
 
   <style>
+    td{
+        white-space: normal !important;
+        text-align: justify;
+    }
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
         font-size: 15px;
     }
+
     .paginate_button.page-item.active a.page-link {
-          background-color: #2a3880; 
+        background-color: #2a3880; 
     }
   </style>
 
@@ -46,31 +51,27 @@
           <a href="{{route('create-po-out')}}" class="btn btn-primary">Create PO Out</a>
         </div>   
         <hr class="mt-0 mb-3"> 
-        <table class="table pt-2 pb-3" id="datatable" style="width:100%">
-        <thead>
+        <table class="table pt-2 pb-3" id="datatable" style="width:100%; table-layout: fixed; word-wrap: break-word;">
+          <thead>
             <tr class="font-weight-bold">
-            <th scope="col"><strong>#</strong></th>
-            <th scope="col"><strong>PO No</strong></th>
-            <th scope="col"><strong>PO Date</strong></th>
-            <th scope="col"><strong>Arrival Date</strong></th>
-            <th scope="col"><strong>To</strong></th>
-            <th scope="col"><strong>Action</strong></th>
+              <th scope="col" style="width: 1%"><strong>#</strong></th>
+              <th scope="col"><strong>PO No</strong></th>
+              <th scope="col"><strong>PO Date</strong></th>
+              <th scope="col"><strong>Arrival Date</strong></th>
+              <th scope="col"><strong>To</strong></th>
+              <th scope="col" style="width: 6%"><strong>Action</strong></th>
             </tr>
-        </thead>
-        <tbody>
-          <script type="text/javascript">
-            window.data = {!! json_encode($po_out_items) !!};
-          </script>
-        </tbody>
+          </thead>
+          <tbody>          
+            <script type="text/javascript">
+              window.data = {!! json_encode($po_out_items) !!};
+            </script>
+          </tbody>
         </table>
-        <div style="padding-bottom: 6px;"></div>
+        <div style="padding-bottom: 4px;"></div>
     </div>
   </div>
 @endsection
-
-{{-- <script type="text/javascript">
-  window.data = {!! json_encode($items) !!};
-</script> --}}
 
 @section('scripts')
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
@@ -119,15 +120,14 @@
       })
 
       if (totalPrice == 0) {
-        return (`<table class="table table-bordered table-sm" > 
+        return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                <th scope="col" style="width:45%;"><strong>Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-                <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width:1%;"><strong>#</strong></th>
+                <th scope="col" style="width:50%;"><strong>Item Description</strong></th>
+                <th scope="col"><strong>Quantity</strong></th>
+                <th scope="col"><strong>Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
           </table>
@@ -135,14 +135,14 @@
         );
       }
       else{
-        return (`<table class="table table-bordered table-sm" > 
+        return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Item Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Quantity</strong></th>
-                <th scope="col" style="width:15%;"><strong>Price</strong></th>
-                <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width:1%;"><strong>#</strong></th>
+                <th scope="col" style="width:50%;"><strong>Item Description</strong></th>
+                <th scope="col"><strong>Quantity</strong></th>
+                <th scope="col"><strong>Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -153,11 +153,11 @@
           </table>
           <table class="table table-bordered no-margin table-sm">
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+              <th colspan="2" style="width:84.5%" scope="row">Total Price</th>
               <td>Rp. ${formatNumber(totalPrice)}</td>
             </tr>
             <tr>
-              <th colspan="2" style="width:78.5%" scope="row">PPN (${po_out.ppn}%)</th>
+              <th colspan="2" style="width:84.5%" scope="row">PPN (${po_out.ppn}%)</th>
               <td>Rp. ${formatNumber(totalPrice*(po_out.ppn/100))}</td>
             </tr>
             <tr>
@@ -176,7 +176,7 @@
         ajax: "{{ route('po-outData')}}",
         columns : 
         [
-          { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+          { "data": 'DT_RowIndex'},
           { "data" : 'po_out_no'},
           { "data" : "date"},
           { "data" : "arrival"},

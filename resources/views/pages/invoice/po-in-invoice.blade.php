@@ -17,10 +17,16 @@
 
 @section('content')
 @include('layouts.headers.cards')
-
   <style>
+    td{
+      white-space: normal !important;
+      text-align: justify;
+    }
     .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate{
-        font-size: 15px;
+      font-size: 15px;
+    }
+    .paginate_button.page-item.active a.page-link {
+      background-color: #2a3880; 
     }
   </style>
 
@@ -38,31 +44,28 @@
           <a href="{{route('create-invoice-po')}}" class="btn btn-primary">Create Invoice</a>
         </div>   
         <hr class="mt-0 mb-3"> 
-        <table class="table pt-2 pb-3" id="datatable" style="width:100%;">
+        <table class="table pt-2 pb-3" id="datatable" style="width:100%; table-layout: fixed; word-wrap: break-word;">
           <thead>
             <tr class="font-weight-bold">
-
-              <th scope="col"><strong>#</strong></th>
+              <th scope="col" style="width: 1%"><strong>#</strong></th>
               <th scope="col"><strong>Invoice No</strong></th>
               <th scope="col"><strong>Invoice Date</strong></th>
               <th scope="col"><strong>Bill To</strong></th>
               <th scope="col"><strong>Customer Number</strong></th>
               <th scope="col"><strong>Service Cost</strong></th>
-              <th scope="col"><strong>Action</strong></th>
+              <th scope="col" style="width: 6%"><strong>Action</strong></th>
             </tr>
           </thead>
           <tbody>
-            
+            <script type="text/javascript">
+              window.data = {!! json_encode($items) !!};
+            </script>
           </tbody>
         </table>
-        <div style="padding-bottom: 6px;"></div>
+        <div style="padding-bottom: 4px;"></div>
       </div>
     </div>
 @endsection
-
-<script type="text/javascript">
-  window.data = {!! json_encode($items) !!};
-</script>
 
 @section('scripts')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
@@ -113,15 +116,15 @@
     })
 
     if (totalPrice != 0) {
-      return (`<table class="table table-bordered table-sm" > 
+      return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
           <thead>
             <tr class="font-weight-bold">
-              <th scope="col" style="width:5%;"><strong>#</strong></th>
-              <th scope="col" style="width:15%;"><strong>Name</strong></th>
-              <th scope="col" style="width:45%;"><strong>Description</strong></th>
-              <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-              <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
-              <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
+              <th scope="col" style="width: 1%"><strong>#</strong></th>
+              <th scope="col" style="width: 15%"><strong>Name</strong></th>
+              <th scope="col" style="width: 40%"><strong>Item Description</strong></th>
+              <th scope="col" style="width: 8.5%"><strong>Quantity</strong></th>
+              <th scope="col"><strong>Unit Price</strong></th>
+              <th scope="col"><strong>Total Price</strong></th>
             </tr>
           </thead>
           <tbody>
@@ -132,11 +135,11 @@
         </table>
         <table class="table table-bordered no-margin table-sm">
           <tr>
-              <th colspan="2" style="width:78.5%" scope="row">Total Price</th>
+              <th colspan="2" style="width:85%" scope="row">Total Price</th>
               <td>Rp. ${formatNumber(totalPrice)}</td>
             </tr>
           <tr>
-            <th colspan="2" style="width:78.5%" scope="row">PPN 11%</th>
+            <th colspan="2" style="width:85%" scope="row">PPN 11%</th>
             <td>Rp. ${formatNumber((totalPrice * (11/100)))}</td>
           </tr>
           <tr>
@@ -149,15 +152,15 @@
     else{
       return (
           `
-          <table class="table table-bordered table-sm"> 
+          <table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
-                <th scope="col" style="width:5%;"><strong>#</strong></th>
-                <th scope="col" style="width:15%;"><strong>Name</strong></th>
-                <th scope="col" style="width:30%;"><strong>Description</strong></th>
-                <th scope="col" style="width:5%;"><strong>Qty</strong></th>
-                <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
-                <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
+                <th scope="col" style="width: 1%"><strong>#</strong></th>
+                <th scope="col" style="width: 15%"><strong>Name</strong></th>
+                <th scope="col" style="width: 40%"><strong>Item Description</strong></th>
+                <th scope="col" style="width: 8.5%"><strong>Quantity</strong></th>
+                <th scope="col"><strong>Unit Price</strong></th>
+                <th scope="col"><strong>Total Price</strong></th>
               </tr>
             </thead>
           </table>
