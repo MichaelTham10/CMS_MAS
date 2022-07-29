@@ -57,9 +57,9 @@
 
                     <div class="form-group">
                         <label for="invoiceDate">Quotation Date</label>
-                        <input class="form-control" type="date" placeholder="Input Invoice Date" @error('invoiceDate')
-                        is invalid @enderror onfocus="(this.type='date')" id="invoice-date" name="date">
-                        @error('invoiceDate')
+                        <input class="form-control" type="date" placeholder="Input Invoice Date" @error('date')
+                        is invalid @enderror onfocus="(this.type='date')" id="date" name="date">
+                        @error('date')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
