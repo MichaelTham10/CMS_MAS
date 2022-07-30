@@ -24,10 +24,16 @@ class ItemController extends Controller
             return number_format($row->quantity);
         })
         ->addColumn('unit price', function($row){
-            return number_format($row['unit price']);
+            if($row['unit price'] > 0)
+                return number_format($row['unit price']);
+            else
+                return "FREE";
         })
         ->addColumn('Total Price', function($row){
-            return number_format($row->quantity*$row['unit price']);
+            if($row->quantity*$row['unit price'] > 0)
+                return number_format($row->quantity*$row['unit price']);
+            else
+                return "FREE";
         })
         ->addColumn('action', function($row){
             $actionBtn = 

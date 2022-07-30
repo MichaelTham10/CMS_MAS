@@ -106,11 +106,11 @@
         return `
         <tr>
           <td>${index}</td>
-          <td>${element.name}</td>
-          <td>${element.description}</td>
-          <td>${formatNumber(element.quantity)}</td>
-          <td>${formatNumber(element['unit price'])}</td>
-          <td>${formatNumber(element['unit price'] * element.quantity)}</td>
+          <td style="text-align: left;">${element.name}</td>
+          <td style="text-align: justify;">${element.description}</td>
+          <td style="text-align: center;">${formatNumber(element.quantity)}</td>
+          <td>${element['unit price'] <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['unit price'])}</td>
+          <td>${element['unit price'] * element.quantity <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['unit price'] * element.quantity)}</td>
         </tr>`;
       }
 
@@ -127,7 +127,7 @@
                 <th scope="col" style="width:1%;"><strong>#</strong></th>
                 <th scope="col"><strong>Name</strong></th>
                 <th scope="col" style="width:40%;"><strong>Description</strong></th>
-                <th scope="col" style="width:10%;"><strong>Qty</strong></th>
+                <th scope="col" style="width:10%; text-align: center;"><strong>Qty</strong></th>
                 <th scope="col"><strong>Unit Price</strong></th>
                 <th scope="col"><strong>Total Price</strong></th>
               </tr>
@@ -140,11 +140,11 @@
           </table>
           <table class="table table-bordered no-margin table-sm">
             <tr>
-              <th colspan="2" style="width:85%" scope="row">Total Price</th>
+              <th colspan="2" style="width:85.2%" scope="row">Total Price</th>
               <td>Rp. ${formatNumber(totalPrice)}</td>
             </tr>
             <tr>
-              <th colspan="2" style="width:85%" scope="row">Discount (${quotation.Discount}%)</th>
+              <th colspan="2" style="width:85.2%" scope="row">Discount (${quotation.Discount}%)</th>
               <td>Rp. ${formatNumber((totalPrice * (quotation.Discount/100)))}</td>
             </tr>
             <tr>
@@ -163,7 +163,7 @@
                 <th scope="col" style="width:1%;"><strong>#</strong></th>
                 <th scope="col"><strong>Name</strong></th>
                 <th scope="col" style="width:40%;"><strong>Description</strong></th>
-                <th scope="col" style="width:10%;"><strong>Qty</strong></th>
+                <th scope="col" style="width:10%; text-align: center;"><strong>Qty</strong></th>
                 <th scope="col"><strong>Unit Price</strong></th>
                 <th scope="col"><strong>Total Price</strong></th>
               </tr>
