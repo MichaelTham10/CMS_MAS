@@ -59,7 +59,7 @@
             <thead>
                 <tr class="font-weight-bold">
                     <th scope="col" style="width: 1%"><strong>#</strong></th>
-                    <th scope="col"><strong>Email</strong></th>
+                    <th scope="col"><strong>Username</strong></th>
                     <th scope="col"><strong>Name</strong></th>
                     <th scope="col"><strong>Role</strong></th>
                     <th scope="col" style="width: 8%"><strong>Action</strong></th>
@@ -105,7 +105,7 @@
                 columns : 
                 [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-                { "data" : "email"},
+                { "data" : "username"},
                 { "data" : "name"},
                 { "data" : "role.name"},
                 {
