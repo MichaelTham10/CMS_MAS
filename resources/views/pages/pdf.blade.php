@@ -15,101 +15,101 @@
   @endphp
   
   <style>
-  *{
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 11.5px;
-  }
-  .table {
-    font-family: 'Times New Roman', Times, serif;
-    padding: 0;
-    margin: 0;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th {
-    background-color: #c7c7c7;
-    color: white;
-  }
-  
-  .table th {
-    text-align: left;
-    color: black;
-  }
-  
-  th, td {
-    border-top: 1px solid black;
-    font-size: 11.5px;
-  }
+    *{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 11.5px;
+    }
+    .table {
+      font-family: 'Times New Roman', Times, serif;
+      padding: 0;
+      margin: 0;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th {
+      background-color: #c7c7c7;
+      color: white;
+    }
+    
+    .table th {
+      text-align: left;
+      color: black;
+    }
+    
+    th, td {
+      border-top: 1px solid black;
+      font-size: 11.5px;
+    }
 
-  td{
-    padding-top: -50px;
-    margin-top: -50px;
-  }
+    td{
+      padding-top: -50px;
+      margin-top: -50px;
+    }
 
-  .title{
-    padding: 1px;
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .break-word{
-    word-wrap: break-word;
-  }
+    .title{
+      padding: 1px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .break-word{
+      word-wrap: break-word;
+    }
 
-  .tab0 {
-      display: inline-block;
-      margin-left: 53.4px;
-  }
-  .tab1 {
-      display: inline-block;
-      margin-left: 58px;
-  }
-  .tab2 {
-      display: inline-block;
-      margin-left: 27px;
-  }
-  .tab3 {
-      display: inline-block;
-      margin-left: 35px;
-  }
-  .tab4 {
-      display: inline-block;
-      margin-left: 25px;
-  }
-  .tab5 {
-      display: inline-block;
-      margin-left: 12px;
-  }
-  p {
-    padding: 0;
-    margin: 0;
-    font-size: 11.5px;
-  }
+    .tab0 {
+        display: inline-block;
+        margin-left: 53.4px;
+    }
+    .tab1 {
+        display: inline-block;
+        margin-left: 58px;
+    }
+    .tab2 {
+        display: inline-block;
+        margin-left: 27px;
+    }
+    .tab3 {
+        display: inline-block;
+        margin-left: 35px;
+    }
+    .tab4 {
+        display: inline-block;
+        margin-left: 25px;
+    }
+    .tab5 {
+        display: inline-block;
+        margin-left: 12px;
+    }
+    p {
+      padding: 0;
+      margin: 0;
+      font-size: 11.5px;
+    }
 
-  .pding{
-    padding-top: 15px;
-  }
+    .pding{
+      padding-top: 15px;
+    }
 
-  .border-total
-  {
-    border-top: 2px solid black;
-  }
-  .footer-pdf
-  {
-    position: absolute;
-    width: 100rem;
-    height: 1.8rem;
-    background-color: rgb(8, 4, 75);
-    bottom: -45px;
-    left: -30rem;
-  }
-  .location-mail
-  {
-    position: absolute;
-    bottom: -15px;
-    font-size: 10px;
-  }
+    .border-total
+    {
+      border-top: 2px solid black;
+    }
+    .footer-pdf
+    {
+      position: absolute;
+      width: 100rem;
+      height: 1.8rem;
+      background-color: rgb(8, 4, 75);
+      bottom: -45px;
+      left: -30rem;
+    }
+    .location-mail
+    {
+      position: absolute;
+      bottom: -15px;
+      font-size: 10px;
+    }
   </style>
 </head>
 <body>

@@ -54,10 +54,8 @@
                             @endforeach
 
                             @php
-                                if($totalQuotation - $quotation->Discount > 0)
-                                {
+                                if($totalQuotation > 0 && $totalQuotation - ($totalQuotation*($quotation->Discount/100)) > 0)
                                     $totalItemQuotation += $totalQuotation - ($totalQuotation*($quotation->Discount/100));
-                                }
                             @endphp
                         @endforeach
                         Rp. {{number_format($totalItemQuotation)}}.-
@@ -97,7 +95,8 @@
                                     @endforeach
         
                                     @php
-                                        $totalItemInvoicePO += $totalInvoicePO + $invoice->service_cost + ($totalInvoicePO * (11/100));
+                                        if (!$invoice->poin->items->isEmpty() || $totalInvoicePO > 0)
+                                            $totalItemInvoicePO += $totalInvoicePO + $invoice->service_cost + ($totalInvoicePO * (11/100));
                                     @endphp
                                 @endforeach
                                 @foreach ($invoices as $invoice)
@@ -113,9 +112,7 @@
         
                                     @php
                                         if($totalInvoice - ($totalInvoice*($invoice->quotation->Discount/100)) > 0)
-                                        {
                                             $totalItemInvoice += $totalInvoice - ($totalInvoice*($invoice->quotation->Discount/100));
-                                        }
                                     @endphp
                                 @endforeach
                                 Rp. {{number_format($totalItemInvoicePO + $totalItemInvoice)}}.-
@@ -185,7 +182,8 @@
                                     @endforeach
         
                                     @php
-                                        $totalPurchaseInItem += $totalPurchaseIn;
+                                        if($totalPurchaseIn > 0)
+                                            $totalPurchaseInItem += $totalPurchaseIn;
                                     @endphp
                                 @endforeach
                                 @foreach ($po_outs as $po_out)
@@ -200,7 +198,8 @@
                                     @endforeach
         
                                     @php
-                                        $totalPurchaseOutItem += $totalPurchaseOut + ($totalPurchaseOut*($po_out->ppn/100));
+                                        if($totalPurchaseOut > 0)
+                                            $totalPurchaseOutItem += $totalPurchaseOut + ($totalPurchaseOut*($po_out->ppn/100));
                                     @endphp
                                 @endforeach
                                 Rp. {{number_format($totalPurchaseOutItem + $totalPurchaseInItem)}}.-
