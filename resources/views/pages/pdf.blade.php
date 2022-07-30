@@ -153,7 +153,7 @@
       </div>
     </div>
     
-    <table class="table" style="margin-top: 20px; table-layout: fixed;">
+    <table class="table" style="margin-top: 30px; table-layout: fixed;">
       <thead>
         <tr>
           <th scope="col" style="width:6%; text-align: center;
@@ -172,7 +172,7 @@
             <td class="break-word" style="width:6%; text-align: center;
             vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
             <td class="break-word" style="width:20%;"><b>{{$item->name}}</b></td>
-            <td class="break-word" style="width:35%; text-align: justify;">{!!$item->description!!}</td>
+            <td class="break-word" style="width:35%;">{!!$item->description!!}</td>
             <td class="break-word" style="width:9%; text-align: center;
             vertical-align: middle;">{{$item->quantity}}</td>
             @if ($item['unit price'] > 0)

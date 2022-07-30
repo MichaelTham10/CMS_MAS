@@ -22,10 +22,16 @@ class PurchaseOutItemController extends Controller
             return number_format($row->qty);
         })
         ->addColumn('price', function($row){
-            return number_format($row['price']);
+            if($row['price'] > 0)
+                return number_format($row['price']);
+            else
+                return "FREE";
         })
         ->addColumn('Total Price', function($row){
-            return number_format($row->qty*$row['price']);
+            if($row->qty*$row['price'] > 0)
+                return number_format($row->qty*$row['price']);
+            else
+                return "FREE";
         })
         ->addColumn('action', function($row){
             $actionBtn = 

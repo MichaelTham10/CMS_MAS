@@ -90,11 +90,13 @@
     function format ( item , quotation) {
       var temp = [];
       var loop = 0;
-      
+      var haveItem;
+
       item.forEach(element => {
           if (quotation.id == element.quotation_id) {
               temp[loop] = element;
               loop++;
+              haveItem = true;
           } 
       });
 
@@ -120,7 +122,7 @@
         index++;
       })
 
-      if(totalPrice != 0){
+      if(haveItem){
         return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
@@ -141,7 +143,7 @@
           <table class="table table-bordered no-margin table-sm">
             <tr>
               <th colspan="2" style="width:85.2%" scope="row">Total Price</th>
-              <td>Rp. ${formatNumber(totalPrice)}</td>
+              <td>${totalPrice <= 0 ? 'FREE' : 'Rp. ' + formatNumber(totalPrice)}</td>
             </tr>
             <tr>
               <th colspan="2" style="width:85.2%" scope="row">Discount (${quotation.Discount}%)</th>
@@ -149,7 +151,7 @@
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>Rp. ${(totalPrice - (totalPrice * (quotation.Discount/100))) <= 0 ? 'FREE' : formatNumber((totalPrice - (totalPrice * (quotation.Discount/100))))}</td>
+              <td>${(totalPrice - (totalPrice * (quotation.Discount/100))) <= 0 ? 'FREE' : 'Rp. ' + formatNumber((totalPrice - (totalPrice * (quotation.Discount/100))))}</td>
             </tr>
           </table>`
         );

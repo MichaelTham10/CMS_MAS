@@ -93,9 +93,10 @@
                         <tr class="font-weight-bold">
                             <th scope="col" style="width: 1%"><strong>#</strong></th>
                             <th scope="col" style="width: 10%"><strong>Name</strong></th>
-                            <th scope="col" style="width: 40%"><strong>Item Description</strong></th>
+                            <th scope="col" style="width: 35%"><strong>Item Description</strong></th>
                             <th scope="col"><strong>Quantity</strong></th>
                             <th scope="col"><strong>Unit Price</strong></th>
+                            <th scope="col"><strong>Total Price</strong></th>
                             <th scope="col" style="width: 8%"><strong>Action</strong></th>
                         </tr>
                     </thead>
@@ -142,6 +143,12 @@
                 },
                 {   data: 'price', 
                     name: 'price', 
+                    orderable: true, 
+                    searchable: true
+                },
+                {
+                    data: 'Total Price', 
+                    name: 'Total Price', 
                     orderable: true, 
                     searchable: true
                 },

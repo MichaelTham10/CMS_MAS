@@ -208,7 +208,7 @@ class InvoicePOController extends Controller
                         InvoicePOTypeDetail::destroy($temp->id);
                     }
 
-                    return back()->with('success', 'Invoice has been updated');
+                    return redirect('/invoice/po')->with('success', 'Invoice has been updated');
                 }
             }
            
@@ -234,7 +234,7 @@ class InvoicePOController extends Controller
                 InvoicePOTypeDetail::destroy($temp->id);
             }
 
-            return back()->with('success', 'Invoice has been updated');
+            return redirect('/invoice/po')->with('success', 'Invoice has been updated');
         }
         
         $invoice->update([
@@ -245,7 +245,7 @@ class InvoicePOController extends Controller
             'service_cost' => $request->serviceCost  
         ]);
 
-        return back()->with('success', 'Invoice has been updated');
+        return redirect('/invoice/po')->with('success', 'Invoice has been updated');
     }
 
 }

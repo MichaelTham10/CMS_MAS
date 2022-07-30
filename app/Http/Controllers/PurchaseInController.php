@@ -179,6 +179,21 @@ class PurchaseInController extends Controller
         $query = ItemPurchaseIn::where('po_in_id', $po_in_id)->get();
         return datatables($query)
         ->addIndexColumn()
+        ->addColumn('quantity', function($row){
+            return number_format($row->quantity);
+        })
+        ->addColumn('price', function($row){
+            if($row['price'] > 0)
+                return number_format($row['price']);
+            else
+                return "FREE";
+        })
+        ->addColumn('Total Price', function($row){
+            if($row->quantity*$row['price'] > 0)
+                return number_format($row->quantity*$row['price']);
+            else
+                return "FREE";
+        })
         ->addColumn('action', function($row){
             $actionBtn = 
             '<td>

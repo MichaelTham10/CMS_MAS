@@ -88,9 +88,6 @@
                                 @foreach ($invoice_pos as $invoice)
                                     @php
                                         $totalInvoicePO = 0;
-                                        $totalItemInvoicePO = 0;
-                                        $totalInvoice = 0;
-                                        $totalItemInvoice = 0;
                                     @endphp
         
                                     @foreach ($invoice->poin->items as $item)
@@ -100,7 +97,7 @@
                                     @endforeach
         
                                     @php
-                                        $totalItemInvoicePO += $totalInvoicePO + $invoice->service_cost;
+                                        $totalItemInvoicePO += $totalInvoicePO + $invoice->service_cost + ($totalInvoicePO * (11/100));
                                     @endphp
                                 @endforeach
                                 @foreach ($invoices as $invoice)
@@ -136,27 +133,6 @@
                                 Invoice PO In
                             </div>
                             <div class="font-weight-bold display-4">
-                                @php
-                                    $totalItemInvoicePO = 0;
-                                @endphp
-                                @foreach ($invoice_pos as $invoice)
-                                    @php
-                                        $totalInvoicePO = 0;
-                                        $totalItemInvoicePO = 0;
-                                        $totalInvoice = 0;
-                                        $totalItemInvoice = 0;
-                                    @endphp
-        
-                                    @foreach ($invoice->poin->items as $item)
-                                        @php
-                                            $totalInvoicePO += $item['price'] * $item->quantity;
-                                        @endphp
-                                    @endforeach
-        
-                                    @php
-                                        $totalItemInvoicePO += $totalInvoicePO + $invoice->service_cost;
-                                    @endphp
-                                @endforeach
                                 Rp. {{number_format($totalItemInvoicePO)}}.-
                             </div>
                         </div>
@@ -171,35 +147,11 @@
                                 Invoice Quotation
                             </div>
                             <div class="font-weight-bold display-4">
-                                @php
-                                    $totalItemInvoice = 0;
-                                @endphp
-                                @foreach ($invoices as $invoice)
-                                    @php
-                                        $totalInvoicePO = 0;
-                                        $totalItemInvoicePO = 0;
-                                        $totalInvoice = 0;
-                                        $totalItemInvoice = 0;
-                                    @endphp
-        
-                                    @foreach ($invoice->quotation->items as $item)
-                                        @php
-                                            $totalInvoice += $item['unit price'] * $item->quantity;
-                                        @endphp
-                                    @endforeach
-        
-                                    @php
-                                        if($totalInvoice - ($totalInvoice*($invoice->quotation->Discount/100)) > 0)
-                                        {
-                                            $totalItemInvoice += $totalInvoice - ($totalInvoice*($invoice->quotation->Discount/100));
-                                        }
-                                    @endphp
-                                @endforeach
-                            Rp. {{number_format($totalItemInvoice)}}.-
+                                Rp. {{number_format($totalItemInvoice)}}.-
                             </div>
                         </div>
                         <div class="align-self-center">
-                            <a href="{{route('po-out')}}" class="btn btn-primary">View Details</a>
+                            <a href="/invoice" class="btn btn-primary">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -217,37 +169,41 @@
                         </div>
                         <div class="font-weight-bold display-4">
                             <div class="font-weight-bold display-4">
+                                @php
+                                    $totalPurchaseInItem = 0;
+                                    $totalPurchaseOutItem = 0;
+                                @endphp
                                 @foreach ($po_ins as $po_in)     
                                     @php
-                                        $totalPurchase = 0;
+                                        $totalPurchaseIn = 0;
                                     @endphp
 
                                     @foreach ($po_in->items as $item)
                                         @php
-                                            $totalPurchase += $item['price'] * $item->quantity;
+                                            $totalPurchaseIn += $item['price'] * $item->quantity;
                                         @endphp
                                     @endforeach
         
                                     @php
-                                        $totalItemPurchase += $totalPurchase;
+                                        $totalPurchaseInItem += $totalPurchaseIn;
                                     @endphp
                                 @endforeach
                                 @foreach ($po_outs as $po_out)
                                     @php
-                                        $totalPurchase = 0;
+                                        $totalPurchaseOut = 0;
                                     @endphp
         
                                     @foreach ($po_out->items as $item)
                                         @php
-                                            $totalPurchase += $item['price'] * $item->qty;
+                                            $totalPurchaseOut += $item['price'] * $item->qty;
                                         @endphp
                                     @endforeach
         
                                     @php
-                                        $totalItemPurchase += $totalPurchase + ($totalPurchase*($po_out->ppn/100));
+                                        $totalPurchaseOutItem += $totalPurchaseOut + ($totalPurchaseOut*($po_out->ppn/100));
                                     @endphp
                                 @endforeach
-                                Rp. {{number_format($totalItemPurchase)}}.-
+                                Rp. {{number_format($totalPurchaseOutItem + $totalPurchaseInItem)}}.-
                             </div>
                         </div>
                     </div>
@@ -262,25 +218,7 @@
                                 Purchase In Order
                             </div>
                             <div class="font-weight-bold display-4">
-                                @php
-                                    $totalItemPurchase = 0;
-                                @endphp
-                                @foreach ($po_ins as $po_in)     
-                                    @php
-                                        $totalPurchase = 0;
-                                    @endphp
-
-                                    @foreach ($po_in->items as $item)
-                                        @php
-                                            $totalPurchase += $item['price'] * $item->quantity;
-                                        @endphp
-                                    @endforeach
-        
-                                    @php
-                                        $totalItemPurchase += $totalPurchase;
-                                    @endphp
-                                @endforeach
-                                Rp. {{number_format($totalItemPurchase)}}.-
+                                Rp. {{number_format($totalPurchaseInItem)}}.-
                             </div>
                         </div>
                         <div class="align-self-center">
@@ -294,25 +232,7 @@
                                 Purchase Out Order
                             </div>
                             <div class="font-weight-bold display-4">
-                                @php
-                                    $totalItemPurchase = 0;
-                                @endphp
-                                @foreach ($po_outs as $po_out)
-                                    @php
-                                        $totalPurchase = 0;
-                                    @endphp
-        
-                                    @foreach ($po_out->items as $item)
-                                        @php
-                                            $totalPurchase += $item['price'] * $item->qty;
-                                        @endphp
-                                    @endforeach
-        
-                                    @php
-                                        $totalItemPurchase += $totalPurchase + ($totalPurchase*($po_out->ppn/100));
-                                    @endphp
-                                @endforeach
-                                Rp. {{number_format($totalItemPurchase)}}.-
+                                Rp. {{number_format($totalPurchaseOutItem)}}.-
                             </div>
                         </div>
                         <div class="align-self-center">

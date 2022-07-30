@@ -92,11 +92,13 @@
   function format ( items , invoice) {
     var temp = [];
     var loop = 0;
+    var haveItem;
     
     items.forEach(item => {
       if (invoice['Quotation No'] == item.quotation_id) {
         temp[loop] = item;
         loop++;
+        haveItem = true;
       }
     });
 
@@ -111,8 +113,8 @@
         <td>${element.name}</td>
         <td>${element.description}</td>
         <td>${element.quantity}</td>
-        <td>${formatNumber(element['unit price'])}</td>
-        <td>${formatNumber(element['unit price'] * element.quantity)}</td>
+        <td>${element['unit price'] <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['unit price'])}</td>
+        <td>${element['unit price'] * element.quantity <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['unit price'] * element.quantity)}</td>
       </tr>`;
     }
 
@@ -122,7 +124,7 @@
       index++;
     })
 
-    if (totalPrice != 0) {
+    if (haveItem) {
       return (`<table class="table table-bordered table-sm" style="width:100%; table-layout: fixed; word-wrap: break-word;"> 
           <thead>
             <tr class="font-weight-bold">
@@ -143,7 +145,7 @@
         <table class="table table-bordered no-margin table-sm">
           <tr>
               <th colspan="2" style="width:85%" scope="row">Total Price</th>
-              <td>Rp. ${formatNumber(totalPrice)}</td>
+              <td>${totalPrice <= 0 ? 'FREE' : 'Rp. ' + formatNumber(totalPrice)}</td>
             </tr>
           <tr>
             <th colspan="2" style="width:85%" scope="row">Discount (${invoice.quotation.Discount}%)</th>
@@ -151,7 +153,7 @@
           </tr>
           <tr>
             <th colspan="2" scope="row">Grand Total</th>
-            <td>Rp. ${(totalPrice - (totalPrice * (invoice.quotation.Discount/100))) <= 0 ? 'FREE' : formatNumber((totalPrice - (totalPrice * (invoice.quotation.Discount/100))))}</td>
+            <td>${(totalPrice - (totalPrice * (invoice.quotation.Discount/100))) <= 0 ? 'FREE' : 'Rp. ' + formatNumber((totalPrice - (totalPrice * (invoice.quotation.Discount/100))))}</td>
           </tr>
         </table>`
       );
