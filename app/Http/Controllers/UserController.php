@@ -26,22 +26,22 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = DB::table('roles')->where('id', '!=', 1)->get();
         return view('users.create-user', compact('roles'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|unique:users,email',
-            'username' => 'required|unique:users,name',
+            'username' => 'required|unique:users,username',
+            'name' => 'required|unique:users,name',
             'password' => 'required',  
             'confirmPassword' => 'required|same:password'
         ]);
 
         User::create([
-            'email' => $request->email,
-            'name' => $request->username,
+            'username' => $request->username,
+            'name' => $request->name,
             'password' => Hash::make($request->password),
             'role_id' => $request->role,
         ]);
@@ -66,27 +66,27 @@ class UserController extends Controller
         if(Auth::user()->role_id == 1){
             if($request->password != null){
                 $request->validate([
-                    'email' => 'required|unique:users,email,' . $id,
-                    'username' => 'required|unique:users,name,' . $id,
+                    'username' => 'required|unique:users,username,' . $id,
+                    'name' => 'required|unique:users,name,' . $id,
                     'confirmPassword' => 'same:password'
                 ]);
     
                 User::findOrFail($id)->update([
-                    'email' => $request->email,
-                    'name' => $request->username,
+                    'username' => $request->username,
+                    'name' => $request->name,
                     'password' => Hash::make($request->password),
                     'role_id' => $request->role
                 ]);
             }
             else{
                 $request->validate([
-                    'email' => 'required|unique:users,email,' . $id,
-                    'username' => 'required|unique:users,name,' . $id,
+                    'username' => 'required|unique:users,username,' . $id,
+                    'name' => 'required|unique:users,name,' . $id,
                 ]);
     
                 User::findOrFail($id)->update([
-                    'email' => $request->email,
-                    'name' => $request->username,
+                    'username' => $request->username,
+                    'name' => $request->name,
                     'role_id' => $request->role
                 ]);
             }
@@ -94,25 +94,25 @@ class UserController extends Controller
         else{
             if($request->password != null){
                 $request->validate([
-                    'email' => 'required|unique:users,email,' . $id,
-                    'username' => 'required|unique:users,name,' . $id,
+                    'username' => 'required|unique:users,username,' . $id,
+                    'name' => 'required|unique:users,name,' . $id,
                     'confirmPassword' => 'same:password'
                 ]);
     
                 User::findOrFail($id)->update([
-                    'email' => $request->email,
-                    'name' => $request->username,
+                    'username' => $request->username,
+                    'name' => $request->name,
                     'password' => Hash::make($request->password),
                 ]);
             }
             else{
                 $request->validate([
-                    'email' => 'required|unique:users,email,' . $id,
-                    'username' => 'required|unique:users,name,' . $id,
+                    'username' => 'required|unique:users,username,' . $id,
+                    'name' => 'required|unique:users,name,' . $id,
                 ]);
     
                 User::findOrFail($id)->update([
-                    'email' => $request->email,
+                    'username' => $request->username,
                     'name' => $request->username,
                 ]);
             }

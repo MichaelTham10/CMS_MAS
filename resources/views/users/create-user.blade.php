@@ -33,19 +33,19 @@
                 <form action="/store/user" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" type="email" placeholder="Input Email" @error('email')
-                        is invalid @enderror name="email" value="">
-                        @error('email')
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" placeholder="Input Username" @error('username')
+                        is invalid @enderror name="username" value="">
+                        @error('username')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="username">Name</label>
-                        <input class="form-control" type="text" placeholder="Input Name" @error('username')
-                        is invalid @enderror name="username" value="">
-                        @error('username')
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text" placeholder="Input Name" @error('name')
+                        is invalid @enderror name="name" value="">
+                        @error('name')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
