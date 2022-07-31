@@ -64,6 +64,7 @@
               <th scope="col" style="width: 1%"><strong>#</strong></th>
               <th scope="col"><strong>Customer Number</strong></th>
               <th scope="col"><strong>Customer Name</strong></th>
+              <th scope="col"><strong>PO Date</strong></th>
               <th scope="col"><strong>PDF</strong></th>
               <th scope="col" style="width: 6%"><strong>Action</strong></th>
             </tr>
@@ -185,6 +186,7 @@
           { "data": 'DT_RowIndex'},
           { "data" : "customer_number"},
           { "data" : "customer_name"},
+          {"data" : "po_date"},
           { 
             "data" : "file",
             render: function ( data, type, row, meta ) {
