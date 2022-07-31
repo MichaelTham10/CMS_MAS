@@ -98,7 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//po_in_old
 	Route::get('/po_in/old','App\Http\Controllers\PurchaseInOldController@index')->middleware('role:Superadmin,Admin,Finance');
 	Route::get('/po_in/old/create/form','App\Http\Controllers\PurchaseInOldController@create')->middleware('role:Superadmin,Admin');
-	Route::get('/po_in/old/list','App\Http\Controllers\PurchaseInOldController@list')->name('old-purchaseIn-data')->middleware('role:Superadmin,Admin');
+	Route::get('/po_in/old/list','App\Http\Controllers\PurchaseInOldController@list')->name('old-purchaseIn-data')->middleware('role:Superadmin,Admin,Finance');
 	Route::post('/po_in/old/create','App\Http\Controllers\PurchaseInOldController@store')->middleware('role:Superadmin,Admin');
 	Route::get('/edit/old/po_in/{id}', 'App\Http\Controllers\PurchaseInOldController@edit')->middleware('role:Superadmin,Admin');
 	Route::patch('/update/old/po_in/{id}', 'App\Http\Controllers\PurchaseInOldController@update')->middleware('role:Superadmin,Admin');
