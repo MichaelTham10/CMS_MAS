@@ -10,7 +10,7 @@ class InvoicePO extends Model
     use HasFactory;
     protected $fillable = [
         'type_id','type_detail_id', 'Invoice No', 'type_detail_quantity', 'Address',
-        'Invoice Date', 'PO_In_Id', 'Bill To', 'Note', 'service_cost'
+        'Invoice Date', 'PO_In_Id', 'Bill To', 'Note', 'service_cost', 'payment_status', 'dp_percent', 'dp_note',
     ];
 
     public static function getFormatId($invoiceType_id,$invoiceType_detail_id,$invoiceDate)

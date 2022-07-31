@@ -92,7 +92,7 @@
                     </div> 
 
                     <div class="form-group">
-                        <label for="note">Note</label>
+                        <label for="note">Terms & Condition</label>
                         <textarea class="note" name="note"
                         @error('note')
                         is invalid

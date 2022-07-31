@@ -38,6 +38,9 @@ class InvoicePOController extends Controller
             'note' => 'required',
             'po_in_selection' => 'required',
             'serviceCost' => 'required',
+            'payment_status' => 'required',
+            'dp_percent' => 'required',
+            'dp_note' => 'required',
         ]);
         
         $this->temp = 0;
@@ -65,7 +68,10 @@ class InvoicePOController extends Controller
                     'PO_In_Id' => $request->po_in_selection,
                     'Bill To' => $request->billTo,
                     'Note' => $request->note,
-                    'service_cost' => $request->serviceCost
+                    'service_cost' => $request->serviceCost,
+                    'payment_status' => $request->payment_status,
+                    'dp_percent' => $request->dp_percent,
+                    'dp_note' => $request->dp_note,
                 ]);
                 break;
             }
@@ -91,7 +97,10 @@ class InvoicePOController extends Controller
                 'PO_In_Id' => $request->po_in_selection,
                 'Bill To' => $request->billTo,
                 'Note' => $request->note,
-                'service_cost' => $request->serviceCost
+                'service_cost' => $request->serviceCost,
+                'payment_status' => $request->payment_status,
+                'dp_percent' => $request->dp_percent,
+                'dp_note' => $request->dp_note,
             ]);
         }
         $updated_po_in = PurchaseOrderIn::findOrFail($request->po_in_selection);
@@ -170,6 +179,16 @@ class InvoicePOController extends Controller
 
     public function update($invoice_id, Request $request)
     {
+        $request->validate([
+            'address' => 'required',
+            'date' => 'required',
+            'billTo' => 'required',
+            'note' => 'required',
+            'serviceCost' => 'required',
+            'payment_status' => 'required',
+            'dp_percent' => 'required',
+            'dp_note' => 'required',
+        ]);
         
         $invoice = InvoicePO::findOrFail($invoice_id);
         $type = InvoiceType::findOrFail($invoice->type_id);
@@ -201,7 +220,10 @@ class InvoicePOController extends Controller
                         'Invoice Date' => $request->date,
                         'Bill To' => $request->billTo,
                         'Note' => $request->note,
-                        'service_cost' => $request->serviceCost                  
+                        'service_cost' => $request->serviceCost,
+                        'payment_status' => $request->payment_status,
+                        'dp_percent' => $request->dp_percent,
+                        'dp_note' => $request->dp_note,               
                     ]);
 
                     if($temp->quantity == 0){
@@ -227,7 +249,10 @@ class InvoicePOController extends Controller
                 'Invoice Date' => $request->date,
                 'Bill To' => $request->billTo,
                 'Note' => $request->note,
-                'service_cost' => $request->serviceCost  
+                'service_cost' => $request->serviceCost,
+                'payment_status' => $request->payment_status,
+                'dp_percent' => $request->dp_percent,
+                'dp_note' => $request->dp_note,  
             ]);
 
             if($temp->quantity == 0){
@@ -242,7 +267,10 @@ class InvoicePOController extends Controller
             'Invoice Date' => $request->date,
             'Bill To' => $request->billTo,
             'Note' => $request->note, 
-            'service_cost' => $request->serviceCost  
+            'service_cost' => $request->serviceCost,
+            'payment_status' => $request->payment_status,
+            'dp_percent' => $request->dp_percent,
+            'dp_note' => $request->dp_note,  
         ]);
 
         return redirect('/invoice/po')->with('success', 'Invoice has been updated');

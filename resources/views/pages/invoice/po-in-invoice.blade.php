@@ -53,6 +53,7 @@
               <th scope="col"><strong>Bill To</strong></th>
               <th scope="col"><strong>Customer Number</strong></th>
               <th scope="col"><strong>Service Cost</strong></th>
+              <th scope="col"><strong>Payment Status</strong></th>
               <th scope="col" style="width: 6%"><strong>Action</strong></th>
             </tr>
           </thead>
@@ -149,8 +150,16 @@
             <td>Rp. ${formatNumber(invoice['service_cost'])}</td>
           </tr>
           <tr>
+            <th colspan="2" style="width:85%" scope="row">DP (${invoice['dp_percent']}%)</th>
+            <td>${invoice['dp_percent'] <= 0 ? 'FULL PAYMENT' : 'Rp. ' + formatNumber((totalPrice + (totalPrice * (11/100)) + invoice['service_cost']) * (invoice['dp_percent']/100))}</td>
+          </tr>
+          <tr>
             <th colspan="2" scope="row">Grand Total</th>
-            <td>${(totalPrice + (totalPrice * (11/100)) + invoice['service_cost']) <= 0 ? 'FREE' : 'Rp. ' + formatNumber((totalPrice + (totalPrice * (11/100)) + invoice['service_cost']))}</td>
+            <td>
+              ${(totalPrice + (totalPrice * (11/100)) + invoice['service_cost']) - (totalPrice + (totalPrice * (11/100)) + invoice['service_cost']) * (invoice['dp_percent']/100) <= 0 
+              ? 'FREE' 
+              : 'Rp. ' + formatNumber((totalPrice + (totalPrice * (11/100)) + invoice['service_cost']) - (totalPrice + (totalPrice * (11/100)) + invoice['service_cost']) * (invoice['dp_percent']/100))}
+            </td>
           </tr>
         </table>`
       );
@@ -189,6 +198,7 @@
         { "data" : "Bill To"},
         { "data" : "poin.customer_number"},
         { "data" : "service_cost"},
+        { "data" : "payment_status"},
         {
           "class":          "details-control",
           "orderable":      false,

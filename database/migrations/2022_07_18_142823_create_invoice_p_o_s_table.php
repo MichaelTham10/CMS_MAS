@@ -28,6 +28,9 @@ class CreateInvoicePOSTable extends Migration
             $table->string('Bill To');
             $table->longText('Note');
             $table->bigInteger('service_cost');
+            $table->string('payment_status');
+            $table->bigInteger('dp_percent');
+            $table->longText('dp_note');
             $table->timestamps();
         });
     }

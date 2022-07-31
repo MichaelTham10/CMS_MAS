@@ -123,21 +123,21 @@ class InvoiceController extends Controller
     }
 
     public function update($invoice_id, Request $request)
-    {
+    {        
+        $invoice = Invoice::findOrFail($invoice_id);
+        $type = InvoiceType::findOrFail($invoice->type_id);
+        $itds = InvoiceTypeDetail::all();
+
         $request->validate([
             'address' => 'required',
             'date' => 'required',
             'billTo' => 'required',
             'note' => 'required',
-            'quotation_selection' => 'required',
             'payment_status' => 'required',
             'dp_percent' => 'required',
             'dp_note' => 'required',
         ]);
-        
-        $invoice = Invoice::findOrFail($invoice_id);
-        $type = InvoiceType::findOrFail($invoice->type_id);
-        $itds = InvoiceTypeDetail::all();
+
         if($invoice['Invoice Date'] != $request->date)
         {
             $itd = InvoiceTypeDetail::findOrFail($invoice->type_detail_id);

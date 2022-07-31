@@ -81,6 +81,87 @@
                             });
                         </script>
                     </div>
+
+                    @if($invoice['payment_status'] == "Down Payment")
+                        <div class="form-group">
+                            <label for="payment_status">Payment Status</label>
+                            <select class="form-control" id="payment_status" name="payment_status" onchange="showDiv(this)">
+                                @if($invoice['payment_status'] == "Full Payment")
+                                    <option value="Full Payment" selected="selected">Full Payment</option>
+                                    <option value="Down Payment">Down Payment</option>
+                                @else
+                                    <option value="Full Payment">Full Payment</option>
+                                    <option value="Down Payment" selected="selected">Down Payment</option>
+                                @endif                         
+                            </select>
+                            <script>
+                                function showDiv(element){
+                                    document.getElementById("dp_percent_field").style.display = element.value == "Down Payment" ? 'block' : 'none';
+                                    document.getElementById("dp_percent").value = element.value == "Down Payment" ? "{{$invoice['dp_percent']}}" : 0;
+                                    document.getElementById("dp_note_field").style.display = element.value == "Down Payment" ? 'block' : 'none';
+                                    document.getElementById("dp_note").value = element.value == "Down Payment" ? "{{$invoice['dp_note']}}" : 'None';
+                                }
+                            </script>
+                        </div>
+
+                        <div class="form-group" id="dp_percent_field" style="display: block">
+                            <label for="dp_percent">DP %</label>
+                            <input class="form-control" id="dp_percent" value="{{$invoice['dp_percent']}}" type="number" placeholder="Input DP %" @error('dp_percent')
+                            is invalid @enderror name="dp_percent" required>
+                            @error('dp_percent')
+                                <span class="text-danger">{{$message}}</span> 
+                            @enderror
+                        </div>
+    
+                        <div class="form-group" id="dp_note_field" style="display: block">
+                            <label for="dp_note">DP Note</label>
+                            <input class="form-control" id="dp_note" value="{{$invoice['dp_percent']}}" type="text" placeholder="Input DP Note" @error('dp_note')
+                            is invalid @enderror name="dp_note">
+                            @error('dp_note')
+                                <span class="text-danger">{{$message}}</span> 
+                            @enderror
+                        </div>                 
+                    @else
+                        <div class="form-group">
+                            <label for="payment_status">Payment Status</label>
+                            <select class="form-control" id="payment_status" name="payment_status" onchange="showDiv(this)">
+                                @if($invoice['payment_status'] == "Full Payment")
+                                    <option value="Full Payment" selected="selected">Full Payment</option>
+                                    <option value="Down Payment">Down Payment</option>
+                                @else
+                                    <option value="Full Payment">Full Payment</option>
+                                    <option value="Down Payment" selected="selected">Down Payment</option>
+                                @endif                         
+                            </select>
+                            <script>
+                                function showDiv(element){
+                                    document.getElementById("dp_percent_field").style.display = element.value == "Down Payment" ? 'block' : 'none';
+                                    document.getElementById("dp_percent").value = element.value == "Down Payment" ? "" : 0;
+                                    document.getElementById("dp_note_field").style.display = element.value == "Down Payment" ? 'block' : 'none';
+                                    document.getElementById("dp_note").value = element.value == "Down Payment" ? "" : 'None';
+                                }
+                            </script>
+                        </div>
+                        
+                        <div class="form-group" id="dp_percent_field" style="display: none">
+                            <label for="dp_percent">DP %</label>
+                            <input class="form-control" id="dp_percent" value="" type="number" placeholder="Input DP %" @error('dp_percent')
+                            is invalid @enderror name="dp_percent" required>
+                            @error('dp_percent')
+                                <span class="text-danger">{{$message}}</span> 
+                            @enderror
+                        </div>
+    
+                        <div class="form-group" id="dp_note_field" style="display: none">
+                            <label for="dp_note">DP Note</label>
+                            <input class="form-control" id="dp_note" value="" type="text" placeholder="Input DP Note" @error('dp_note')
+                            is invalid @enderror name="dp_note">
+                            @error('dp_note')
+                                <span class="text-danger">{{$message}}</span> 
+                            @enderror
+                        </div>
+                    @endif     
+
                     <div class="d-flex justify-content-end">
                         <a href="/invoice" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
