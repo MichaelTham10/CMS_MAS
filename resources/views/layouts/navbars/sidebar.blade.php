@@ -11,12 +11,15 @@
         <!-- Collapse -->
         <div class="collapse navbar-collapse pt-0 pb-0" id="sidenav-collapse-main"  style="text-decoration: none; color: #2a3880; font-weight: bold;">
             <ul class="navbar-nav pt-0 pb-0">
+                @if (Auth::user()->role_id == 1 )
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
+                            <i class="ni ni-tv-2" style="color: #2a3880;"></i> {{ __('Dashboard') }}
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}" style="text-decoration: none; color: #2a3880; font-weight: bold;">
-                        <i class="ni ni-tv-2" style="color: #2a3880;"></i> {{ __('Dashboard') }}
-                    </a>
-                </li>
-                <li class="nav-item">
+                    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 3 )
                     <li class="nav-item">
                         <a class="nav-link" href="#navbar-quotations" style="text-decoration: none; color: #2a3880; font-weight: bold;" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-quotations">
                             <i class="fas fa-file-invoice" style="color: #2a3880;"></i> {{ __('Quotation') }}
@@ -38,6 +41,7 @@
                             </ul>
                         </div>
                     </li>
+                    @endif
                 </li>
             </ul>
             <ul class="navbar-nav">            
@@ -72,7 +76,7 @@
                 @endif
             </ul>
             <ul class="navbar-nav">
-                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 4)
                     <li class="nav-item">
                         <a class="nav-link" style="text-decoration: none; color: #2a3880; font-weight: bold;" href="#navbar-purchases" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-purchases">
                             <i class="ni ni-money-coins" style="color: #2a3880;"></i>
