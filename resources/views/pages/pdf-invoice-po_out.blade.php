@@ -162,7 +162,7 @@
           vertical-align: middle;"><strong>No</strong></th>
           <th scope="col" style="width:49%;"><strong>Item Description</strong></th>
           <th scope="col" style="width:15%; text-align: center;
-          vertical-align: middle;"><strong>Qty</strong></th>
+          vertical-align: middle;"><strong>Quantity</strong></th>
           <th scope="col" style="width:15%;"><strong>Unit Price</strong></th>
           <th scope="col" style="width:15%;"><strong>Total Price</strong></th>
         </tr>
@@ -175,8 +175,8 @@
           <td class="break-word" style="width: 49%,">{!!$item->item_description!!}</td>
           <td class="break-word" style="width: 15%; text-align: center;
           vertical-align: middle;">{{number_format($item->qty)}}</td>
-          <td class="break-word" style="width:15%;">Rp. {{number_format($item['price'])}}</td>
-          <td class="break-word" style="width:15%;">Rp. {{number_format($item['price'] * $item->qty)}}</td>
+          <td class="break-word" style="width:15%;">IDR. {{number_format($item['price'])}}</td>
+          <td class="break-word" style="width:15%;">IDR. {{number_format($item['price'] * $item->qty)}}</td>
         </tr>
         @php
           $total += ($item['price'] * $item->qty);
@@ -193,16 +193,16 @@
       <div class="table-responsive">
         <table class="table table-bordered no-margin table-sm">
           <tr>
-            <th colspan="2" style="width: 38rem; background-color: rgb(254, 254, 120); padding-left: 2%" class="border-total" scope="row">Total</th>
-            <td style="background-color: rgb(254, 254, 120); width:15%;" class="border-total">IDR. {{number_format($total)}},-</td>
+            <th colspan="2" style="width: 38rem; background-color: #c7c7c7; padding-left: 2%" class="border-total" scope="row">Total</th>
+            <td style="background-color: #c7c7c7; width:15%;" class="border-total">IDR. {{number_format($total)}},-</td>
           </tr>
           <tr>
-            <th colspan="2" style="background-color: rgb(170, 240, 193); padding-left: 2%" class="border-total" scope="row">Ppn (11%)</th>
-            <td style="background-color: rgb(170, 240, 193); width:15%;" class="border-total break-word">IDR. {{number_format($ppn)}},-</td>
+            <th colspan="2" style="background-color: #c7c7c7; padding-left: 2%" class="border-total" scope="row">Ppn (11%)</th>
+            <td style="background-color: #c7c7c7; width:15%;" class="border-total break-word">IDR. {{number_format($ppn)}},-</td>
           </tr>
           <tr>
-            <th colspan="2" scope="row" style="background-color: rgb(254, 254, 120); border-bottom: 2px solid black; border-top: 2px solid black; padding-left: 2%">Grand Total</th>
-            <td class="border-total" style="border-bottom: 2px solid black; background-color: rgb(254, 254, 120); font-weight: bold; width:15%;">IDR. {{number_format(($total + $ppn))}},-</td>
+            <th colspan="2" scope="row" style="background-color: #c7c7c7; border-bottom: 2px solid black; border-top: 2px solid black; padding-left: 2%">Grand Total</th>
+            <td class="border-total" style="border-bottom: 2px solid black; background-color: #c7c7c7; font-weight: bold; width:15%;">IDR. {{number_format(($total + $ppn))}},-</td>
           </tr>
         </table>
       </div>
