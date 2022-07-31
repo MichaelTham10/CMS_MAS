@@ -25,7 +25,7 @@ class InvoiceController extends Controller
     
     public function create()
     {
-        $types = InvoiceType::all();
+        $types = InvoiceType::where('alias', 'MS')->orWhere('alias','SO')->orWhere('alias', 'MMS')->get();
         $quotations = Quotation::where('active', true)->get();
         
         return view('pages.invoice.create-invoice', compact('types', 'quotations'));
