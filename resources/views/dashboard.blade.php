@@ -18,6 +18,7 @@
 @endsection
 
 @section('content')
+    @if (Auth::user()->role_id == 1 )
     <link rel="stylesheet" type="text/css" href="{{ asset('public/css/dashboard.css') }}">
     @include('layouts.headers.cards')
     @php
@@ -61,27 +62,15 @@
                         Rp. {{number_format($totalItemQuotation)}}.-
                     </div>
                 </div>
-                <div class="align-self-center">
-                    <a href="{{route('quotation')}}" class="btn btn-primary ">View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex mt-4 border rounded p-2 align-self-center" style="background-color: #fff">
-            <div>
-                <img src="{{asset('assets/img/icon/po.png')}}" alt="" style="width: 60px">
-            </div>
-            <div id="wrapperInvoice" style="width: 100%; height: 63px;">
-                <div class="d-flex justify-content-between w-100 align-self-center" style=" height: 63px;">
+                <div class="d-flex justify-content-between w-100 align-self-center">
                     <div class="pl-3">
                         <div class="opacity-5 font-weight-bold">
-                            Invoices
+                            Total Quotation
                         </div>
                         <div class="font-weight-bold display-4">
-                            <div class="font-weight-bold display-4">
+                            @foreach ($quotations as $quotation)
                                 @php
-                                    $totalItemInvoicePO = 0;
-                                    $totalItemInvoice = 0;
+                                    $totalQuotation = 0;
                                 @endphp
                                 @foreach ($invoice_pos as $invoice)
                                     @php
@@ -119,15 +108,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="align-self-center" >
-                        <button class="btn btn-primary" style="border: none; width: 128.56px; height: 43px;" onclick="invoiceFunction()"> View Invoice</button>
+                    <div class="align-self-center">
+                        <a href="{{route('quotation')}}" class="btn btn-primary ">View Details</a>
                     </div>
                 </div>
-                <div class="m-2" id="myInvoice" style="display: none">
-                    <div class="d-flex border rounded p-2 align-self-center justify-content-between" style="background-color: #fff; margin-top: 25px">
+            </div>
+
+            <div class="d-flex mt-4 border rounded p-2 align-self-center" style="background-color: #fff">
+                <div>
+                    <img src="{{asset('assets/img/icon/po.png')}}" alt="" style="width: 60px">
+                </div>
+                <div id="wrapperInvoice" style="width: 100%; height: 63px;">
+                    <div class="d-flex justify-content-between w-100 align-self-center" style=" height: 63px;">
                         <div class="pl-3">
                             <div class="opacity-5 font-weight-bold">
-                                Invoice PO In
+                                Invoices
                             </div>
                             <div class="font-weight-bold display-4">
                                 Rp. {{number_format($totalItemInvoicePO)}}.-
@@ -174,8 +169,7 @@
                                     @php
                                         $totalPurchaseIn = 0;
                                     @endphp
-
-                                    @foreach ($po_in->items as $item)
+                                    @foreach ($invoices as $invoice)
                                         @php
                                             $totalPurchaseIn += $item['price'] * $item->quantity;
                                         @endphp
@@ -206,22 +200,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="align-self-center" >
-                        <button class="btn btn-primary" style="border: none; width: 128.56px; height: 43px;" onclick="myFunction()"> View PO</button>
-                    </div>
                 </div>
-                <div class="m-2" id="myPO" style="display: none">
-                    <div class="d-flex border rounded p-2 align-self-center justify-content-between" style="background-color: #fff; margin-top: 25px">
+            </div>
+            <div class="d-flex mt-4 border rounded p-2 align-self-center" style="background-color: #fff">
+                <div>
+                    <img src="{{asset('assets/img/icon/po.png')}}" alt="" style="width: 60px">
+                </div>
+                <div id="wrapperPo" style="width: 100%; height: 63px;">
+                    <div class="d-flex justify-content-between w-100 align-self-center" style=" height: 63px;">
                         <div class="pl-3">
                             <div class="opacity-5 font-weight-bold">
-                                Purchase In Order
+                                Purchase Order
                             </div>
                             <div class="font-weight-bold display-4">
                                 Rp. {{number_format($totalPurchaseInItem)}}.-
                             </div>
                         </div>
-                        <div class="align-self-center">
-                            <a href="/po_in" class="btn btn-primary ">View Details</a>
+                        <div class="align-self-center" >
+                            <button class="btn btn-primary" style="border: none; width: 128.56px; height: 43px;" onclick="myFunction()"> View PO</button>
                         </div>
                     </div>
                     <br>
@@ -234,16 +230,37 @@
                                 Rp. {{number_format($totalPurchaseOutItem)}}.-
                             </div>
                         </div>
-                        <div class="align-self-center">
-                            <a href="{{route('po-out')}}" class="btn btn-primary ">View Details</a>
-                        </div>
                     </div>
                 </div>
             </div>
+            
+            @include('layouts.footers.auth')
         </div>
-        
-        @include('layouts.footers.auth')
+    @endif
+    
+    @if (Auth::user()->role_id == 2 )
+    <div class="container-fluid" style="font-size: 35px; align-items: center;">
+        <div class="pt-6 d-flex justify-content-center" style="text-align: center; height: 100%; align-items: center;">
+            Admin Page
+        </div>
     </div>
+    @endif
+    
+    @if (Auth::user()->role_id == 3 )
+    <div class="container-fluid" style="font-size: 35px; align-items: center;">
+        <div class="pt-6 d-flex justify-content-center" style="text-align: center; height: 100%; align-items: center;">
+            Sales Page
+        </div>
+    </div>
+    @endif
+    \
+    @if (Auth::user()->role_id == 4 )
+    <div class="container-fluid" style="font-size: 35px; align-items: center;">
+        <div class="pt-6 d-flex justify-content-center" style="text-align: center; height: 100%; align-items: center;">
+            Finance Page
+        </div>
+    </div>
+    @endif
 @endsection
 
 @push('js')
