@@ -55,9 +55,18 @@
 
                     <div class="form-group">
                         <label for="attention">Customer Name</label>
-                        <input class="form-control" type="text" placeholder="Input Attention" @error('customer_name')
+                        <input class="form-control" type="text" placeholder="Input Customer Name" @error('customer_name')
                         is invalid @enderror name="customer_name" value="{{$purchaseIn->customer_name}}">
                         @error('customer_name')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attention">PO Date</label>
+                        <input class="form-control" type="date" placeholder="Input Date" @error('po_date')
+                        is invalid @enderror name="po_date" value="" required>
+                        @error('po_date')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>

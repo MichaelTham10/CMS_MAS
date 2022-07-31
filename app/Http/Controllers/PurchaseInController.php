@@ -34,6 +34,7 @@ class PurchaseInController extends Controller
         $request->validate([
             'customer_number' => 'required',
             'customer_name' => 'required',  
+            'po_date' => 'required'
         ]);
         // $request = request();
         $file = $request->file('file');
@@ -47,12 +48,14 @@ class PurchaseInController extends Controller
                 'customer_number' => $request->customer_number,
                 'customer_name' => $request->customer_name,
                 'file' => $filename,
+                'po_date' => $request->po_date
             ]);
         }
         else{
             PurchaseOrderIn::findOrFail($id)->update([
                 'customer_number' => $request->customer_number,
                 'customer_name' => $request->customer_name,
+                'po_date' => $request->po_date
             ]);
         }
 
@@ -71,6 +74,7 @@ class PurchaseInController extends Controller
             'customer_number' => 'required|unique:purchase_order_ins',
             'customer_name' => 'required',  
             'file' => 'required',
+            'po_date' => 'required'
         ]);
 
         $file = $request->file('file');
@@ -80,7 +84,8 @@ class PurchaseInController extends Controller
         PurchaseOrderIn::create([
             'customer_number' => $request->customer_number,
             'customer_name' => $request->customer_name,
-            'file' => $filename
+            'file' => $filename,
+            'po_date' => $request->po_date
         ]);
 
         $po_in = PurchaseOrderIn::all();

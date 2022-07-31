@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label for="customer">Customer Number</label>
                         <input class="form-control" type="text" placeholder="Input Customer" @error('customer_number')
-                        is invalid @enderror name="customer_number" value="">
+                        is invalid @enderror name="customer_number" value="" required>
                         @error('customer_number')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
@@ -44,9 +44,18 @@
 
                     <div class="form-group">
                         <label for="attention">Customer Name</label>
-                        <input class="form-control" type="text" placeholder="Input Attention" @error('customer_name')
-                        is invalid @enderror name="customer_name" value="">
+                        <input class="form-control" type="text" placeholder="Input Customer Name" @error('customer_name')
+                        is invalid @enderror name="customer_name" value="" required>
                         @error('customer_name')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attention">PO Date</label>
+                        <input class="form-control" type="date" placeholder="Input Date" @error('po_date')
+                        is invalid @enderror name="po_date" value="" required>
+                        @error('po_date')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
@@ -54,7 +63,7 @@
                     <div class="form-group">
                         <label for="attention">File Upload</label>
                         <input class="form-control" type="file" placeholder="Upload File" @error('file')
-                        is invalid @enderror name="file" value="" accept="application/pdf" >
+                        is invalid @enderror name="file" value="" accept="application/pdf" required>
                         @error('file')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
