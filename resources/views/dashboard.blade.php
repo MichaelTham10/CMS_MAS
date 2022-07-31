@@ -106,6 +106,7 @@
                                 @endforeach
                                 Rp. {{number_format($totalItemInvoicePO + $totalItemInvoice)}}.-
                             </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="align-self-center">
@@ -236,8 +237,8 @@
             
             @include('layouts.footers.auth')
         </div>
+    </div>
     @endif
-    
     @if (Auth::user()->role_id == 2 )
     <div class="container-fluid" style="font-size: 35px; align-items: center;">
         <div class="pt-6 d-flex justify-content-center" style="text-align: center; height: 100%; align-items: center;">
@@ -253,7 +254,7 @@
         </div>
     </div>
     @endif
-    \
+    
     @if (Auth::user()->role_id == 4 )
     <div class="container-fluid" style="font-size: 35px; align-items: center;">
         <div class="pt-6 d-flex justify-content-center" style="text-align: center; height: 100%; align-items: center;">

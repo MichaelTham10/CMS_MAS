@@ -59,9 +59,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- <script type="text/javascript">
-                window.data = {!! json_encode($items) !!};
-                </script> --}}
+             
             </tbody>
             </table>
         <div style="padding-bottom: 4px;"></div>
@@ -72,8 +70,6 @@
 @section('scripts')
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
     <script>
-        
-
         $(document).ready( function () {
             var dt = $('#datatable').DataTable({
             processing: true,
