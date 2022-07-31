@@ -91,11 +91,13 @@
     function format ( items , po_out) {
       var temp = [];
       var loop = 0;
+      var haveItem;
       
       items.forEach(item => {
         if (po_out['id'] == item.po_out_id) {
           temp[loop] = item;
           loop++;
+          haveItem = true;
         }
       });
       
@@ -109,8 +111,8 @@
           <td>${index}</td>
           <td>${element.item_description}</td>
           <td>${formatNumber(element.qty)}</td>
-          <td>${formatNumber(element['price'])}</td>
-          <td>${formatNumber(element['price'] * element.qty)}</td>
+          <td>${element['price'] <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['price'])}</td>
+          <td>${element['price'] * element.qty <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['price'] * element.qty)}</td>
         </tr>`;
       }
       temp.forEach(element=>{
@@ -119,7 +121,7 @@
         index++;
       })
 
-      if (totalPrice == 0) {
+      if (!haveItem) {
         return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
@@ -154,7 +156,7 @@
           <table class="table table-bordered no-margin table-sm">
             <tr>
               <th colspan="2" style="width:84.5%" scope="row">Total Price</th>
-              <td>Rp. ${formatNumber(totalPrice)}</td>
+              <td>${(totalPrice <= 0 ? 'FREE' : 'Rp. ' + formatNumber(totalPrice))}</td>
             </tr>
             <tr>
               <th colspan="2" style="width:84.5%" scope="row">PPN (${po_out.ppn}%)</th>
@@ -162,7 +164,7 @@
             </tr>
             <tr>
               <th colspan="2" scope="row">Grand Total</th>
-              <td>Rp. ${(totalPrice + (totalPrice*(po_out.ppn/100))) <= 0 ? 'FREE' : formatNumber((totalPrice + (totalPrice*(po_out.ppn/100))))}</td>
+              <td>${(totalPrice + (totalPrice*(po_out.ppn/100))) <= 0 ? 'FREE' : 'Rp. ' + formatNumber((totalPrice + (totalPrice*(po_out.ppn/100))))}</td>
             </tr>
           </table>`
         );

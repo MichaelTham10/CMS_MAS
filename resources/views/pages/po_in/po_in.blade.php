@@ -100,11 +100,13 @@
     function format ( items , po_in) {
       var temp = [];
       var loop = 0;
+      var haveItem;
       
       items.forEach(item => {
         if (po_in['id'] == item.po_in_id) {
           temp[loop] = item;
           loop++;
+          haveItem = true;
         }
       });
       
@@ -119,8 +121,8 @@
           <td>${element.name}</td>
           <td>${element.description}</td>
           <td>${formatNumber(element.quantity)}</td>
-          <td>${formatNumber(element['price'])}</td>
-          <td>${formatNumber(element.price * element.quantity)}</td>
+          <td>${element['price'] <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['price'])}</td>
+          <td>${element['price'] * element.quantity <= 0 ? 'FREE' : 'Rp.' + formatNumber(element['price'] * element.quantity)}</td>
         </tr>`;
       }
       temp.forEach(element=>{
@@ -129,7 +131,7 @@
         index++;
       })
 
-      if (totalPrice == 0) {
+      if (!haveItem) {
         return (`<table class="table table-bordered table-sm" style="table-layout: fixed; word-wrap: break-word;"> 
             <thead>
               <tr class="font-weight-bold">
@@ -166,7 +168,7 @@
           <table class="table table-bordered no-margin table-sm">
             <tr>
               <th colspan="2" style="width:85%" scope="row">Total Price</th>
-              <td>Rp. ${formatNumber(totalPrice)}</td>
+              <td>${totalPrice <= 0 ? 'FREE' : 'Rp. ' + formatNumber(totalPrice)}</td>
             </tr>
           </table>`
         );

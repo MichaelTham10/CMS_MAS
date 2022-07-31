@@ -132,7 +132,7 @@
                             <th scope="col" style="width:5%;"><strong>Qty</strong></th>
                             <th scope="col" style="width:10%;"><strong>Unit Price</strong></th>
                             <th scope="col" style="width:10%;"><strong>Total Price</strong></th>
-                            <th scope="col"><strong>Action</strong></th>
+                            <th scope="col" style="width: 6%"><strong>Action</strong></th>
                         </tr>
                     </thead>
                     <tbody style="">

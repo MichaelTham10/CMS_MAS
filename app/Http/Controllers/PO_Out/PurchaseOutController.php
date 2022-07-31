@@ -13,9 +13,6 @@ class PurchaseOutController extends Controller
 {
     public function index(Request $request = null, $show = null)
     {
-        // $items = Item::all();
-        // $quotations = Quotation::all();
-        // $invoices =  Invoice::all();
         $po_out = PurchaseOrderOut::all();
         $po_out_items = PurchaseOutItem::all();
         return view('pages.po_out.po_out', compact('po_out', 'po_out_items'));
@@ -23,9 +20,6 @@ class PurchaseOutController extends Controller
 
     public function create()
     {
-        // $types = InvoiceType::all();
-        // $quotations = Quotation::all();
-
         return view('pages.po_out.create-po_out');
     }   
 

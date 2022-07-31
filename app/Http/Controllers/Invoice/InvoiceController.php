@@ -152,7 +152,7 @@ class InvoiceController extends Controller
                         InvoiceTypeDetail::destroy($temp->id);
                     }
 
-                    return back()->with('success', 'Invoice has been updated');
+                    return redirect('/invoice')->with('success', 'Invoice has been updated');
                 }
             }
            
@@ -177,7 +177,7 @@ class InvoiceController extends Controller
                 InvoiceTypeDetail::destroy($temp->id);
             }
 
-            return back()->with('success', 'Invoice has been updated');
+            return redirect('/invoice')->with('success', 'Invoice has been updated');
         }
         
         $invoice->update([
@@ -187,7 +187,7 @@ class InvoiceController extends Controller
             'Note' => $request->note  
         ]);
 
-        return back()->with('success', 'Invoice has been updated');
+        return redirect('/invoice')->with('success', 'Invoice has been updated');
     }
 
     public function invoiceDatatable($show = null)
