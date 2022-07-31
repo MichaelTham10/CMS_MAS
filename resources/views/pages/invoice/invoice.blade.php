@@ -58,6 +58,7 @@
             <th scope="col"><strong>Invoice Date</strong></th>
             <th scope="col"><strong>Bill To</strong></th>
             <th scope="col"><strong>Quotation No</strong></th>
+            <th scope="col"><strong>Payment Status</strong></th>
             <th scope="col" style="width: 6%"><strong>Action</strong></th>
           </tr>
         </thead>
@@ -144,16 +145,24 @@
         </table>
         <table class="table table-bordered no-margin table-sm">
           <tr>
-              <th colspan="2" style="width:85%" scope="row">Total Price</th>
-              <td>${totalPrice <= 0 ? 'FREE' : 'Rp. ' + formatNumber(totalPrice)}</td>
-            </tr>
+            <th colspan="2" style="width:85%" scope="row">Total Price</th>
+            <td>${totalPrice <= 0 ? 'FREE' : 'Rp. ' + formatNumber(totalPrice)}</td>
+          </tr>
           <tr>
             <th colspan="2" style="width:85%" scope="row">Discount (${invoice.quotation.Discount}%)</th>
             <td>Rp. ${formatNumber((totalPrice * (invoice.quotation.Discount/100)))}</td>
           </tr>
           <tr>
+            <th colspan="2" style="width:85%" scope="row">DP (${invoice.dp_percent}%)</th>
+            <td>${invoice.dp_percent <= 0 ? 'FULL PAYMENT' : 'Rp. ' + formatNumber((totalPrice - (totalPrice * (invoice.quotation.Discount/100))) * (invoice.dp_percent/100))}</td>
+          </tr>
+          <tr>
             <th colspan="2" scope="row">Grand Total</th>
-            <td>${(totalPrice - (totalPrice * (invoice.quotation.Discount/100))) <= 0 ? 'FREE' : 'Rp. ' + formatNumber((totalPrice - (totalPrice * (invoice.quotation.Discount/100))))}</td>
+            <td>
+              ${(totalPrice - (totalPrice * (invoice.quotation.Discount/100))) - (totalPrice - (totalPrice * (invoice.quotation.Discount/100))) * (invoice.dp_percent/100) <= 0 
+              ? 'FREE' 
+              : 'Rp. ' + formatNumber((totalPrice - (totalPrice * (invoice.quotation.Discount/100))) - (totalPrice - (totalPrice * (invoice.quotation.Discount/100))) * (invoice.dp_percent/100))}
+            </td>
           </tr>
         </table>`
       );
@@ -191,6 +200,7 @@
         { "data" : "Invoice Date"},
         { "data" : "Bill To"},
         { "data" : "quotation.Quotation_No"},
+        { "data" : "payment_status"},
         {
           "class":          "details-control",
           "orderable":      false,

@@ -82,7 +82,6 @@
                         @enderror             
                     </div>
 
-
                     <div class="form-group">
                         <label for="bill-to">Bill To</label>
                         <input class="form-control" type="text" placeholder="Input Bill To" @error('billTo')
@@ -90,8 +89,8 @@
                         @error('billTo')
                             <span class="text-danger">{{$message}}</span> 
                         @enderror
-                    </div>
-                    
+                    </div> 
+
                     <div class="form-group">
                         <label for="note">Note</label>
                         <textarea class="note" name="note"
@@ -110,6 +109,41 @@
                         <span class="text-danger">{{$message}}</span> 
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="payment_status">Payment Status</label>
+                        <select class="form-control" id="payment_status" name="payment_status" onchange="showDiv(this)">
+                            <option value="Full Payment">Full Payment</option>
+                            <option value="Down Payment">Down Payment</option>
+                        </select>
+                        <script>
+                            function showDiv(element){
+                                document.getElementById("hidden_div1").style.display = element.value == "Down Payment" ? 'block' : 'none';
+                                document.getElementById("dp_percent").value = element.value == "Down Payment" ? '' : 0;
+                                document.getElementById("hidden_div2").style.display = element.value == "Down Payment" ? 'block' : 'none';
+                                document.getElementById("dp_note").value = element.value == "Down Payment" ? '' : 'None';
+                            }
+                        </script>
+                    </div>
+
+                    <div class="form-group" id="hidden_div1" style="display: none">
+                        <label for="dp_percent">DP %</label>
+                        <input class="form-control" id="dp_percent" value="0" type="number" placeholder="Input DP %" @error('dp_percent')
+                        is invalid @enderror name="dp_percent" required>
+                        @error('dp_percent')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+
+                    <div class="form-group" id="hidden_div2" style="display: none">
+                        <label for="dp_note">DP Note</label>
+                        <input class="form-control" id="dp_note" value="None" type="text" placeholder="Input DP Note" @error('dp_note')
+                        is invalid @enderror name="dp_note">
+                        @error('dp_note')
+                            <span class="text-danger">{{$message}}</span> 
+                        @enderror
+                    </div>
+
                     <div class="d-flex justify-content-end">
                         <a href="/invoice" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>

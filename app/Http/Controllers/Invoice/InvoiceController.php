@@ -38,7 +38,10 @@ class InvoiceController extends Controller
             'date' => 'required',
             'billTo' => 'required',
             'note' => 'required',
-            'quotation_selection' => 'required'
+            'quotation_selection' => 'required',
+            'payment_status' => 'required',
+            'dp_percent' => 'required',
+            'dp_note' => 'required',
         ]);
         
         $this->temp = 0;
@@ -65,7 +68,10 @@ class InvoiceController extends Controller
                     'Invoice Date' => $request->date,
                     'Quotation No' => $request->quotation_selection,
                     'Bill To' => $request->billTo,
-                    'Note' => $request->note
+                    'Note' => $request->note,
+                    'payment_status' => $request->payment_status,
+                    'dp_percent' => $request->dp_percent,
+                    'dp_note' => $request->dp_note,
                 ]);
                 break;
             }
@@ -90,7 +96,10 @@ class InvoiceController extends Controller
                 'Invoice Date' => $request->date,
                 'Quotation No' => $request->quotation_selection,
                 'Bill To' => $request->billTo,
-                'Note' => $request->note
+                'Note' => $request->note,
+                'payment_status' => $request->payment_status,
+                'dp_percent' => $request->dp_percent,
+                'dp_note' => $request->dp_note,
             ]);
         }
         $updated_quotation = Quotation::findOrFail($request->quotation_selection);
@@ -115,6 +124,16 @@ class InvoiceController extends Controller
 
     public function update($invoice_id, Request $request)
     {
+        $request->validate([
+            'address' => 'required',
+            'date' => 'required',
+            'billTo' => 'required',
+            'note' => 'required',
+            'quotation_selection' => 'required',
+            'payment_status' => 'required',
+            'dp_percent' => 'required',
+            'dp_note' => 'required',
+        ]);
         
         $invoice = Invoice::findOrFail($invoice_id);
         $type = InvoiceType::findOrFail($invoice->type_id);
@@ -145,7 +164,10 @@ class InvoiceController extends Controller
                         'Address' => $request->address,
                         'Invoice Date' => $request->date,
                         'Bill To' => $request->billTo,
-                        'Note' => $request->note                  
+                        'Note' => $request->note,
+                        'payment_status' => $request->payment_status,
+                        'dp_percent' => $request->dp_percent,
+                        'dp_note' => $request->dp_note,              
                     ]);
 
                     if($temp->quantity == 0){
@@ -170,7 +192,10 @@ class InvoiceController extends Controller
                 'Address' => $request->address,
                 'Invoice Date' => $request->date,
                 'Bill To' => $request->billTo,
-                'Note' => $request->note    
+                'Note' => $request->note,
+                'payment_status' => $request->payment_status,
+                'dp_percent' => $request->dp_percent,
+                'dp_note' => $request->dp_note,    
             ]);
 
             if($temp->quantity == 0){
@@ -184,7 +209,10 @@ class InvoiceController extends Controller
             'Address' => $request->address,
             'Invoice Date' => $request->date,
             'Bill To' => $request->billTo,
-            'Note' => $request->note  
+            'Note' => $request->note,
+            'payment_status' => $request->payment_status,
+            'dp_percent' => $request->dp_percent,
+            'dp_note' => $request->dp_note,  
         ]);
 
         return redirect('/invoice')->with('success', 'Invoice has been updated');

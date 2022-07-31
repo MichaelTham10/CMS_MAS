@@ -27,6 +27,9 @@ class CreateInvoicesTable extends Migration
             $table->foreign('Quotation No')->references('id')->on('quotations');
             $table->string('Bill To');
             $table->longText('Note');
+            $table->string('payment_status');
+            $table->bigInteger('dp_percent');
+            $table->longText('dp_note');
             $table->timestamps();
         });
     }
