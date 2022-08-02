@@ -85,7 +85,7 @@
                     @if($invoice['payment_status'] == "Down Payment")
                         <div class="form-group">
                             <label for="payment_status">Payment Status</label>
-                            <select class="form-control" id="payment_status" name="payment_status" onchange="showDiv(this)">
+                            {{-- <select class="form-control" id="payment_status" name="payment_status" onchange="showDiv(this)">
                                 @if($invoice['payment_status'] == "Full Payment")
                                     <option value="Full Payment" selected="selected">Full Payment</option>
                                     <option value="Down Payment">Down Payment</option>
@@ -101,7 +101,8 @@
                                     document.getElementById("dp_note_field").style.display = element.value == "Down Payment" ? 'block' : 'none';
                                     document.getElementById("dp_note").value = element.value == "Down Payment" ? "{{$invoice['dp_note']}}" : 'None';
                                 }
-                            </script>
+                            </script> --}}
+                            <input class="form-control" readonly type="text" value="{{$invoice['payment_status']}}">
                         </div>
 
                         <div class="form-group" id="dp_percent_field" style="display: block">
@@ -124,7 +125,7 @@
                     @else
                         <div class="form-group">
                             <label for="payment_status">Payment Status</label>
-                            <select class="form-control" id="payment_status" name="payment_status" onchange="showDiv(this)">
+                            {{-- <select class="form-control" id="payment_status" name="payment_status" onchange="showDiv(this)">
                                 @if($invoice['payment_status'] == "Full Payment")
                                     <option value="Full Payment" selected="selected">Full Payment</option>
                                     <option value="Down Payment">Down Payment</option>
@@ -140,7 +141,8 @@
                                     document.getElementById("dp_note_field").style.display = element.value == "Down Payment" ? 'block' : 'none';
                                     document.getElementById("dp_note").value = element.value == "Down Payment" ? "" : 'None';
                                 }
-                            </script>
+                            </script> --}}
+                            <input class="form-control" readonly type="text" value="{{$invoice['payment_status']}}">
                         </div>
                         
                         <div class="form-group" id="dp_percent_field" style="display: none">

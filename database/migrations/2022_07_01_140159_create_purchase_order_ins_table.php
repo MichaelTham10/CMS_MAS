@@ -19,7 +19,7 @@ class CreatePurchaseOrderInsTable extends Migration
             $table->string('customer_name');
             $table->string('file');
             $table->date('po_date');
-            $table->boolean('active')->default(true);
+            $table->boolean('full_paid')->default(false);
             $table->timestamps();
         });
     }

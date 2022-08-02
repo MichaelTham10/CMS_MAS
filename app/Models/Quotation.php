@@ -12,7 +12,7 @@ class Quotation extends Model
     protected $fillable = [
         'type_id','type_detail_id', 'Quotation_No', 'type_detail_quantity', 'item_id', 'Customer',
         'Attention', 'Payment Term', 'Quotation Date',
-        'Account Manager', 'Discount', 'Terms', 'active'
+        'Account Manager', 'Discount', 'Terms', 'full_paid'
     ];
 
 
