@@ -24,7 +24,7 @@ class InvoicePOController extends Controller
     public function create()
     {
         $types = InvoiceType::all();
-        $po_ins = PurchaseOrderIn::where('full_paid', false)->get();
+        $po_ins = PurchaseOrderIn::where('active', true)->get();
         
         return view('pages.invoice.create-invoice-po-in', compact('types', 'po_ins'));
     }   
@@ -104,12 +104,9 @@ class InvoicePOController extends Controller
             ]);
         }
         $updated_po_in = PurchaseOrderIn::findOrFail($request->po_in_selection);
-
-        if($request->payment_status == "Full Payment"){
-            $updated_po_in->update([
-                "full_paid" => true
-            ]);
-        }
+        $updated_po_in->update([
+            "active" => false
+        ]);
         return redirect('/invoice/po')->with('success', 'Invoice has been added');   
     }
 
@@ -188,7 +185,7 @@ class InvoicePOController extends Controller
             'billTo' => 'required',
             'note' => 'required',
             'serviceCost' => 'required',
-            // 'payment_status' => 'required',
+            'payment_status' => 'required',
             'dp_percent' => 'required',
             'dp_note' => 'required',
         ]);
@@ -224,7 +221,7 @@ class InvoicePOController extends Controller
                         'Bill To' => $request->billTo,
                         'Note' => $request->note,
                         'service_cost' => $request->serviceCost,
-                        // 'payment_status' => $request->payment_status,
+                        'payment_status' => $request->payment_status,
                         'dp_percent' => $request->dp_percent,
                         'dp_note' => $request->dp_note,               
                     ]);
@@ -253,7 +250,7 @@ class InvoicePOController extends Controller
                 'Bill To' => $request->billTo,
                 'Note' => $request->note,
                 'service_cost' => $request->serviceCost,
-                // 'payment_status' => $request->payment_status,
+                'payment_status' => $request->payment_status,
                 'dp_percent' => $request->dp_percent,
                 'dp_note' => $request->dp_note,  
             ]);
@@ -271,7 +268,7 @@ class InvoicePOController extends Controller
             'Bill To' => $request->billTo,
             'Note' => $request->note, 
             'service_cost' => $request->serviceCost,
-            // 'payment_status' => $request->payment_status,
+            'payment_status' => $request->payment_status,
             'dp_percent' => $request->dp_percent,
             'dp_note' => $request->dp_note,  
         ]);

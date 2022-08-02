@@ -29,7 +29,7 @@ class CreateQuotationsTable extends Migration
             $table->string('Account Manager');
             $table->bigInteger('Discount');
             $table->longText('Terms');
-            $table->boolean('full_paid')->default(false);
+            $table->string('active')->default(true);
             $table->timestamps();
         });
     }
