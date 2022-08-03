@@ -209,6 +209,12 @@
             <th colspan="2" style="" class="border-total" scope="row">Total (IDR)</th>
             <td  class="border-total break-word "style="text-align: right; font-weight: bold">{{number_format($total)}}.-</td>
           </tr>
+          @foreach ($invoice_dps as $invoice_dp)
+            <tr>
+              <th colspan="2" style=""  scope="row">{{$invoice_dp->addOrdinalNumberSuffix($loop->iteration)}} Payment</th>
+              <td  class="border-total break-word "style="text-align: right; font-weight: bold">{{number_format(($total + $ppn - (($total / 100) * $invoice_dp->quotation->Discount)) * ($invoice_dp->dp_percent/100))}}</td>
+            </tr>
+          @endforeach
           <tr>
             <th colspan="2" style="width: 21.3rem;  " class="border-total" scope="row">Total Biaya Material (IDR)</th>
             <td class="border-total" style="text-align: right; font-weight: bold">{{number_format($total-$invoice->service_cost)}}.-</td>

@@ -18,7 +18,7 @@ class InvoiceController extends Controller
     {
         $items = Item::all();
         $quotations = Quotation::all();
-        $invoices =  Invoice::all();
+        $invoices =  Invoice::with('quotation');
         return view('pages.invoice.invoice', compact('invoices', 'items', 'quotations'));
     }
 

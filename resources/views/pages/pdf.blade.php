@@ -17,7 +17,6 @@
   <style>
     *{
       font-family: 'Times New Roman', Times, serif;
-      font-size: 11.5px;
     }
     .table {
       font-family: 'Times New Roman', Times, serif;
@@ -33,12 +32,14 @@
     }
     
     .table th {
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
       text-align: left;
       color: black;
     }
     
     th, td {
-      border-top: 1px solid black;
+      border-top: 2px solid black;
       font-size: 11.5px;
     }
 
@@ -128,11 +129,11 @@
   </div>
   <img src="assets/img/brand/logo.png" alt="image" style="width: 150px;" loading="lazy">
   <div>
-    <div class="title" style=""> 
+    <div class="title" style="font-size: 16px;"> 
       <u>QUOTATION</u>
     </div>
     <div style="">
-      <div style="float: left; width: 50%; font-size: 11px; margin-top: 15px;">
+      <div style="float: left; width: 50%; font-size: 11.5px; margin-top: 15px;">
         <span>
           <strong>Customer</strong><span class="break-word" style="display: inline-block; margin-left: 65px;"></span>: {{$quotation['Customer']}} <br> 
         </span>
@@ -143,7 +144,7 @@
           <strong>Payment Term</strong><span class="break-word" style="display: inline-block; margin-left: 39.5px;"></span>: {{$quotation['Payment Term']}}<br>
         </span>
       </div>
-      <div style="padding-left: 450px; font-size: 11 px; width: 50%; margin-top: 15px;">
+      <div style="padding-left: 450px; font-size: 11.5 px; width: 50%; margin-top: 15px;">
         <span class="break-word">
           <strong>Quotation No</strong><span class="tab3 break-word"></span>: {{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_quantity, $quotation['Quotation Date'])}} <br>
         </span>
@@ -231,3 +232,4 @@
       <p><b>PT Makro Alpha Solusindo</b></p>
     </div>
   </div>  
+</body>

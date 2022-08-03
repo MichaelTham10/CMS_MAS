@@ -26,9 +26,11 @@ class ExportPDFController extends Controller
     {
         
         $invoice = Invoice::findOrFail($id);
+        $invoice_dps = Invoice::with('quotation')->where('payment_status', 'LIKE', 'Down Payment')->get();
         
         $data = [
-                'invoice' => $invoice 
+                    'invoice' => $invoice, 
+                    'invoice_dps' => $invoice_dps
                 ];
         $file = 'Invoice_of_Network_Devices_for_PT_'.$invoice->Customer.'.pdf';
         $pdf = PDF::loadView('pages.pdf-invoice', $data)->setPaper('a4', 'potrait')->setWarnings(false);
@@ -38,9 +40,11 @@ class ExportPDFController extends Controller
     public function pdf_invoice_po($id)
     {
         $invoice = InvoicePO::findOrFail($id);
+        $invoice_dps = Invoice::with('quotation')->where('payment_status', 'LIKE', 'Down Payment')->get();
         
         $data = [
-                'invoice' => $invoice 
+                    'invoice' => $invoice,
+                    'invoice_dps' => $invoice_dps
                 ];
         $file = 'Invoice_of_Network_Devices_for_PT_'.$invoice->Customer.'.pdf';
         $pdf = PDF::loadView('pages.pdf-invoice-po', $data)->setPaper('a4', 'potrait')->setWarnings(false);

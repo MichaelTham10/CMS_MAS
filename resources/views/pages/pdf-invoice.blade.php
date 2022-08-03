@@ -18,6 +18,9 @@
   *{
     font-family: 'Times New Roman', Times, serif;
   }
+  .info{
+    font-size: 11.5px;
+  }
   .table {
     font-family: 'Times New Roman', Times, serif;
     padding: 0;
@@ -38,8 +41,8 @@
   }
   
   th, td {
-    border-top: 1px solid black;
-    font-size: 12px;
+    border-top: 2px solid black;
+    font-size: 11.5px;
   }
 
   td{
@@ -51,7 +54,7 @@
     display: flex;
     padding: 2px;
     text-align: center;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     text-decoration-line: underline
   }
@@ -91,7 +94,7 @@
   p {
     padding: 0;
     margin: 0;
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
   .pding{
@@ -135,14 +138,13 @@
   </div>
   
 </div>
-<img src="assets/img/brand/logo.png" alt="image" style="width: 150px; margin-bottom: -20px; margin-top: 20px;" loading="lazy">
+<img src="assets/img/brand/logo.png" alt="image" style="width: 150px;" loading="lazy">
 <div>
-    <div class="title" style="margin-top: 20px; "> 
+    <div class="title"> 
       <u>INVOICE</u>
-      
     </div>
-    <div style="">
-      <div style="float: left; width: 50%; font-size: 14px; margin-top: 20px; font-weight: 700">
+    <div class="info" style="">
+      <div style="float: left; width: 50%; font-weight: 700">
         <span>
           Bill To<span class="tab0  break-word"></span>: {{$invoice['Bill To']}} <br> 
         </span>
@@ -150,7 +152,7 @@
           Address<span class="tab1  break-word"></span>: {{$invoice['Address']}}<br>
         </span>
       </div>
-      <div style="padding-left: 450px; font-size: 14 px; width: 50%; margin-top: 20px; font-weight: 700">
+      <div style="padding-left: 450px; width: 50%; font-weight: 700">
         <span class="break-word">
           Invoice No<span class="break-word" style="display: inline-block; margin-left: 52px;"></span>: {{$invoice['Invoice No']}}  <br>
         </span>
@@ -160,7 +162,6 @@
         <span>
           Quotation No<span class="break-word" style="display: inline-block; margin-left: 35px;"></span>: {{$invoice->quotation['Quotation_No']}} <br>
         </span>
-
         <span>
           Quotation Date<span class="break-word" style="display: inline-block; margin-left: 24px;"></span>: {{date("d/m/y", strtotime($invoice->quotation['Quotation Date']))}} <br>
         </span>
@@ -181,51 +182,78 @@
       </thead>
       <tbody>
         @foreach ($invoice->items($invoice['Quotation No']) as $item)
-        <tr>
-          <td class="break-word" style="width: 6%; text-align: center;
-          vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
-          <td class="break-word"  style="text-align: center">{{$item->name}}</td>
-          <td class="break-word" style="">{!!$item->description!!}</td>
-          <td class="break-word" style=" text-align: center;
-          vertical-align: middle;">{{number_format($item->quantity)}}</td>
-          <td class="break-word" style="width: 15%; text-align: right">{{number_format($item['unit price'])}}.-</td>
-          <td class="break-word" style="width:15%; text-align: right">{{number_format($item['unit price'] * $item->quantity)}}.-</td>
-        </tr>
-        @php
-          $total += ($item['unit price'] * $item->quantity);
-        @endphp
+          <tr>
+            <td class="break-word" style="width: 6%; text-align: center;
+            vertical-align: middle;" scope="row">{{$loop->iteration}}</td>
+            <td class="break-word"  style="text-align: center">{{$item->name}}</td>
+            <td class="break-word" style="">{!!$item->description!!}</td>
+            <td class="break-word" style=" text-align: center;
+            vertical-align: middle;">{{number_format($item->quantity)}}</td>
+            @if ($item['unit price'] > 0)
+              <td class="break-word" style="width:15%;">IDR. {{number_format($item['unit price'])}},-</td>
+            @else
+              <td class="break-word" style="width:15%;">FREE</td>
+            @endif
+            @if ($item['unit price'] * $item->quantity > 0)
+              <td class="break-word" style="width:15%;">IDR. {{number_format($item['unit price'] * $item->quantity)}},-</td>
+            @else
+              <td class="break-word" style="width:15%;">FREE</td>
+            @endif   
+          </tr>
+          @php
+            $total += ($item['unit price'] * $item->quantity);
+          @endphp
         @endforeach
       </tbody>
     </table>
     @php
         $ppn = (($total / 100) * 11);
-        // $discount = ($total/100);
+        $dp = 0;
     @endphp
     <br>
     <div class="table-responsive">
       <div class="table-responsive m-10">
         <table class="table table-bordered no-margin table-sm" style="background-color: #d1d4d3">
           <tr>
-            <th colspan="2" style=""  scope="row">Discount</th>
-            <td  class="border-total break-word "style="text-align: right; font-weight: bold">{{number_format((($total / 100) * $invoice->quotation->Discount))}}.-</td>
+            <th colspan="2" style="width: 38rem; padding-left: 2%" class="border-total" scope="row">Subtotal (IDR)</th>
+            <td  class="border-total break-word "style="text-align: right; font-weight: bold; width:15%;">{{number_format($total)}}.-</td>
           </tr>
           <tr>
-            <th colspan="2" style="" class="border-total" scope="row">Total (IDR)</th>
-            <td  class="border-total break-word "style="text-align: right; font-weight: bold">{{number_format($total)}}.-</td>
+            <th colspan="2" style="padding-left: 2%"  scope="row">Discount</th>
+            <td  class="border-total break-word "style="text-align: right; font-weight: bold; width:15%;">{{number_format((($total / 100) * $invoice->quotation->Discount))}}.-</td>
+          </tr>
+          @if($invoice->payment_status != "Down Payment")
+            @foreach ($invoice_dps as $invoice_dp)
+              <tr>
+                <th colspan="2" style="padding-left: 2%"  scope="row">{{$invoice_dp->addOrdinalNumberSuffix($loop->iteration)}} Payment</th>
+                <td  class="border-total break-word "style="text-align: right; font-weight: bold; width:15%;">{{number_format(($total + $ppn - (($total / 100) * $invoice->quotation->Discount)) * ($invoice_dp->dp_percent/100))}}</td>
+              </tr>
+              @php
+                $dp += ($total + $ppn - (($total / 100) * $invoice->quotation->Discount)) * ($invoice_dp->dp_percent/100);
+              @endphp
+            @endforeach
+          @else
+            <tr>
+              <th colspan="2" style="padding-left: 2%"  scope="row">DP ({{$invoice->dp_percent}} %)</th>
+              <td  class="border-total break-word "style="text-align: right; font-weight: bold; width:15%;">{{number_format(($total + $ppn - (($total / 100) * $invoice->quotation->Discount)) * ($invoice->dp_percent/100))}}</td>
+            </tr>
+            @php
+              $dp += ($total + $ppn - (($total / 100) * $invoice->quotation->Discount)) * ($invoice->dp_percent/100);
+            @endphp
+          @endif
+          <tr>
+            <th colspan="2" style="padding-left: 2%;" class="border-total" scope="row">Ppn (11%)</th>
+            <td  class="border-total break-word; " style="text-align: right; font-weight: bold; width:15%;">{{number_format($ppn)}}.-</td>
           </tr>
           <tr>
-            <th colspan="2" style=" ;" class="border-total" scope="row">Ppn (11%)</th>
-            <td  class="border-total break-word; " style="text-align: right; font-weight: bold">{{number_format($ppn)}}.-</td>
-          </tr>
-          <tr>
-            <th colspan="2" scope="row" style=" border-bottom: 2px solid black; border-top: 2px solid black; ">Grand Total</th>
-            <td class="border-total" style="border-bottom: 2px solid black;text-align: right;font-weight: bold ">{{number_format(($total + $ppn - (($total / 100) * $invoice->quotation->Discount)))}}.-</td>
+            <th colspan="2" scope="row" style="padding-left: 2%;">Grand Total</th>
+            <td class="border-total" style="border-bottom: 2px solid black;text-align: right;font-weight: bold; width:15%;">{{number_format(($total + $ppn - (($total / 100) * $invoice->quotation->Discount)) - $dp)}}.-</td>
           </tr>
         </table>
       </div>
     </div>
     <br>
-    <p style="font-size: 14px;"><b>Note:</b></p>
+    <p><b>Note:</b></p>
     <div class="break-word" style="">
       {!!$invoice['Note']!!}
     </div>
@@ -239,4 +267,5 @@
       <p><u><b>Wika Handayani</b></u></p>
       <p><b>PT Makro Alpha Solusindo</b></p>
     </div>
-  </div>  
+</div> 
+</body> 

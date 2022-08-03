@@ -27,10 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         $quotations = Quotation::all();   
-        $invoices = Invoice::all();
+        $invoices = Invoice::with('quotation')->where('payment_status', 'LIKE', 'Full Payment')->get();
         $po_outs = PurchaseOrderOut::all();
         $po_ins = PurchaseOrderIn::all();
-        $invoice_pos = InvoicePO::all();
+        $invoice_pos = InvoicePO::with('poin')->where('payment_status', 'LIKE', 'Full Payment')->get();
         return view('dashboard', compact('quotations', 'invoices', 'po_outs', 'po_ins', 'invoice_pos'));
     }
 

@@ -17,7 +17,7 @@ class InvoicePOController extends Controller
     {
         $items = ItemPurchaseIn::all();
 
-        $invoices =  InvoicePO::all();
+        $invoices =  InvoicePO::with('poin');
         return view('pages.invoice.po-in-invoice', compact('invoices', 'items'));
     }
 
