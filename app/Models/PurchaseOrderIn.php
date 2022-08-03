@@ -9,7 +9,7 @@ class PurchaseOrderIn extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'customer_number','customer_name','file', 'active', 'po_date'
+        'customer_number','customer_name','file', 'po_date', 'full_paid'
     ];
 
     public function items()

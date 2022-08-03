@@ -26,7 +26,7 @@ class InvoiceController extends Controller
     public function create()
     {
         $types = InvoiceType::where('alias', 'MS')->orWhere('alias','SO')->orWhere('alias', 'MMS')->get();
-        $quotations = Quotation::where('active', true)->get();
+        $quotations = Quotation::where('full_paid', false)->get();
         
         return view('pages.invoice.create-invoice', compact('types', 'quotations'));
     }   
@@ -103,9 +103,13 @@ class InvoiceController extends Controller
             ]);
         }
         $updated_quotation = Quotation::findOrFail($request->quotation_selection);
-        $updated_quotation->update([
-            "active" => false
-        ]);
+
+        if($request->payment_status == "Full Payment"){
+            $updated_quotation->update([
+                "full_paid" => true
+            ]);
+        }
+
         return redirect('/invoice')->with('success', 'Invoice has been added');   
     }
     public function editpage($id)
@@ -133,7 +137,7 @@ class InvoiceController extends Controller
             'date' => 'required',
             'billTo' => 'required',
             'note' => 'required',
-            'payment_status' => 'required',
+            // 'payment_status' => 'required',
             'dp_percent' => 'required',
             'dp_note' => 'required',
         ]);
@@ -165,7 +169,7 @@ class InvoiceController extends Controller
                         'Invoice Date' => $request->date,
                         'Bill To' => $request->billTo,
                         'Note' => $request->note,
-                        'payment_status' => $request->payment_status,
+                        // 'payment_status' => $request->payment_status,
                         'dp_percent' => $request->dp_percent,
                         'dp_note' => $request->dp_note,              
                     ]);
@@ -193,7 +197,7 @@ class InvoiceController extends Controller
                 'Invoice Date' => $request->date,
                 'Bill To' => $request->billTo,
                 'Note' => $request->note,
-                'payment_status' => $request->payment_status,
+                // 'payment_status' => $request->payment_status,
                 'dp_percent' => $request->dp_percent,
                 'dp_note' => $request->dp_note,    
             ]);
@@ -210,7 +214,7 @@ class InvoiceController extends Controller
             'Invoice Date' => $request->date,
             'Bill To' => $request->billTo,
             'Note' => $request->note,
-            'payment_status' => $request->payment_status,
+            // 'payment_status' => $request->payment_status,
             'dp_percent' => $request->dp_percent,
             'dp_note' => $request->dp_note,  
         ]);
