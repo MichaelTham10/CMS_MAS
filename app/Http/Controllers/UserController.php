@@ -52,8 +52,9 @@ class UserController extends Controller
     public function edit($id)
     {
         if(Auth::user()->role_id == 1 || Auth::id() == $id){
+            
             $user = User::findorfail($id);
-            $roles = Role::all();
+            $roles = DB::table('roles')->where('id', '!=', 1)->get();
             return view('users.update-user', compact('roles', 'user'));
         }
         else{

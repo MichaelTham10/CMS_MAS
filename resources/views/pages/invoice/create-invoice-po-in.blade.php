@@ -97,9 +97,11 @@
                         @enderror></textarea>
                         <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
                         <script>
-                            tinymce.init({
+                           tinymce.init({
                                 forced_root_block : '',
                                 selector:'textarea.note',
+                                plugins: 'lists',
+                                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist',
                                 height: 300,
                             });
                         </script>
