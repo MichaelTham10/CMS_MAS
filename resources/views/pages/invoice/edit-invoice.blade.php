@@ -112,7 +112,7 @@
     
                         <div class="form-group" id="dp_note_field" style="display: block">
                             <label for="dp_note">DP Note</label>
-                            <input class="form-control" id="dp_note" value="{{$invoice['dp_percent']}}" type="text" placeholder="Input DP Note" @error('dp_note')
+                            <input class="form-control" id="dp_note" value="{{$invoice['dp_note']}}" type="text" placeholder="Input DP Note" @error('dp_note')
                             is invalid @enderror name="dp_note">
                             @error('dp_note')
                                 <span class="text-danger">{{$message}}</span> 

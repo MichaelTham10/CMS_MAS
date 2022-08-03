@@ -28,7 +28,8 @@
     
     th {
       background-color: #c7c7c7;
-      color: white;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
     }
     
     .table th {
@@ -40,6 +41,7 @@
     
     th, td {
       border-top: 2px solid black;
+      border-bottom: 2px solid black;
       font-size: 11.5px;
     }
 
@@ -95,6 +97,7 @@
     .border-total
     {
       border-top: 2px solid black;
+      border-bottom: 2px solid black;
     }
     .footer-pdf
     {
@@ -108,7 +111,7 @@
     .location-mail
     {
       position: absolute;
-      bottom: -15px;
+      bottom: 1px;
       font-size: 10px;
     }
   </style>
@@ -141,10 +144,10 @@
           <strong>Attention</strong><span class="break-word" style="display: inline-block; margin-left: 67px;"></span>: {{$quotation['Attention']}}<br>
         </span>
         <span>
-          <strong>Payment Term</strong><span class="break-word" style="display: inline-block; margin-left: 39.5px;"></span>: {{$quotation['Payment Term']}}<br>
+          <strong>Payment Term</strong><span class="break-word" style="display: inline-block; margin-left: 40px;"></span>: {{$quotation['Payment Term']}}<br>
         </span>
       </div>
-      <div style="padding-left: 450px; font-size: 11.5 px; width: 50%; margin-top: 15px;">
+      <div style="padding-left: 470px; font-size: 11.5 px; width: 50%; margin-top: 15px;">
         <span class="break-word">
           <strong>Quotation No</strong><span class="tab3 break-word"></span>: {{$quotation->getFormatId($quotation->type_id,$quotation->type_detail_quantity, $quotation['Quotation Date'])}} <br>
         </span>
@@ -222,11 +225,11 @@
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-    <div class="break-word" style="padding-bottom: 20px;">
+    <div class="break-word" style="padding-bottom: 20px; font-size: 11.5px">
       {!!$quotation['Terms']!!}
     </div>
-    <div style="display: block; margin-left: 450px; text-align: right">
-      <p>Jakarta, {{ date('F d Y') }}</p>
+    <div style="display: block;">
+      <p><strong>Jakarta, {{ date('F d, Y') }}</strong></p>
       <br><br><br><br>
       <p><u><b>Wika Handayani</b></u></p>
       <p><b>PT Makro Alpha Solusindo</b></p>

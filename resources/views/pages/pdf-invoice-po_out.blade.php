@@ -17,6 +17,8 @@
   <style>
     *{
       font-family: 'Times New Roman', Times, serif;
+    }
+    .info{
       font-size: 11.5px;
     }
     .table {
@@ -29,16 +31,19 @@
     
     th {
       background-color: #c7c7c7;
-      color: white;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
     }
     
     .table th {
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
       text-align: left;
       color: black;
     }
     
     th, td {
-      border-top: 1px solid black;
+      border-top: 2px solid black;
       font-size: 11.5px;
     }
   
@@ -48,9 +53,12 @@
     }
   
     .title{
-      padding: 1px;
+      display: flex;
+      padding: 2px;
       text-align: center;
+      font-size: 16px;
       font-weight: bold;
+      text-decoration-line: underline
     }
     
     .break-word{
@@ -63,7 +71,7 @@
     }
     .tab1 {
         display: inline-block;
-        margin-left: 58px;
+        margin-left: 45px;
     }
     .tab2 {
         display: inline-block;
@@ -79,7 +87,11 @@
     }
     .tab5 {
         display: inline-block;
-        margin-left: 12px;
+        margin-left: 55.5px;
+    }
+    .tab6 {
+        display: inline-block;
+        margin-left: 48px;
     }
     p {
       padding: 0;
@@ -107,7 +119,7 @@
     .location-mail
     {
       position: absolute;
-      bottom: -15px;
+      bottom: 1px;
       font-size: 10px;
     }
   </style>
@@ -132,7 +144,7 @@
       <u>PURCHASE ORDER</u>
     </div>
     <div style="">
-      <div style="width: 100%; font-size: 11.5px; margin-top: 20px;">
+      <div style="width: 100%; font-size: 11.5px; margin-top: 15px;">
         <span>
           <strong>Number</strong><span class="break-word"  style="display: inline-block; margin-left: 40px;"></span>: {{$po_out['po_out_no']}} <br> 
         </span>
@@ -209,12 +221,16 @@
     </div>
     <br>
     <p><u><b>Terms and Condition:</b></u></p>
-    <div class="break-word" style="padding-bottom: 20px;">
+    <div class="break-word" style="font-size: 11.5px">
       {!!$po_out['terms']!!}
     </div>
-    <div style="display: block; text-align: left">
-      <p>Jakarta, {{ date('F d Y') }}</p>
-      <br><br><br><br>
+    <br>
+    <div style="display: block">
+      <p><strong>Jakarta, {{ date('F d,Y') }}</strong></p>
+      <br>
+      <br>
+      <br>
+      <br>
       <p><u><b>Wika Handayani</b></u></p>
       <p><b>PT Makro Alpha Solusindo</b></p>
     </div>

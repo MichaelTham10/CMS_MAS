@@ -40,7 +40,7 @@ class ExportPDFController extends Controller
     public function pdf_invoice_po($id)
     {
         $invoice = InvoicePO::findOrFail($id);
-        $invoice_dps = Invoice::with('quotation')->where('payment_status', 'LIKE', 'Down Payment')->get();
+        $invoice_dps = InvoicePO::with('poin')->where('payment_status', 'LIKE', 'Down Payment')->get();
         
         $data = [
                     'invoice' => $invoice,
